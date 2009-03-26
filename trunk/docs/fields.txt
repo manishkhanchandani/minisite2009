@@ -1,0 +1,8 @@
+'text','password','textarea','list','listmultiple','checkbox','checkboxmultiple','radio','file','image','hidden'
+
+'fint','ftext','fvc','ffloat','fdate','fdatetime'
+
+
+'anything','number','email','sametext','regexp'
+
+'text','list','listmultiple','checkbox','checkboxmultiple','radio'
