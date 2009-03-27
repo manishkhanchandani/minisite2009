@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 26, 2009 at 05:53 PM
+-- Generation Time: Mar 27, 2009 at 03:51 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -30,11 +30,37 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category` varchar(200) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `level` int(11) NOT NULL DEFAULT '1',
+  `form_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category`, `parent_id`, `level`, `form_id`) VALUES
+(1, 'india', 0, 1, 2),
+(2, 'usa', 0, 1, 2),
+(3, 'maharashtra', 1, 1, 2),
+(4, 'mumbai', 3, 1, 2),
+(5, 'pune', 3, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `datas`
+--
+
+CREATE TABLE IF NOT EXISTS `datas` (
+  `data_id` int(11) NOT NULL,
+  `data_key` varchar(200) DEFAULT NULL,
+  `data_value` text,
+  `reference` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`data_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `datas`
 --
 
 
@@ -66,12 +92,15 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `field_view_show` int(1) NOT NULL DEFAULT '1',
   `field_detail_show` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `fields`
 --
 
+INSERT INTO `fields` (`field_id`, `form_id`, `field_name`, `field_label`, `field_type`, `field_input`, `field_default`, `field_default_selected`, `field_validate`, `field_validate_required`, `field_validate_rule`, `field_validate_value`, `field_validate_error`, `field_search`, `field_search_label`, `field_search_type`, `field_search_default`, `field_search_default_selected`, `field_view_show`, `field_detail_show`) VALUES
+(1, 2, 'title', 'Title', 'text', 'fvc', NULL, NULL, 1, 1, NULL, NULL, 'Please fill the title.', 1, 'Title', 'text', NULL, NULL, 1, 1),
+(2, 2, 'description', 'Description', 'textarea', 'ftext', NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 'Description:', 'text', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -82,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
 CREATE TABLE IF NOT EXISTS `forms` (
   `form_id` int(11) NOT NULL AUTO_INCREMENT,
   `form_name` varchar(100) DEFAULT NULL,
+  `category` enum('None','Single','Multiple') NOT NULL DEFAULT 'None',
   PRIMARY KEY (`form_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=3 ;
 
@@ -89,6 +119,6 @@ CREATE TABLE IF NOT EXISTS `forms` (
 -- Dumping data for table `forms`
 --
 
-INSERT INTO `forms` (`form_id`, `form_name`) VALUES
-(1, 'Test'),
-(2, 'test2');
+INSERT INTO `forms` (`form_id`, `form_name`, `category`) VALUES
+(1, 'Test', 'None'),
+(2, 'test2', 'Single');
