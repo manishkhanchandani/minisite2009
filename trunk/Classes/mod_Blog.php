@@ -48,11 +48,11 @@ class mod_Blog {
 			$rec = $rs->FetchRow();
 			$catId = $rec['category_id'];
 			$pid = $rec['parent_id'];
-			$category = '<a href="'.$_SERVER['PHP_SELF'].'?action='.$_GET['action'].'&section='.$_GET['section'].'&ID='.$ID.'&pid='.$catId.'">'.$rec['category'].'</a>';
+			$category = '<a href="'.HTTPPATH.'/index.php?action='.$_GET['action'].'&section='.$_GET['section'].'&ID='.$ID.'&catId='.$catId.'">'.$rec['category'].'</a>';
 			array_unshift($this->catLink,$category);
-			$this->categoryParentLink($formId, $pid);	
+			$this->categoryParentLink($ID, $pid);	
 		} else {
-			$this->catLinkDisplay = '<a href="'.$_SERVER['PHP_SELF'].'?action='.$_GET['action'].'&section='.$_GET['section'].'&ID='.$ID.'">Home</a> >> ';
+			//$this->catLinkDisplay = '<a href="'.HTTPPATH.'/index.php?action='.$_GET['action'].'&section='.$_GET['section'].'&ID='.$ID.'">Home</a> >> ';
 			foreach($this->catLink as $value) {
 				$this->catLinkDisplay .= $value.' >> ';
 			}

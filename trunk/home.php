@@ -102,7 +102,12 @@
 							$catDetail = $Common->selectCacheRecord($sql);
 							$PAGEHEADING = $result['keyword'][0]['keyword']." Blog :: ".$catDetail[0]['category'];
 							$sql = "select * from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."' ORDER BY a.blog_id DESC";
-							$sqlCnt = "select count(*) as cnt from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."'";					
+							$sqlCnt = "select count(*) as cnt from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."'";
+							
+							if($result['settings'][0]['setting_id']==5){
+								$breadCrumb = $mod_Blog->categoryParentLink($ID, $_GET['catId']);
+								$smarty->assign('breadCrumb', $mod_Blog->catLinkDisplay);		
+							}			
 						} else if($_GET['kw']) {
 							$sql = "select * from tags WHERE tagname = '".$_GET['kw']."'";
 							$tagDetail = $Common->selectCacheRecord($sql);
