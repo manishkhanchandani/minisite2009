@@ -86,6 +86,10 @@ button, select, input, textarea {
 	text-align:right;
 	padding:10px;
 }
+.breadcrumb {
+	padding-bottom: 5px;
+	font-size: xx-small;
+}
 </style>
 
 
@@ -182,6 +186,9 @@ button, select, input, textarea {
 			<div id="content5" class="contentBox">
 				<div id="contentHead5" class="contentHead">{$PAGEHEADING}</div>
 				<div id="contentBody5" class="contentBody">
+					{if $breadCrumb}
+						<div class="breadcrumb">{$breadCrumb}</div>
+					{/if}
 					{if $records.totalRows gt 0}
 						{foreach from=$records.record item=res}
 							<div class="title"><a href="#" class="alinks">{$res.title|substr:0:20}</a></div>
