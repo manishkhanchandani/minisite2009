@@ -1,7 +1,7 @@
 <?php
 class Common {
 
-	public $cacheSecs = 300;
+	public $cacheSecs = -300;
 	private static $instance;
 	
 	function __construct($dbFrameWork) {
@@ -171,56 +171,7 @@ class Common {
 		}
 		return $return;
 	}
-	public function categoryParentLink($formId, $catId) {
-		if(!$this->catLink) $this->catLink = array();
-		$sql = "select * from category where category_id = '".$catId."' and form_id = '".$formId."'";
-		$rec = $this->selectCacheRecord($sql);
-		if(count($rec)>0) {
-			$catId = $rec[0]['category_id'];
-			$pid = $rec[0]['pid'];
-			$level = $rec[0]['level'];
-			$category = '<a href="'.$_SERVER['PHP_SELF'].'?form_id='.$formId.'&pid='.$catId.'&level='.$level.$this->queryString.'">'.$rec[0]['category'].'</a>';
-			array_unshift($this->catLink,$category);
-			$this->categoryParentLink($formId, $pid);	
-		} else {
-			$this->catLinkDisplay = '<a href="'.$_SERVER['PHP_SELF'].'?form_id='.$formId.$this->queryString.'">Home</a> >> ';
-			foreach($this->catLink as $value) {
-				$this->catLinkDisplay .= $value.' >> ';
-			}
-			$this->catLinkDisplay = substr($this->catLinkDisplay,0,-4);
-		}
-	}
-	public function categoryChild($formId) {
-		if(!$this->catLink) $this->catLink = array();		
-			
-		echo $sql = "select * from category where form_id = '".$formId."'";
-		$rs = $this->dbFrameWork->CacheExecute($this->cacheSecs, $sql);
-		if($this->dbFrameWork->ErrorMsg()) {
-			throw new Exception($this->dbFrameWork->ErrorMsg());
-		}
-		while ($arr = $rs->FetchRow()) { 
-			$recAll[$arr['category_id']] = $arr;
-		}
-		echo $sql = "select b.* from category as a, category as b where b.pid = a.category_id and a.form_id = '".$formId."'";
-		$rec = $this->selectCacheRecord($sql);
-		print_r($rec);
-		exit;
-		if(count($rec)>0) {
-			$catId = $rec[0]['category_id'];
-			$pid = $rec[0]['pid'];
-			$level = $rec[0]['level'];
-			$category = '<a href="'.$_SERVER['PHP_SELF'].'?form_id='.$formId.'&pid='.$catId.'&level='.$level.$this->queryString.'">'.$rec[0]['category'].'</a>';
-			array_unshift($this->catLink,$category);
-			$this->categoryParentLink($formId, $pid);	
-		} else {
-			$this->catLinkDisplay = '<a href="'.$_SERVER['PHP_SELF'].'?form_id='.$formId.$this->queryString.'">Home</a> >> ';
-			foreach($this->catLink as $value) {
-				$this->catLinkDisplay .= $value.' >> ';
-			}
-			$this->catLinkDisplay = substr($this->catLinkDisplay,0,-4);
-		}
-	}
-	
+		
 	public function deleteRecord($table_name, $pk, $uid) {
 		$sql = "DELETE FROM `$table_name` WHERE `$pk` = $uid";  
 		# Select a record to update 
@@ -277,60 +228,6 @@ class Common {
 		return $url_lookup;
 	}
 			
-	public function getQueryString($totalRows="") {
-		$queryString = "";
-		if (!empty($_SERVER['QUERY_STRING'])) {
-		  $params = explode("&", $_SERVER['QUERY_STRING']);
-		  $newParams = array();
-		  foreach ($params as $param) {
-			if (stristr($param, "maxRows") == false) {
-			  array_push($newParams, $param);
-			}
-		  }
-		  if (count($newParams) != 0) {
-			$queryString = "&" . implode("&", $newParams);
-		  }
-		}
-		$queryString = sprintf("%s", $queryString);
-		return $queryString;
-	}
-	
-	public function getQueryStringRemoveDown() {
-		$queryString = "";
-		if (!empty($_SERVER['QUERY_STRING'])) {
-		  $params = explode("&", $_SERVER['QUERY_STRING']);
-		  $newParams = array();
-		  foreach ($params as $param) {
-			if (stristr($param, "dir") == false) {
-			  array_push($newParams, $param);
-			}
-		  }
-		  if (count($newParams) != 0) {
-			$queryString = "&" . implode("&", $newParams);
-		  }
-		}
-		$queryString = sprintf("%s", $queryString);
-		return $queryString;
-	}
-	
-	public function getQueryStringSorting() {
-		$queryString = "";
-		if (!empty($_SERVER['QUERY_STRING'])) {
-		  $params = explode("&", $_SERVER['QUERY_STRING']);
-		  $newParams = array();
-		  foreach ($params as $param) {
-			if (stristr($param, "order") == false && stristr($param, "orderby") == false) {
-			  array_push($newParams, $param);
-			}
-		  }
-		  if (count($newParams) != 0) {
-			$queryString = "&" . implode("&", $newParams);
-		  }
-		}
-		$queryString = sprintf("%s", $queryString);
-		return $queryString;
-	}
-	
 	public function pagination($pageNum, $max, $totalRows, $divtag) {
 		// pagination has to include include('../Classes/PaginateIt.php'); where it is called.
 		// pagination			
@@ -343,85 +240,21 @@ class Common {
 		return $paginate;
 	}
 	
-	public function getCountryList() {
-		$sql = "select * from country";
-		$rs = $this->dbFrameWork->CacheExecute('6000', $sql); // Execute the query and get the existing record to update 
-		if($this->dbFrameWork->ErrorMsg()) {
-			throw new Exception($this->db->ErrorMsg());
-		}
-		while ($arr = $rs->FetchRow()) { 
-			$record[$arr['country_id']] = $arr['country'];
-		}
-		return $record;
-	}
-	
-	public function getCityId($city) {
-		$city = trim(strtolower($city));
-		$sql = "select city_id from city where city = ".$this->dbFrameWork->qstr($city,get_magic_quotes_gpc());
-		$rs = $this->dbFrameWork->Execute($sql); 
-		if($this->dbFrameWork->ErrorMsg()) {
-			throw new Exception($this->db->ErrorMsg());
-		}
-		$num = $rs->RecordCount();
-		if($num>0) {
-			$arr = $rs->FetchRow();
-			return $arr['city_id'];
-		} else {
-			$sql = "insert into city set city = ".$this->dbFrameWork->qstr($city,get_magic_quotes_gpc());
-			$rs = $this->dbFrameWork->Execute($sql); 
-			if($this->dbFrameWork->ErrorMsg()) {
-				throw new Exception($this->db->ErrorMsg());
+	public function getConceptSettings($concept, $ID) {		
+		$sql = "select * from prebuilt_1 WHERE id = '".$ID."'";
+		$result['keyword'] = $this->selectCacheRecord($sql);
+		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and b.concept = '".$concept."'";
+		$result['concepts'] = $this->selectCacheRecord($sql);
+		$conceptsId = 0;
+		if($result['concepts']){
+			foreach($result['concepts'] as $concept) {
+				$conceptsIdArr[] = $concept['concept_id'];
 			}
-			$uid = $this->dbFrameWork->Insert_ID();
-			return $uid;
+			$conceptsId = implode(",", $conceptsIdArr);
 		}
-		return false;
-	}
-	
-	public function getProvinceId($province) {
-		$province = trim(strtolower($province));
-		$sql = "select province_id from province where province = ".$this->dbFrameWork->qstr($province,get_magic_quotes_gpc());
-		$rs = $this->dbFrameWork->Execute($sql); 
-		if($this->dbFrameWork->ErrorMsg()) {
-			throw new Exception($this->db->ErrorMsg());
-		}
-		$num = $rs->RecordCount();
-		if($num>0) {
-			$arr = $rs->FetchRow();
-			return $arr['province_id'];
-		} else {
-			$sql = "insert into province set province = ".$this->dbFrameWork->qstr($province,get_magic_quotes_gpc());
-			$rs = $this->dbFrameWork->Execute($sql); 
-			if($this->dbFrameWork->ErrorMsg()) {
-				throw new Exception($this->db->ErrorMsg());
-			}
-			$uid = $this->dbFrameWork->Insert_ID();
-			return $uid;
-		}
-		return false;
-	}
-	
-	public function getZipcodeId($zipcode) {
-		$zipcode = trim($zipcode);
-		$sql = "select zipcode_id from zipcode where zipcode = ".$this->dbFrameWork->qstr($zipcode,get_magic_quotes_gpc());
-		$rs = $this->dbFrameWork->Execute($sql); 
-		if($this->dbFrameWork->ErrorMsg()) {
-			throw new Exception($this->db->ErrorMsg());
-		}
-		$num = $rs->RecordCount();
-		if($num>0) {
-			$arr = $rs->FetchRow();
-			return $arr['zipcode_id'];
-		} else {
-			$sql = "insert into zipcode set zipcode = ".$this->dbFrameWork->qstr($zipcode,get_magic_quotes_gpc());
-			$rs = $this->dbFrameWork->Execute($sql); 
-			if($this->dbFrameWork->ErrorMsg()) {
-				throw new Exception($this->db->ErrorMsg());
-			}
-			$uid = $this->dbFrameWork->Insert_ID();
-			return $uid;
-		}
-		return false;
+		$sql = "select * from prebuilt_3_settings as a INNER JOIN prebuilt_concepts_settings as b ON a.setting_id = b.setting_id WHERE a.id = '".$ID."' and b.concept_id IN (".$conceptsId.")";		
+		$result['settings'] = $this->selectCacheRecord($sql);
+		return $result;
 	}
 }
 ?>
