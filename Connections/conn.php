@@ -7,4 +7,5 @@ $database_conn = "minisite";
 $username_conn = "user";
 $password_conn = "password";
 $conn = mysql_connect($hostname_conn, $username_conn, $password_conn) or trigger_error(mysql_error(),E_USER_ERROR); 
+mysql_select_db($database_conn, $conn) or die('cannot select db');
 ?>
