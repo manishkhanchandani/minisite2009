@@ -1,0 +1,89 @@
+{literal}
+<script language="javascript">
+$(function() { 
+	$('.error').hide();  
+	$(".clickButtonContact").click(function() { 
+		var dataString = getFormElements(document.myFormContact);
+		$.ajax({  
+			type: "POST",  
+			url: "index.php?p=profile_edit/tabs",  
+			data: dataString,  
+			success: function(retData) {
+				$('#displayMessageContact').html("<span class='errorMessage'>Form Submitted.</span>") 
+				.hide()  
+				.fadeIn(1500, function() {  
+					$('#displayMessageContact').append(" <span class='errorMessage'>"+retData+"</span>");  
+				});  
+			}  
+		});  
+		return false;  
+	});  
+});
+</script>
+{/literal}
+<form id="myFormContact" name="myFormContact" method="post" action="">
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <td align="right">IM Yahoo: </td>
+      <td><input name="im_yahoo" type="text" id="im_yahoo" size="32" maxlength="200" value="{$edit.profile2.0.im_yahoo}" /></td>
+    </tr>
+    <tr>
+      <td align="right">IM MSN: </td>
+      <td><input name="im_msn" type="text" id="im_msn" size="32" maxlength="200" value="{$edit.profile2.0.im_msn}" /></td>
+    </tr>
+    <tr>
+      <td align="right">IM Gmail:</td>
+      <td><input name="im_gmail" type="text" id="im_gmail" size="32" maxlength="255" value="{$edit.profile2.0.im_gmail}" /></td>
+    </tr>
+    <tr>
+      <td align="right">IM Jabber: </td>
+      <td><input name="im_jabber" type="text" id="im_jabber" size="32" maxlength="255" value="{$edit.profile2.0.im_jabber}" /></td>
+    </tr>
+    <tr>
+      <td align="right">IM Other: </td>
+      <td><input name="im_other" type="text" id="im_other" size="32" maxlength="255" value="{$edit.profile2.0.im_other}" /></td>
+    </tr>
+    <tr>
+      <td align="right">Home Phone: </td>
+      <td><input name="homephone" type="text" id="homephone" size="15" maxlength="50" value="{$edit.profile2.0.homephone}" /></td>
+    </tr>
+    <tr>
+      <td align="right">Cell Phone: </td>
+      <td><input name="cellphone" type="text" id="cellphone" size="15" maxlength="50" value="{$edit.profile2.0.cellphone}" /></td>
+    </tr>
+    <tr>
+      <td align="right">Address Line 1: </td>
+      <td><input name="address1" type="text" id="address1" size="45" maxlength="255" value="{$edit.profile2.0.address1}" /></td>
+    </tr>
+    <tr>
+      <td align="right">Address Line 2: </td>
+      <td><input name="address2" type="text" id="address2" size="45" maxlength="255" value="{$edit.profile2.0.address2}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">City:</td>
+      <td><input name="city" type="text" id="city" size="12" maxlength="200" value="{$edit.city.0.city}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">State/ Province:</td>
+      <td><input name="province" type="text" id="province" size="20" maxlength="200" value="{$edit.province.0.province}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Zipcode/ Pincode: </td>
+      <td><input name="zipcode" type="text" id="zipcode" size="10" maxlength="10" value="{$edit.zipcode.0.zipcode}" /></td>
+    </tr>
+    
+    <tr>
+      <td align="right">Country:</td>
+      <td><select name="country_id" id="country_id">
+	  	{html_options options=$country_options selected=$countryId}
+      </select></td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;</td>
+	  <td valign="top">
+		<div id="displayMessageContact"></div>
+	  	<input type="button" name="Button" value="Update" class="clickButtonContact">
+      <input type="hidden" name="MM_Insert" value="contact" /></td>
+    </tr>
+  </table>
+</form>

@@ -1,0 +1,53 @@
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <th align="right" valign="top">Name:</th>
+      <td valign="top">{$edit.users.0.name}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Gender:</th>
+      <td valign="top">{if $edit.profile1.0.gender == 'Male'}Male{elseif $edit.profile1.0.gender == 'Female'}Female{elseif $edit.profile1.0.gender == 'Couple'}Couple{else}&nbsp;{/if}</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Relationship Status: </th>
+      <td valign="top">{if $edit.profile1.0.marital_status == '1'}Single{/if}{if $edit.profile1.0.marital_status == '2'}Seperated{/if}{if $edit.profile1.0.marital_status == '3'}Divorced{/if}{if $edit.profile1.0.marital_status == '4'}Widowed{/if}{if $edit.profile1.0.marital_status == '5'}Married{/if}</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Birth Date: </th>
+      <td valign="top">{$edit.profile1.0.bDay}-{$edit.profile1.0.bMonth}-{$edit.profile1.0.bYear}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">City:</th>
+      <td>{$edit.city.0.city}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">State/ Province:</th>
+      <td>{$edit.province.0.province}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Zipcode/ Pincode: </th>
+      <td>{$edit.zipcode.0.zipcode}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Country:</th>
+      <td valign="top">{$country}</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">High School: </th>
+      <td valign="top">{$edit.profile2.0.highschool}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">College/ University: </th>
+      <td valign="top">{$edit.profile2.0.college}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Company/ Organization: </th>
+      <td valign="top">{$edit.profile2.0.company}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Interested In: </th>
+      <td valign="top">{if $edit.profile1.0.friends=="1"}Friends<br />{/if}
+        {if $edit.profile1.0.activity_partners=="1"}activity partners<br />{/if}
+		{if $edit.profile1.0.business_networking=="1"}business networking<br />{/if}
+		{if $edit.profile1.0.dating=="1"}dating{if $edit.profile1.0.dating_type=="1"}men and woman{/if}{if $edit.profile1.0.dating_type=="2"}men{/if}{if $edit.profile1.0.dating_type=="3"}woman{/if}{/if} </td>
+    </tr>
+  </table>

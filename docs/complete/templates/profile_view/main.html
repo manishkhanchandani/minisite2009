@@ -1,0 +1,58 @@
+<div class="mainPage">
+	<table width="100%" border="0" cellpadding="5" cellspacing="1">
+		<tr>
+		  <td width="100" valign="top" class="tdhead">Description</td>
+		  <td valign="top" class="tdhead">Summary</td>
+	  </tr>
+	  <tr>
+	  <td valign="top">
+	    <table border="0" cellspacing="1" cellpadding="5">
+          <tr>
+            <td>
+			  	
+		  <div class="img">{if $edit.profile2.0.image != ""}<img src="{$edit.profile2.0.image}" />{else}<img src="{$HTTPPATH}/images/noimage.gif" />{/if}</div>
+			<div class="status">
+				{$edit.profile1.0.gender} 
+				{if $edit.profile1.0.marital_status == '1'}
+					Single
+				{elseif  $edit.profile1.0.marital_status == '2'}
+					Seperated
+				{elseif  $edit.profile1.0.marital_status == '3'}
+					Divorced
+				{elseif  $edit.profile1.0.marital_status == '4'}
+					Widowed
+				{elseif  $edit.profile1.0.marital_status == '5'}
+					Married			
+				{/if}			</div>
+			<div class="status">
+				{$edit.city.0.city}, {$country}			</div>		    </td>
+          </tr>
+        </table>		</td>
+		<td valign="top">
+			<table border="0" cellspacing="1" cellpadding="5">
+                  <tr>
+                    <th align="right" valign="top"><span class="strng">aboutme:</span></th>
+                    <td valign="top"><span class="simpleText"><span class="tdsimpleText">{$edit.profile2.0.aboutme}</span></span></td>
+                  </tr>
+                  <tr>
+                    <th align="right" valign="top"><span class="strng">location:</span></th>
+                    <td valign="top"><span class="tdsimpleText">{$edit.city.0.city}, {$edit.province.0.province}<br />
+                      {$country}</span></td>
+                  </tr>
+                  <tr>
+                    <th align="right" valign="top"><span class="simpleText"><span class="strng">relationship status: </span> <span class="tdsimpleText"> </span></span></th>
+                    <td valign="top"><span class="tdsimpleText">{if $edit.profile1.0.marital_status == '1'}
+                      Single
+                      {elseif  $edit.profile1.0.marital_status == '2'}
+                      Seperated
+                      {elseif  $edit.profile1.0.marital_status == '3'}
+                      Divorced
+                      {elseif  $edit.profile1.0.marital_status == '4'}
+                      Widowed
+                      {elseif  $edit.profile1.0.marital_status == '5'}
+                      Married			
+                      {/if}</span></td>
+                  </tr>
+                </table>    </td>
+    </table>
+</div>

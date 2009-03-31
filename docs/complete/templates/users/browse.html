@@ -1,0 +1,36 @@
+<h2>{$record.browseTitle}</h2>
+
+<div id="showDetails">
+	{if $record.record}
+		{foreach item=rec key=i from=$record.record}
+			<div class="recordLoop">
+				<div class="recordImg">
+					<a href="index.php?p=profile_view/tabs&user_id={$rec.user_id}" onclick="openGetUrl('index.php', '#centerDv', 'p=profile_view/tabs&user_id={$rec.user_id}&AJAX=1'); return false;">
+						{if $rec.image}
+							<img border="0" src="{$rec.image}" />
+						{else}
+							<img border="0" src="{$HTTPPATH}/images/noimage.gif" />
+						{/if}
+					</a>
+				</div>					
+				<div class="recordName">
+					<a href="index.php?p=profile_view/tabs&user_id={$rec.user_id}" onclick="openGetUrl('index.php', '#centerDv', 'p=profile_view/tabs&user_id={$rec.user_id}&AJAX=1'); return false;">
+						{$rec.name}
+					</a>
+				</div>				
+				<div class="recordName">
+					{$rec.gender}{if $rec.city || $rec.province || $rec.country} from {/if}{if $rec.city}{$rec.city},{/if}{if $rec.province} {$rec.province},{/if}{if $rec.country} {$rec.country}{/if}
+				</div>
+			</div>
+		{/foreach}
+	{else}
+	<div class="error">No Record Found.</div>
+	{/if}
+</div>
+<div class="clear"></div>
+
+{* If pagination exists *}
+{if $pagination}
+<hr>
+{$pagination}
+{/if}

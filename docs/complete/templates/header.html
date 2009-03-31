@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>{$PAGETITLE}</title>
+<link rel="stylesheet" type="text/css" href="{$HTTPPATH}/stylesheet/default.css" />
+<link rel="stylesheet" type="text/css" href="{$HTTPPATH}/stylesheet/accordion.css" />
+{literal}
+<style type="text/css">
+body {
+	font-family: Arial, sans-serif;
+	font-size: 0.85em;
+}
+p {
+	margin: 1em 0;
+}
+.ui-layout-pane-west {
+	/* OVERRIDE 'default styles' */
+	padding: 0 !important;
+	overflow: hidden !important;
+}
+</style>
+{/literal}
+	<script type="text/javascript" src="{$HTTPPATH}/js/script.js"></script>
+	<!-- REQUIRED scripts for layout widget -->
+	<script type="text/javascript" src="{$HTTPPATH}/js/jquery.js"></script>
+	<script type="text/javascript" src="{$HTTPPATH}/js/jquery.layout.js"></script>
+
+	<!-- OPTIONAL ui.draggable is required to resize panes -->
+	<script type="text/javascript" src="{$HTTPPATH}/js/ui.core.js"></script>
+	<script type="text/javascript" src="{$HTTPPATH}/js/ui.draggable.js"></script>
+
+	<!-- OPTIONAL animation effects for opening/closing panes -->
+	<script type="text/javascript" src="{$HTTPPATH}/js/effects.core.js"></script>
+	<script type="text/javascript" src="{$HTTPPATH}/js/effects.slide.js"></script>
+	<script type="text/javascript" src="{$HTTPPATH}/js/effects.drop.js"></script>
+	<script type="text/javascript" src="{$HTTPPATH}/js/effects.scale.js"></script>
+
+	<!-- CUSTOM VERSION OF ui.accordion.js - HAS A 'resize' METHOD -->
+
+	<script type="text/javascript" src="{$HTTPPATH}/js/ui.accordion.resizable.js"></script>
+	<!-- easing library is used by Accordion widget -->
+	<script type="text/javascript" src="{$HTTPPATH}/js/jquery.easing.js"></script>
+	<script type="text/javascript" src="{$HTTPPATH}/js/jquery.easing.compatibility.js"></script>
+{literal}
+	<script type="text/javascript">
+
+	var outerLayout, myAccordion; // init global vars
+
+	$(document).ready( function() {
+
+		// PAGE LAYOUT
+		outerLayout = $('body').layout({
+			applyDefaultStyles:	true
+			// AUTO-RESIZE Accordion widget when west pane resizes
+		,	west__onresize:		function () { myAccordion.accordion('resize'); }
+		,	west__size:			175,
+			east__size:			175
+		});
+
+		// ACCORDION - inside the West pane
+		myAccordion = $("#MainMenu").accordion({
+			selectedClass: 	"active"
+		,	navigation:		true
+		,	fillSpace:		true
+		,	animated: 		"bounceslide",
+			header: "a.menu"
+		});
+
+	});
+	</script>
+{/literal}
+{section name=header_loop loop=$global_plugins}
+	{include file="header_`$global_plugins[header_loop]`.html"}
+{/section}
+{if $styleCSS != ""}
+	<style type='text/css'>{$styleCSS}</style>
+{/if}
+{if $styleJs != ""}
+	{include file=$styleJs}
+{/if}
+</head>
+
+<body>
+<div class="ui-layout-center" id="centerDv">

@@ -1,0 +1,169 @@
+{literal}
+<script language="javascript">
+$(function() { 
+	$('.error').hide();  
+	$(".clickButtonPersonal").click(function() { 
+		var dataString = getFormElements(document.formPersonal);
+		$.ajax({  
+			type: "POST",  
+			url: "index.php?p=profile_edit/tabs",  
+			data: dataString,  
+			success: function(retData) {
+				$('#displayMessagePersonal').html("<span class='errorMessage'>Form Submitted.</span>") 
+				.hide()  
+				.fadeIn(1500, function() {  
+					$('#displayMessagePersonal').append(" <span class='errorMessage'>"+retData+"</span>");  
+				});  
+			}  
+		});  
+		return false;  
+	});  
+});
+</script>
+{/literal}
+<form id="formPersonal" name="formPersonal" method="post" action="">
+<div id="displayMessage"></div>
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <td align="right" valign="top">Headline:</td>
+      <td valign="top"><input name="headline" type="text" id="headline" maxlength="200" value="{$edit.profile2.0.headline}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">First thing you will notice about me:</td>
+      <td valign="top"><input name="firstthing" type="text" id="firstthing" maxlength="255" value="{$edit.profile2.0.firstthing}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Height:</td>
+      <td valign="top"><select name="height" id="height">
+	  	<option value="53" {if $edit.profile1.0.height == '53'}selected{/if}>4ft 5in - 134cm</option>
+		<option value="54" {if $edit.profile1.0.height == '54'}selected{/if}>4ft 6in - 137cm</option>
+		<option value="55" {if $edit.profile1.0.height == '55'}selected{/if}>4ft 7in - 139cm</option>
+		<option value="56" {if $edit.profile1.0.height == '56'}selected{/if}>4ft 8in - 142cm</option>
+		<option value="57" {if $edit.profile1.0.height == '57'}selected{/if}>4ft 9in - 144cm</option>
+		<option value="58" {if $edit.profile1.0.height == '58'}selected{/if}>4ft 10in - 147cm</option>
+		<option value="59" {if $edit.profile1.0.height == '59'}selected{/if}>4ft 11in - 149cm</option>
+		<option value="60" {if $edit.profile1.0.height == '60'}selected{/if}>5ft 0in - 152cm</option>
+		<option value="61" {if $edit.profile1.0.height == '61'}selected{/if}>5ft 1in - 154cm</option>
+		<option value="62" {if $edit.profile1.0.height == '62'}selected{/if}>5ft 2in - 157cm</option>
+		<option value="63" {if $edit.profile1.0.height == '63'}selected{/if}>5ft 3in - 160cm</option>
+		<option value="64" {if $edit.profile1.0.height == '64'}selected{/if}>5ft 4in - 162cm</option>
+		<option value="65" {if $edit.profile1.0.height == '65'}selected{/if}>5ft 5in - 165cm</option>
+		<option value="66" {if $edit.profile1.0.height == '66'}selected{/if}>5ft 6in - 167cm</option>
+		<option value="67" {if $edit.profile1.0.height == '67'}selected{/if}>5ft 7in - 170cm</option>
+		<option value="68" {if $edit.profile1.0.height == '68'}selected{/if}>5ft 8in - 172cm</option>
+		<option value="69" {if $edit.profile1.0.height == '69'}selected{/if}>5ft 9in - 175cm</option>
+		<option value="70" {if $edit.profile1.0.height == '70'}selected{/if}>5ft 10in - 177cm</option>
+		<option value="71" {if $edit.profile1.0.height == '71'}selected{/if}>5ft 11in - 180cm</option>
+		<option value="72" {if $edit.profile1.0.height == '72'}selected{/if}>6ft 0in - 182cm</option>
+		<option value="73" {if $edit.profile1.0.height == '73'}selected{/if}>6ft 1in - 185cm</option>
+		<option value="74" {if $edit.profile1.0.height == '74'}selected{/if}>6ft 2in - 187cm</option>
+		<option value="75" {if $edit.profile1.0.height == '75'}selected{/if}>6ft 3in - 190cm</option>
+		<option value="76" {if $edit.profile1.0.height == '76'}selected{/if}>6ft 4in - 193cm</option>
+		<option value="77" {if $edit.profile1.0.height == '77'}selected{/if}>6ft 5in - 195cm</option>
+		<option value="78" {if $edit.profile1.0.height == '78'}selected{/if}>6ft 6in - 198cm</option>
+		<option value="79" {if $edit.profile1.0.height == '79'}selected{/if}>6ft 7in - 200cm</option>
+		<option value="80" {if $edit.profile1.0.height == '80'}selected{/if}>6ft 8in - 203cm</option>
+		<option value="81" {if $edit.profile1.0.height == '81'}selected{/if}>6ft 9in - 205cm</option>
+		<option value="82" {if $edit.profile1.0.height == '82'}selected{/if}>6ft 10in - 208cm</option>
+		<option value="83" {if $edit.profile1.0.height == '83'}selected{/if}>6ft 11in - 210cm</option>
+		<option value="84" {if $edit.profile1.0.height == '84'}selected{/if}>7ft 0in - 213cm</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Eye Color: </td>
+      <td valign="top"><select name="eyecolor" id="eyecolor">
+<option value="0" {if $edit.profile1.0.eyecolor == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.eyecolor == '1'}selected{/if}>black</option>
+<option value="2" {if $edit.profile1.0.eyecolor == '2'}selected{/if}>blue</option>
+<option value="3" {if $edit.profile1.0.eyecolor == '3'}selected{/if}>brown</option>
+<option value="4" {if $edit.profile1.0.eyecolor == '4'}selected{/if}>gray</option>
+<option value="5" {if $edit.profile1.0.eyecolor == '5'}selected{/if}>green</option>
+<option value="6" {if $edit.profile1.0.eyecolor == '6'}selected{/if}>hazel</option>
+            </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Hair Color: </td>
+      <td valign="top"><select name="haircolor" id="haircolor">
+<option value="0" {if $edit.profile1.0.haircolor == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.haircolor == '1'}selected{/if}>auburn</option>
+<option value="2" {if $edit.profile1.0.haircolor == '2'}selected{/if}>black</option>
+<option value="3" {if $edit.profile1.0.haircolor == '3'}selected{/if}>blonde</option>
+<option value="4" {if $edit.profile1.0.haircolor == '4'}selected{/if}>light brown</option>
+<option value="5" {if $edit.profile1.0.haircolor == '5'}selected{/if}>dark brown</option>
+<option value="6" {if $edit.profile1.0.haircolor == '6'}selected{/if}>red</option>
+<option value="7" {if $edit.profile1.0.haircolor == '7'}selected{/if}>gray</option>
+<option value="8" {if $edit.profile1.0.haircolor == '8'}selected{/if}>salt & pepper</option>
+<option value="9" {if $edit.profile1.0.haircolor == '9'}selected{/if}>bald</option>
+<option value="10" {if $edit.profile1.0.haircolor == '10'}selected{/if}>changes often</option>
+<option value="11" {if $edit.profile1.0.haircolor == '11'}selected{/if}>other</option>
+            </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Build:</td>
+      <td valign="top"><select name="build" id="build">
+<option value="0" {if $edit.profile1.0.build == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.build == '1'}selected{/if}>slim</option>
+<option value="2" {if $edit.profile1.0.build == '2'}selected{/if}>athletic</option>
+<option value="3" {if $edit.profile1.0.build == '3'}selected{/if}>about average</option>
+<option value="4" {if $edit.profile1.0.build == '4'}selected{/if}>a few extra pounds</option>
+<option value="5" {if $edit.profile1.0.build == '5'}selected{/if}>large</option>
+            </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Looks:</td>
+      <td valign="top"><select name="looks" id="looks">
+<option value="0" {if $edit.profile1.0.looks == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.looks == '1'}selected{/if}>beauty contest winner</option>
+<option value="2" {if $edit.profile1.0.looks == '2'}selected{/if}>very attractive</option>
+<option value="3" {if $edit.profile1.0.looks == '3'}selected{/if}>attractive</option>
+<option value="4" {if $edit.profile1.0.looks == '4'}selected{/if}>average</option>
+<option value="5" {if $edit.profile1.0.looks == '5'}selected{/if}>mirror-cracking material</option>
+            </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Best Feature: </td>
+      <td valign="top"><select name="bestfeature" id="bestfeature">
+<option value="0" {if $edit.profile1.0.bestfeature == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.bestfeature == '1'}selected{/if}>eyes</option>
+<option value="2" {if $edit.profile1.0.bestfeature == '2'}selected{/if}>hair</option>
+<option value="3" {if $edit.profile1.0.bestfeature == '3'}selected{/if}>lips</option>
+<option value="4" {if $edit.profile1.0.bestfeature == '4'}selected{/if}>neck</option>
+<option value="5" {if $edit.profile1.0.bestfeature == '5'}selected{/if}>arms</option>
+<option value="6" {if $edit.profile1.0.bestfeature == '6'}selected{/if}>hands</option>
+<option value="7" {if $edit.profile1.0.bestfeature == '7'}selected{/if}>chest</option>
+<option value="8" {if $edit.profile1.0.bestfeature == '8'}selected{/if}>belly button</option>
+<option value="9" {if $edit.profile1.0.bestfeature == '9'}selected{/if}>butt</option>
+<option value="10" {if $edit.profile1.0.bestfeature == '10'}selected{/if}>legs</option>
+<option value="11" {if $edit.profile1.0.bestfeature == '11'}selected{/if}>calves</option>
+<option value="12" {if $edit.profile1.0.bestfeature == '12'}selected{/if}>feet</option>
+<option value="13" {if $edit.profile1.0.bestfeature == '13'}selected{/if}>not on the list</option>
+            </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">My idea of a perfect first date:</td>
+      <td valign="top"><textarea name="firstdate" cols="45" rows="3" id="firstdate">{$edit.profile2.0.firstdate}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">From my past relationships i learned:</td>
+      <td valign="top"><textarea name="pastrelation" cols="45" rows="3" id="pastrelation">{$edit.profile2.0.pastrelation}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Five things i can't live without:</td>
+      <td valign="top"><textarea name="fivethings" cols="45" rows="3" id="fivethings">{$edit.profile2.0.fivethings}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">In my bedroom you will find:</td>
+      <td valign="top"><textarea name="bedroomthings" cols="45" rows="3" id="bedroomthings">{$edit.profile2.0.bedroomthings}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Ideal match:</td>
+      <td valign="top"><textarea name="idealmatch" cols="45" rows="3" id="idealmatch">{$edit.profile2.0.idealmatch}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">&nbsp;</td>
+      <td valign="top"><div id="displayMessagePersonal"></div>
+	  	<input type="button" name="Button" value="Update" class="clickButtonPersonal">
+      <input type="hidden" name="MM_Insert" value="personal" /></td>
+    </tr>
+  </table>
+</form>

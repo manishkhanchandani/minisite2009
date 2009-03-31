@@ -1,0 +1,20 @@
+<div id="header">
+			<h1>Mumbaionline.org.in :: Confirm Registration</h1>
+		</div>
+
+		<div id="content">
+			<p id="status"></p>
+			<form action="" method="post" id="confirm" name="confirm">
+				<fieldset>
+					<legend>Confirmation</legend>
+					{if $errorMessage != ""}
+						<div class="errorMessage">{$errorMessage}</div>
+					{/if}
+					<div>{$msg}</div>
+
+				
+				<div class="clear"></div>
+			</form>
+				<div align="center"><a href="index.php">Login</a> | <a href="index.php?action=forgot">Forgot Password</a> | <a href="index.php?action=register">Register</a></div>
+			
+</div>

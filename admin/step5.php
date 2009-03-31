@@ -1,5 +1,51 @@
 <?php require_once('../Connections/conn.php'); ?><?php
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  $theValue = (!get_magic_quotes_gpc()) ? addslashes($theValue) : $theValue;
 
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? "'" . doubleval($theValue) . "'" : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
+  $updateSQL = sprintf("UPDATE prebuilt_1 SET sitename=%s, siteemail=%s, ftphost=%s, ftpuser=%s, ftppassword=%s, ftpdir=%s, dbhost=%s, db=%s, dbuser=%s, dbpassword=%s WHERE id=%s",
+                       GetSQLValueString($_POST['sitename'], "text"),
+                       GetSQLValueString($_POST['siteemail'], "text"),
+                       GetSQLValueString($_POST['ftphost'], "text"),
+                       GetSQLValueString($_POST['ftpuser'], "text"),
+                       GetSQLValueString($_POST['ftppassword'], "text"),
+                       GetSQLValueString($_POST['ftpdir'], "text"),
+                       GetSQLValueString($_POST['dbhost'], "text"),
+                       GetSQLValueString($_POST['db'], "text"),
+                       GetSQLValueString($_POST['dbuser'], "text"),
+                       GetSQLValueString($_POST['dbpassword'], "text"),
+                       GetSQLValueString($_POST['id'], "int"));
+
+  mysql_select_db($database_conn, $conn);
+  $Result1 = mysql_query($updateSQL, $conn) or die(mysql_error());
+}
 ?>
 <?php
 $colname_rsKeyword = "-1";
@@ -13,69 +59,111 @@ $row_rsKeyword = mysql_fetch_assoc($rsKeyword);
 $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
 ?>
 <?php
-
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
+	// check connection
+	$ftp = ftp_connect($row_rsKeyword['ftphost']);
+	if($ftp) {
+		if(@ftp_login($ftp,$row_rsKeyword['ftpuser'],$row_rsKeyword['ftppassword'])) {
+			$done = 1;
+			echo 'Connected and login successfull.<br>';
+		} else {
+			@ftp_quit($ftp); 
+			echo "<p>FTP Login Failed</p>";
+		}
+	} else {
+		@ftp_quit($ftp); 
+		echo "<p>FTP Login Failed</p>";
+	}
+	flush();
+	
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Untitled Document</title>
+<script type="text/JavaScript">
+<!--
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_validateForm() { //v4.0
+  var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
+  for (i=0; i<(args.length-2); i+=3) { test=args[i+2]; val=MM_findObj(args[i]);
+    if (val) { nm=val.name; if ((val=val.value)!="") {
+      if (test.indexOf('isEmail')!=-1) { p=val.indexOf('@');
+        if (p<1 || p==(val.length-1)) errors+='- '+nm+' must contain an e-mail address.\n';
+      } else if (test!='R') { num = parseFloat(val);
+        if (isNaN(val)) errors+='- '+nm+' must contain a number.\n';
+        if (test.indexOf('inRange') != -1) { p=test.indexOf(':');
+          min=test.substring(8,p); max=test.substring(p+1);
+          if (num<min || max<num) errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
+    } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
+  } if (errors) alert('The following error(s) occurred:\n'+errors);
+  document.MM_returnValue = (errors == '');
+}
+//-->
+</script>
 </head>
 
 <body>
 <h1>Step 5: Set FTP and DB Details for &quot;<?php echo $row_rsKeyword['keyword']; ?>&quot;</h1>
-<form id="form1" name="form1" method="POST" action="">
+<form action="<?php echo $editFormAction; ?>" method="POST" name="form1" id="form1" onsubmit="MM_validateForm('sitename','','R','siteemail','','RisEmail','ftphost','','R','ftpuser','','R','ftppassword','','R','dbhost','','R','db','','R','dbuser','','R');return document.MM_returnValue">
   <table border="1" cellpadding="5" cellspacing="1">
     <tr>
       <th align="right">Sitename:</th>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th align="right">Site Url: </th>
-      <td>&nbsp;</td>
+      <td><input name="sitename" type="text" id="sitename" value="<?php echo $row_rsKeyword['sitename']; ?>" maxlength="200" /></td>
     </tr>
     <tr>
       <th align="right">Site Email: </th>
-      <td>&nbsp;</td>
+      <td><input name="siteemail" type="text" id="siteemail" value="<?php echo $row_rsKeyword['siteemail']; ?>" maxlength="150" /></td>
     </tr>
     <tr>
       <th align="right">Site FTP Host: </th>
-      <td>&nbsp;</td>
+      <td><input name="ftphost" type="text" id="ftphost" value="<?php echo $row_rsKeyword['ftphost']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
       <th align="right">Site FTP User: </th>
-      <td>&nbsp;</td>
+      <td><input name="ftpuser" type="text" id="ftpuser" value="<?php echo $row_rsKeyword['ftpuser']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
       <th align="right">Site FTP Password: </th>
-      <td>&nbsp;</td>
+      <td><input name="ftppassword" type="password" id="ftppassword" value="<?php echo $row_rsKeyword['ftppassword']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
       <th align="right">Site FTP Dir: </th>
-      <td>&nbsp;</td>
+      <td><input name="ftpdir" type="text" id="ftpdir" value="<?php echo $row_rsKeyword['ftpdir']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
       <th align="right">Mysql Host: </th>
-      <td>&nbsp;</td>
+      <td><input name="dbhost" type="text" id="dbhost" value="<?php echo $row_rsKeyword['dbhost']; ?>" /></td>
     </tr>
     <tr>
       <th align="right">Mysql DB: </th>
-      <td>&nbsp;</td>
+      <td><input name="db" type="text" id="db" value="<?php echo $row_rsKeyword['db']; ?>" /></td>
     </tr>
     <tr>
       <th align="right">Mysql User: </th>
-      <td>&nbsp;</td>
+      <td><input name="dbuser" type="text" id="dbuser" value="<?php echo $row_rsKeyword['dbuser']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
       <th align="right">Mysql Password: </th>
-      <td>&nbsp;</td>
+      <td><input name="dbpassword" type="password" id="dbpassword" value="<?php echo $row_rsKeyword['dbpassword']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
       <th align="right">&nbsp;</th>
-      <td><input type="submit" name="Submit" value="Publish" /></td>
+      <td><input type="submit" name="Submit" value="Publish" />
+      <input name="id" type="hidden" id="id" value="<?php echo $row_rsKeyword['id']; ?>" /></td>
     </tr>
   </table>
   
+    <input type="hidden" name="MM_update" value="form1">
 </form>
 <p>&nbsp;</p>
 </body>

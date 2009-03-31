@@ -1,0 +1,176 @@
+{literal}
+<script language="javascript">
+$(function() { 
+	$('.error').hide();  
+	$(".clickButtonSocial").click(function() {  
+	 	// validate and process form here  
+		$('.error').hide(); 
+		var dataString = getFormElements(document.frmSocial);
+		$.ajax({  
+			type: "POST",  
+			url: "index.php?p=profile_edit/tabs",  
+			data: dataString,  
+			success: function(retData) {
+				$('#displayMessageSocial').html("<span class='errorMessage'>Form Submitted.</span>") 
+				.hide()  
+				.fadeIn(1500, function() {  
+					$('#displayMessageSocial').append(" <span class='errorMessage'>"+retData+"</span>");  
+				});  
+			}  
+		});  
+		return false;  
+	});  
+});
+</script>
+{/literal}
+<form id="frmSocial" name="frmSocial" method="post" action="">
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <td align="right" valign="top">Children:</td>
+      <td valign="top"><select name="children" id="children">
+        <option value="0" {if $edit.profile1.0.children=="0"}selected{/if}>no answer</option>
+        <option value="1" {if $edit.profile1.0.children=="1"}selected{/if}>no</option>
+        <option value="2" {if $edit.profile1.0.children=="2"}selected{/if}>yes - at home full time</option>
+        <option value="3" {if $edit.profile1.0.children=="3"}selected{/if}>yes - at home part time</option>
+        <option value="4" {if $edit.profile1.0.children=="4"}selected{/if}>yes - not at home</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Religion:</td>
+      <td valign="top"><select name="religion" id="religion">
+	  	<option value="0" {if $edit.profile1.0.religion=="0"}selected{/if}>no answer</option>
+		<option value="1" {if $edit.profile1.0.religion=="1"}selected{/if}>Agnostic</option>
+		<option value="2" {if $edit.profile1.0.religion=="2"}selected{/if}>Atheist</option>
+		<option value="16" {if $edit.profile1.0.religion=="16"}selected{/if}>Baha'i</option>
+		<option value="3" {if $edit.profile1.0.religion=="3"}selected{/if}>Buddhist</option>
+		<option value="19" {if $edit.profile1.0.religion=="19"}selected{/if}>Cao Dai</option>
+		<option value="26" {if $edit.profile1.0.religion=="26"}selected{/if}>Christian/Anglican</option>
+		<option value="4" {if $edit.profile1.0.religion=="4"}selected{/if}>Christian/Catholic</option>
+		<option value="5" {if $edit.profile1.0.religion=="5"}selected{/if}>Christian/LDS</option>
+		<option value="27" {if $edit.profile1.0.religion=="27"}selected{/if}>Christian/Orthodox</option>
+		<option value="7" {if $edit.profile1.0.religion=="7"}selected{/if}>Christian/Other</option>
+		<option value="6" {if $edit.profile1.0.religion=="6"}selected{/if}>Christian/Protestant</option>
+		<option value="8" {if $edit.profile1.0.religion=="8"}selected{/if}>Hindu</option>
+		<option value="17" {if $edit.profile1.0.religion=="17"}selected{/if}>Jain</option>
+		<option value="9" {if $edit.profile1.0.religion=="9"}selected{/if}>Jewish</option>
+		<option value="10" {if $edit.profile1.0.religion=="10"}selected{/if}>Muslim</option>
+		<option value="21" {if $edit.profile1.0.religion=="21"}selected{/if}>Neo-Paganist</option>
+		<option value="23" {if $edit.profile1.0.religion=="23"}selected{/if}>Rastafarian</option>
+		<option value="12" {if $edit.profile1.0.religion=="12"}selected{/if}>Religious humanism</option>
+		<option value="24" {if $edit.profile1.0.religion=="24"}selected{/if}>Scientologist</option>
+		<option value="18" {if $edit.profile1.0.religion=="18"}selected{/if}>Shinto</option>
+		<option value="15" {if $edit.profile1.0.religion=="15"}selected{/if}>Sikh</option>
+		<option value="11" {if $edit.profile1.0.religion=="11"}selected{/if}>Spiritual but not religious</option>
+		<option value="25" {if $edit.profile1.0.religion=="25"}selected{/if}>Taoist</option>
+		<option value="20" {if $edit.profile1.0.religion=="20"}selected{/if}>Tenrikyo</option>
+		<option value="22" {if $edit.profile1.0.religion=="22"}selected{/if}>Unitarian Universalist</option>
+		<option value="14" {if $edit.profile1.0.religion=="14"}selected{/if}>Zoroastrian</option>
+		<option value="13" {if $edit.profile1.0.religion=="13"}selected{/if}>other</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Sexual Orientation: </td>
+      <td valign="top"><select name="sexual_orientation" id="sexual_orientation">
+		<option value="0" {if $edit.profile1.0.sexual_orientation=="0"}selected{/if}>no answer</option>
+		<option value="1" {if $edit.profile1.0.sexual_orientation=="1"}selected{/if}>straight</option>
+		<option value="2" {if $edit.profile1.0.sexual_orientation=="2"}selected{/if}>gay</option>
+		<option value="3" {if $edit.profile1.0.sexual_orientation=="3"}selected{/if}>bisexual</option>
+		<option value="4" {if $edit.profile1.0.sexual_orientation=="4"}selected{/if}>bi-curious</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Smoking:</td>
+      <td valign="top"><select name="smoking" id="smoking">
+		<option value="0" {if $edit.profile1.0.smoking=="0"}selected{/if}>no answer</option>
+		<option value="1" {if $edit.profile1.0.smoking=="1"}selected{/if}>no</option>
+		<option value="2" {if $edit.profile1.0.smoking=="2"}selected{/if}>socially</option>
+		<option value="3" {if $edit.profile1.0.smoking=="3"}selected{/if}>occasionally</option>
+		<option value="4" {if $edit.profile1.0.smoking=="4"}selected{/if}>regularly</option>
+		<option value="5" {if $edit.profile1.0.smoking=="5"}selected{/if}>heavily</option>
+		<option value="6" {if $edit.profile1.0.smoking=="6"}selected{/if}>trying to quit</option>
+		<option value="7" {if $edit.profile1.0.smoking=="7"}selected{/if}>quit</option>
+		</select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Drinking:</td>
+      <td valign="top"><select name="drinking" id="drinking">
+			<option value="0" {if $edit.profile1.0.drinking=="0"}selected{/if}>no answer</option>
+			<option value="1" {if $edit.profile1.0.drinking=="1"}selected{/if}>no</option>
+			<option value="2" {if $edit.profile1.0.drinking=="2"}selected{/if}>socially</option>
+			<option value="3" {if $edit.profile1.0.drinking=="3"}selected{/if}>occasionally</option>
+			<option value="4" {if $edit.profile1.0.drinking=="4"}selected{/if}>regularly</option>
+			<option value="5" {if $edit.profile1.0.drinking=="5"}selected{/if}>heavily</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Pets:</td>
+      <td valign="top"><select name="pets" id="pets">
+<option value="0" {if $edit.profile1.0.pets=="0"}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.pets=="1"}selected{/if}>i love my pet(s)</option>
+<option value="2" {if $edit.profile1.0.pets=="2"}selected{/if}>i like them at the zoos</option>
+<option value="3" {if $edit.profile1.0.pets=="3"}selected{/if}>i like pet(s)</option>
+<option value="4" {if $edit.profile1.0.pets=="4"}selected{/if}>i don't like pets</option>
+</select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Living:</td>
+      <td valign="top"><select name="living" id="living">
+        <option value="1" {if $edit.profile1.0.living=="1"}selected{/if}>alone</option>
+        <option value="2" {if $edit.profile1.0.living=="2"}selected{/if}>with partner</option>
+        <option value="3" {if $edit.profile1.0.living=="3"}selected{/if}>with kid(s)</option>
+        <option value="4" {if $edit.profile1.0.living=="4"}selected{/if}>friends visit often</option>
+        <option value="5" {if $edit.profile1.0.living=="5"}selected{/if}>with roommate(s)</option>
+        <option value="6" {if $edit.profile1.0.living=="6"}selected{/if}>with pet(s)</option>
+        <option value="7" {if $edit.profile1.0.living=="7"}selected{/if}>with parents</option>
+        <option value="8" {if $edit.profile1.0.living=="8"}selected{/if}>party every night</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Hometown:</td>
+      <td valign="top"><input name="hometown" type="text" id="hometown" maxlength="100" value="{$edit.profile2.0.hometown}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Webpage:</td>
+      <td valign="top"><input name="webpage" type="text" id="webpage" maxlength="255" value="{$edit.profile2.0.webpage}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">About Me: </td>
+      <td valign="top"><textarea name="aboutme" cols="35" rows="3" id="aboutme">{$edit.profile2.0.aboutme}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">My Family: </td>
+      <td valign="top"><textarea name="myfamily" cols="35" rows="3" id="myfamily">{$edit.profile2.0.myfamily}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Sports: </td>
+      <td valign="top"><textarea name="sports" cols="35" rows="3" id="sports">{$edit.profile2.0.sports}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Activities:</td>
+      <td valign="top"><textarea name="activities" cols="35" rows="3" id="activities">{$edit.profile2.0.activities}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Books:</td>
+      <td valign="top"><textarea name="books" cols="35" rows="3" id="books">{$edit.profile2.0.books}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Music:</td>
+      <td valign="top"><textarea name="music" cols="35" rows="3" id="music">{$edit.profile2.0.music}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Tv Shows: </td>
+      <td valign="top"><textarea name="tvshows" cols="35" rows="3" id="tvshows">{$edit.profile2.0.tvshows}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Movies:</td>
+      <td valign="top"><textarea name="movies" cols="35" rows="3" id="movies">{$edit.profile2.0.movies}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">&nbsp;</td>
+      <td valign="top">
+		<div id="displayMessageSocial"></div>
+		<input type="button" name="Button" value="Update" class="clickButtonSocial">
+      <input type="hidden" name="MM_Insert" value="social" /></td>
+    </tr>
+  </table>
+</form>

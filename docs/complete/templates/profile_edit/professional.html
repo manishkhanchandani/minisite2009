@@ -1,0 +1,119 @@
+{literal}
+<script language="javascript">
+$(function() { 
+	$('.error').hide();  
+	$(".clickButtonProfessional").click(function() { 
+		var dataString = getFormElements(document.formProfessional);
+		$.ajax({  
+			type: "POST",  
+			url: "index.php?p=profile_edit/tabs",  
+			data: dataString,  
+			success: function(retData) {
+				$('#displayMessageProfessional').html("<span class='errorMessage'>Form Submitted.</span>") 
+				.hide()  
+				.fadeIn(1500, function() {  
+					$('#displayMessageProfessional').append(" <span class='errorMessage'>"+retData+"</span>");  
+				});  
+			}  
+		});  
+		return false;  
+	});  
+});
+</script>
+{/literal}
+<form id="formProfessional" name="formProfessional" method="post" action="">
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <td align="right">Education:</td>
+      <td><select name="educationLevel" id="educationLevel">
+<option value="0" {if $edit.profile1.0.educationLevel == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile1.0.educationLevel == '1'}selected{/if}>Elementary</option>
+<option value="2" {if $edit.profile1.0.educationLevel == '2'}selected{/if}>High School</option>
+<option value="3" {if $edit.profile1.0.educationLevel == '3'}selected{/if}>Some College</option>
+<option value="4" {if $edit.profile1.0.educationLevel == '4'}selected{/if}>Associates Degree</option>
+<option value="5" {if $edit.profile1.0.educationLevel == '5'}selected{/if}>Bachelor's Degree</option>
+<option value="6" {if $edit.profile1.0.educationLevel == '6'}selected{/if}>Master's Degree</option>
+<option value="7" {if $edit.profile1.0.educationLevel == '7'}selected{/if}>Ph.D.</option>
+<option value="8" {if $edit.profile1.0.educationLevel == '8'}selected{/if}>Postdoctoral</option>
+</select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">High School: </td>
+      <td valign="top"><input name="highschool" type="text" id="highschool" value="{$edit.profile2.0.highschool}" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">College/ University: </td>
+      <td valign="top"><input name="college" type="text" id="college" value="{$edit.profile2.0.college}" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="right">Occupation:</td>
+      <td><input name="occupation" type="text" id="occupation" maxlength="200" value="{$edit.profile2.0.occupation}" /></td>
+    </tr>
+    <tr>
+      <td align="right">Industry:</td>
+      <td><select name="industry" id="industry">
+<option value="0" {if $edit.profile2.0.industry == '0'}selected{/if}>no answer</option>
+<option value="1" {if $edit.profile2.0.industry == '1'}selected{/if}>Agriculture</option>
+<option value="2" {if $edit.profile2.0.industry == '2'}selected{/if}>Arts</option>
+<option value="3" {if $edit.profile2.0.industry == '3'}selected{/if}>Construction</option>
+<option value="4" {if $edit.profile2.0.industry == '4'}selected{/if}>Consumer Goods</option>
+<option value="5" {if $edit.profile2.0.industry == '5'}selected{/if}>Corporate Services</option>
+<option value="6" {if $edit.profile2.0.industry == '6'}selected{/if}>Education</option>
+<option value="7" {if $edit.profile2.0.industry == '7'}selected{/if}>Finance</option>
+<option value="8" {if $edit.profile2.0.industry == '8'}selected{/if}>Government</option>
+<option value="9" {if $edit.profile2.0.industry == '9'}selected{/if}>High Tech</option>
+<option value="10" {if $edit.profile2.0.industry == '10'}selected{/if}>Legal</option>
+<option value="11" {if $edit.profile2.0.industry == '11'}selected{/if}>Manufacturing</option>
+<option value="12" {if $edit.profile2.0.industry == '12'}selected{/if}>Media</option>
+<option value="13" {if $edit.profile2.0.industry == '13'}selected{/if}>Medical and Health Care</option>
+<option value="14" {if $edit.profile2.0.industry == '14'}selected{/if}>Non-Profit</option>
+<option value="15" {if $edit.profile2.0.industry == '15'}selected{/if}>Recreation, Travel, and Entertainment</option>
+<option value="16" {if $edit.profile2.0.industry == '16'}selected{/if}>Scientific</option>
+<option value="17" {if $edit.profile2.0.industry == '17'}selected{/if}>Service Industry</option>
+<option value="18" {if $edit.profile2.0.industry == '18'}selected{/if}>Transportation</option>
+</select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Company/ Organization: </td>
+      <td valign="top"><input name="company" type="text" id="company" value="{$edit.profile2.0.company}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Company Webpage: </td>
+      <td valign="top"><input name="company_webpage" type="text" id="company_webpage" maxlength="255" value="{$edit.profile2.0.company_webpage}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Title:</td>
+      <td valign="top"><input name="company_title" type="text" id="company_title" maxlength="200" value="{$edit.profile2.0.company_title}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Job Description: </td>
+      <td valign="top"><textarea name="job_description" cols="45" rows="3" id="job_description">{$edit.profile2.0.job_description}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Work Phone: </td>
+      <td valign="top"><input name="workphone" type="text" id="workphone" maxlength="50" value="{$edit.profile2.0.workphone}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Work Email: </td>
+      <td valign="top"><input name="work_email" type="text" id="work_email" maxlength="150" value="{$edit.profile2.0.work_email}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Career Skills: </td>
+      <td valign="top"><textarea name="career_skills" cols="45" rows="3" id="career_skills">{$edit.profile2.0.career_skills}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Career Interests: </td>
+      <td valign="top"><textarea name="career_interests" cols="45" rows="3" id="career_interests">{$edit.profile2.0.career_interests}</textarea></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">&nbsp;</td>
+      <td valign="top"><div id="displayMessageProfessional"></div>
+	  	<input type="button" name="Button" value="Update" class="clickButtonProfessional">
+      <input type="hidden" name="MM_Insert" value="professional" /></td>
+    </tr>
+  </table>
+</form>

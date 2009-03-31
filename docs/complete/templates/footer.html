@@ -1,0 +1,98 @@
+</div>
+
+<div class="ui-layout-north">
+	<div id="headerImg">
+		<h1>Mumbaionline.org.in</h1>
+	</div>
+	<div id="topNav">
+		Logged in as <b>{$smarty.cookies.name}!!</b> | <a href="index.php?p=main">Home</a> | <a href="index.php?p=profile_view/tabs" onclick="openGetUrl('index.php', '#centerDv', 'p=profile_view/tabs&AJAX=1'); return false;">Profile</a> | <a href="#">Scrapbook</a> | <a href="#">Friends</a> | <a href="index.php?action=logout">Logout</a>
+	</div>
+</div>
+
+<div class="ui-layout-south"><strong>Note: </strong>
+
+<!--<iframe name="onlineusers" id="onlineusers" frameborder="0" scrolling="no" src="index.php?p=onlineusers" height="1" width="1"></iframe> -->
+</div>
+
+<div class="ui-layout-east" id="east">More to come .....</div>
+
+<div class="ui-layout-west">
+	<div id="MainMenu" class="basic">
+
+		<a class="menu">Users</a>
+		<div class="scrolling">
+			<ul>
+				<!--<li><a href="#">Invite Friends</a></li>
+				<li><a href="#">My Friends Request</a></li>
+				<li><a href="#">My Scrapbook</a></li>
+				<li><a href="#">My Private Messages</a></li>
+				<li><a href="#">My Favourite Users</a></li>
+				<li><a href="#">My Ignored Users</a></li> -->
+				<li><a href="index.php?p=profile_edit/tabs" onclick="openGetUrl('index.php', '#centerDv', 'p=profile_edit/tabs&AJAX=1'); return false;">Edit Profile</a></li>
+				<li><b>Browse Users</b>
+					<ul>
+						<li><a href="index.php?p=users/browse&action=all" onclick="openGetUrl('index.php', '#east', 'p=users/browse&action=all&AJAX=1'); return false;">All Users</a></li>
+						<!--<li><a href="#">Online Users</a></li>
+						<li><a href="#">By Last Login</a></li>
+						<li><a href="#">By Location</a></li>
+						<li><a href="#">By Gender</a></li>	
+						<li><a href="#">By Sexual Orientation</a></li>	
+						<li><a href="#">By Age</a></li>	
+						<li><a href="#">By Interest</a></li>
+						<li><a href="#">By Marital Status</a></li>
+						<li><a href="#">By Profession</a></li>
+						<li><a href="#">By Education</a></li>
+						<li><a href="#">By School</a></li>
+						<li><a href="#">By College</a></li>
+						<li><a href="#">By Company</a></li>
+						<li><a href="#">By Religion</a></li>
+						<li><a href="#">By Career Skills</a></li> -->
+					</ul>	
+				</li>
+				<!--<li><b>Search Users</b>
+					<ul>
+						<li><a href="#">Basic Search</a></li>
+						<li><a href="#">Advance Search</a></li>
+						<li><a href="#">By Location</a></li>
+						<li><a href="#">By Gender</a></li>	
+						<li><a href="#">By Sexual Orientation</a></li>	
+						<li><a href="#">By Age</a></li>	
+						<li><a href="#">By Interest</a></li>
+						<li><a href="#">By Marital Status</a></li>
+						<li><a href="#">By Profession</a></li>
+						<li><a href="#">By Education</a></li>
+						<li><a href="#">By School</a></li>
+						<li><a href="#">By College</a></li>
+						<li><a href="#">By Company</a></li>
+						<li><a href="#">By Religion</a></li>
+						<li><a href="#">By Career Skills</a></li>
+					</ul>
+				</li> -->
+			</ul>
+		</div>
+		<!--<a class="menu">Entertainment World</a>
+		<div class="scrolling">
+			<p>Coming soon...</p>
+		</div>
+		<a class="menu">Business & Products</a>
+		<div class="scrolling">
+			<p>Coming soon...</p>
+		</div>
+		<a class="menu">Advertisements</a>
+		<div class="scrolling">
+			<p>Coming soon...</p>
+		</div>
+		<a class="menu">Auctions</a>
+		<div class="scrolling">
+			<p>Coming soon...</p>
+		</div> -->
+		<a class="menu">Utilities</a>
+		<div class="scrolling">
+			<ul>
+				<li><a href="index.php?p=cashgift/index" onclick="openGetUrl('index.php', '#centerDv', 'p=cashgift/index&AJAX=1'); return false;">Send/Receive Cash Gift</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>
