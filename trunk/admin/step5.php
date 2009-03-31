@@ -1,4 +1,9 @@
-<?php require_once('../Connections/conn.php'); ?><?php
+<?php require_once('../Connections/conn.php'); ?>
+<?php
+ini_set('memory_limit','500M');
+ini_set('max_execution_time','-1'); 
+?>
+<?php
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
   $theValue = (!get_magic_quotes_gpc()) ? addslashes($theValue) : $theValue;
@@ -75,7 +80,114 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		echo "<p>FTP Login Failed</p>";
 	}
 	flush();
-	
+	if($done == 1) {
+		if(!$row_rsKeyword['ftpdir']) $d=ftp_pwd($ftp); else $d = $row_rsKeyword['ftpdir'];	
+		if ($d=="/") $d="";	
+		echo "Path is ".$d."<br>";	
+		if (!@ftp_chdir($ftp,$d)) {
+			echo "<p>Can't enter that folder!</p>"; 
+		} else {
+			require_once("RecursiveSearch.php");
+			$directory = "../".$dirs;
+			$search = new RecursiveSearch($directory);
+			echo "<pre>";
+			//print_r($search);
+			
+			foreach($search->folders as $folder) {
+				if(eregi(".svn", $folder)) {
+					continue;
+				}				
+				if(eregi("_mmServerScripts", $folder)) {
+					continue;
+				}
+				static $j=0;$j++;
+				echo $j.". ";
+				echo $folder."<br>";
+				$explodefolder = explode("/", $folder);
+				if($explodefolder) {
+					$newDir = $d."/";
+					foreach($explodefolder as $direc) {
+						echo "Directory is ".$direc;
+						echo "<br>";
+						$newDir .= $direc."/";
+						if(@ftp_mkdir($ftp, $newDir)) {
+							echo "created successfully<br>";
+						} else {
+							echo "already created<br>";
+						}
+						if($direc=="templates_c") {
+							if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+								echo "$newDir chmoded successfully to 777<br>";
+							} else {
+								echo "could not chmod $newDir<br>";
+							}
+						}
+						if($direc=="ADODB_cache") {
+							if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+								echo "$newDir chmoded successfully to 777<br>";
+							} else {
+								echo "could not chmod $newDir<br>";
+							}
+						}
+						if($direc=="cache") {
+							if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+								echo "$newDir chmoded successfully to 777<br>";
+							} else {
+								echo "could not chmod $newDir<br>";
+							}
+						}
+						echo "<br>";
+						flush();
+					}
+				}
+			}
+			
+			foreach($search->files as $file) {	
+				if(!@ftp_chdir($ftp, $d)) {
+					echo "<p>Can't enter that folder! ($d)</p>"; 
+					exit;
+				}
+				$file = str_replace("..//", "", $file);
+				if(eregi(".svn", $file)) {
+					continue;
+				}
+				if(eregi("_mmServerScripts", $file)) {
+					continue;
+				}
+				static $i=0;$i++;
+				echo $i.". ";
+				echo $file."<br>";
+				$basename = basename($file);
+				$tmpDir = explode("/", $file);
+				if($tmpDir) {
+					$str = '';
+					for($k=0;$k<(count($tmpDir)-1);$k++) {
+						$str .= $tmpDir[$k]."/";
+					}
+					if($str) {
+						if(!@ftp_chdir($ftp, $str)) {
+							echo "<p>Can't enter that folder! ($str)</p>"; 
+							exit;
+						}
+					}
+					$s1 = filesize("../".$file);
+					$s2 = ftp_size($ftp, $basename);
+					echo $s1."/".$s2." (".$file.")";
+					echo "<br>";
+					if($s1!=$s2) {
+						if(!@ftp_put($ftp, $basename, "../".$file, FTP_BINARY)) { 
+							echo $error = "<font color=#ff0000><strong>FTP upload error for $file</strong></font><br>"; 
+						} else {
+							echo "$file uploaded succcessfully<br>";
+						}
+					}
+				}
+				echo "<br>";
+				flush();
+			}
+			echo "</pre>";
+		}
+	}
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

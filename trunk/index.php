@@ -48,12 +48,9 @@ $ADODB_CACHE_DIR = 'ADODB_cache';
 //$dbFrameWork = &ADONewConnection('mysql');  # create a connection 
 //$dbFrameWork->Connect('remote-mysql3.servage.net','framework2008','framework2008','framework2008');# connect to MySQL, framework db
 try { 
+	include_once('Connections/conn.php');
 	$dbFrameWork = &ADONewConnection('mysql');  # create a connection 
-	if($_SERVER['HTTP_HOST']=="localhost") {
-		$dbFrameWork->Connect('localhost','user','password','minisite');# connect to MySQL, framework db
-	} else {
-		$dbFrameWork->Connect('','','','');# connect to MySQL, framework db
-	}
+	$dbFrameWork->Connect($hostname_conn,$username_conn,$password_conn,$database_conn);# connect to MySQL, framework db
 } catch (exception $e) { 
 	ob_end_clean();
 	echo 'Loading in 5 seconds. If page does not refresh in 5 seconds, please refresh manually.<meta http-equiv="refresh" content="5">';
