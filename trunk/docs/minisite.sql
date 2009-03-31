@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 30, 2009 at 04:39 AM
+-- Generation Time: Mar 31, 2009 at 06:46 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `created` datetime DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`blog_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `blog`
@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS `blog` (
 
 INSERT INTO `blog` (`blog_id`, `id`, `user_id`, `title`, `description`, `created`, `status`) VALUES
 (1, 1, 1, 'My Great India', 'i am indian and born in india. so come enjoy me. that is the spirit.', '2009-03-30 03:40:41', 1),
-(2, 1, 1, 'great maharashtra', 'great maharashtra is here . so come and enjoy it, thanks for adding by.', '2009-03-30 04:02:23', 1);
+(2, 1, 1, 'great maharashtra', 'great maharashtra is here . so come and enjoy it, thanks for adding by.', '2009-03-30 04:02:23', 1),
+(3, 2, 1, 'testtest', 'testest testest testest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testest', '2009-03-30 17:16:53', 1),
+(4, 3, 1, 'dd', 'ddd dddddddd ddd\r\nddd\r\nddddddddddddddddddddddddd\r\nDddddddddd ddddddddddddddddddddd ddddddddd ddddddddddd', '2009-03-30 17:29:13', 1);
 
 -- --------------------------------------------------------
 
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `blog_categories` (
   `category` varchar(200) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `blog_categories`
@@ -68,7 +70,9 @@ INSERT INTO `blog_categories` (`category_id`, `id`, `category`, `parent_id`) VAL
 (3, 1, 'Maharashtra', 1),
 (4, 1, 'Gujarat', 1),
 (5, 1, 'Pune', 3),
-(6, 1, 'Mumbai', 3);
+(6, 1, 'Mumbai', 3),
+(7, 2, 'test', 0),
+(8, 2, 'test1', 0);
 
 -- --------------------------------------------------------
 
@@ -78,6 +82,7 @@ INSERT INTO `blog_categories` (`category_id`, `id`, `category`, `parent_id`) VAL
 
 CREATE TABLE IF NOT EXISTS `blog_cat_rel` (
   `blog_id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`blog_id`,`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -86,9 +91,10 @@ CREATE TABLE IF NOT EXISTS `blog_cat_rel` (
 -- Dumping data for table `blog_cat_rel`
 --
 
-INSERT INTO `blog_cat_rel` (`blog_id`, `category_id`) VALUES
-(1, 1),
-(2, 3);
+INSERT INTO `blog_cat_rel` (`blog_id`, `id`, `category_id`) VALUES
+(1, 0, 1),
+(2, 0, 3),
+(3, 0, 7);
 
 -- --------------------------------------------------------
 
@@ -105,12 +111,29 @@ CREATE TABLE IF NOT EXISTS `blog_comments` (
   `comment_date` datetime DEFAULT NULL,
   `cstatus` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `blog_comments`
 --
 
+INSERT INTO `blog_comments` (`comment_id`, `id`, `blog_id`, `commentor`, `comments`, `comment_date`, `cstatus`) VALUES
+(1, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:10:31', 1),
+(2, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:13:15', 1),
+(3, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:14:15', 1),
+(4, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:15:19', 1),
+(5, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:15:19', 1),
+(6, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:15:52', 1),
+(7, 1, 2, 1, 'dddmanish aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:19:59', 1),
+(8, 2, 3, 1, 'sssssssss sssssssssssssss sssssssssssssssssssssssssssssssss', '2009-03-30 17:17:03', 1),
+(9, 2, 3, 1, 'axxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxccccccccccccc cx', '2009-03-30 17:17:13', 1),
+(10, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss\r\n', '2009-03-30 17:20:04', 1),
+(11, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:20:23', 1),
+(12, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:39', 1),
+(13, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:41', 1),
+(14, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:42', 1),
+(15, 3, 4, 1, 'dddddddddd ddddddddddddddddddd ddddddddd ddddddddd ddddddddddddddd', '2009-03-30 17:29:32', 1),
+(16, 3, 4, 1, 'ee\r\ne\r\ne\r\ne\r\ne\r\n\r\ne\r\neeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee', '2009-03-30 18:23:59', 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +156,9 @@ INSERT INTO `blog_tags` (`blog_id`, `id`, `tag_id`) VALUES
 (1, 1, 1),
 (1, 1, 2),
 (2, 1, 1),
-(2, 1, 3);
+(2, 1, 3),
+(3, 2, 2),
+(4, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -250,6 +275,16 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
   `template` text,
   `css` text,
   `js` text,
+  `sitename` varchar(200) DEFAULT NULL,
+  `siteemail` varchar(150) DEFAULT NULL,
+  `ftphost` varchar(255) DEFAULT NULL,
+  `ftpuser` varchar(255) DEFAULT NULL,
+  `ftppassword` varchar(255) DEFAULT NULL,
+  `ftpdir` varchar(255) DEFAULT NULL,
+  `dbhost` varchar(255) DEFAULT NULL,
+  `db` varchar(255) DEFAULT NULL,
+  `dbuser` varchar(255) DEFAULT NULL,
+  `dbpassword` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -257,11 +292,11 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
 -- Dumping data for table `prebuilt_1`
 --
 
-INSERT INTO `prebuilt_1` (`id`, `keyword`, `template`, `css`, `js`) VALUES
-(1, 'Mumbai', 'Mumbai header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL),
-(2, 'Mulund', 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL),
-(3, 'Bhandup', 'Bhandup header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL),
-(4, 'Tomato', NULL, NULL, NULL);
+INSERT INTO `prebuilt_1` (`id`, `keyword`, `template`, `css`, `js`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`) VALUES
+(1, 'Mumbai', 'Mumbai header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, 'Mumbai', 'mumbai@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123'),
+(2, 'Mulund', 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Bhandup', 'Bhandup header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'Tomato', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -281,7 +316,6 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 
 INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`) VALUES
 (1, 1),
-(1, 5),
 (2, 1),
 (3, 1),
 (4, 5);
@@ -303,9 +337,9 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 --
 
 INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
-(1, 1),
-(1, 2),
 (1, 5),
+(1, 7),
+(1, 8),
 (2, 4),
 (3, 3),
 (4, 2);
@@ -348,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts_settings` (
   `comments` text,
   `inputtype` enum('radio','checkbox') DEFAULT NULL,
   PRIMARY KEY (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `prebuilt_concepts_settings`
@@ -359,7 +393,9 @@ INSERT INTO `prebuilt_concepts_settings` (`setting_id`, `concept_id`, `setting_l
 (2, 5, 'Google News', 'http://news.google.com/news?pz=1&ned=us&hl=en&q=[[KEYWORD]]&output=rss', 'checkbox'),
 (3, 1, 'No Category', NULL, 'radio'),
 (4, 1, 'Single Level Category', NULL, 'radio'),
-(5, 1, 'Multilevel Category', NULL, 'radio');
+(5, 1, 'Multilevel Category', NULL, 'radio'),
+(7, 1, 'Logged In Users can only Post', NULL, 'checkbox'),
+(8, 1, 'Logged In Users can only Comment', NULL, 'checkbox');
 
 -- --------------------------------------------------------
 
@@ -371,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tagname` varchar(100) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tags`
@@ -380,7 +416,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
 INSERT INTO `tags` (`tag_id`, `tagname`) VALUES
 (1, 'great india'),
 (2, 'test'),
-(3, 'great maharashtra');
+(3, 'great maharashtra'),
+(4, 'dd');
 
 -- --------------------------------------------------------
 
