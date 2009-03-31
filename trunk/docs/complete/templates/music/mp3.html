@@ -1,0 +1,33 @@
+<script type="text/javascript" src="{$HTTPPATH}/js/jmp3/jquery.jmp3.js"></script>
+
+<span id="sound" class="mp3">sound.mp3</span>
+<span id="sounddl" class="mp3">sound.mp3</span>
+<span id="external" class="mp3">yourepitiful.mp3</span>
+<span id="broken" class="mp3">broken.mp4</span>
+{literal}
+<script type="text/javascript">
+
+			//jMP3 init
+			$("#sound").jmp3({
+				filepath: "http://localhost/tridevlocal/includes/smp/"
+				});
+			$("#sounddl").jmp3({
+				filepath: "http://localhost/tridevlocal/includes/smp/",
+				showfilename: "false",
+				backcolor: "000000",
+				forecolor: "00ff00",
+				width: 150,
+				showdownload: "true"
+			});
+			$("#external").jmp3({
+				filepath: "http://www.thelostplanet.net/WeirdAl/",
+				backcolor: "ffd700",
+				forecolor: "8B4513",
+				width: 300,
+				showdownload: "false"
+			});
+			$("#broken").jmp3({
+				filepath: "http://localhost/tridevlocal/includes/smp/"});  // it's a bah-roken
+
+</script>
+{/literal}

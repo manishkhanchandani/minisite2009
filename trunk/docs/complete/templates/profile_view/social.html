@@ -1,0 +1,129 @@
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <th align="right" valign="top">Children:</th>
+      <td valign="top">{if $edit.profile1.0.children=="0"}no answer{/if}
+        {if $edit.profile1.0.children=="1"}no{/if}
+        {if $edit.profile1.0.children=="2"}yes - at home full time{/if}
+        {if $edit.profile1.0.children=="3"}yes - at home part time{/if}
+        {if $edit.profile1.0.children=="4"}yes - not at home{/if}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Religion:</th>
+      <td valign="top">{if $edit.profile1.0.religion=="0"}no answer{/if}
+		{if $edit.profile1.0.religion=="1"}Agnostic{/if}
+		{if $edit.profile1.0.religion=="2"}Atheist{/if}
+		{if $edit.profile1.0.religion=="16"}Baha'i{/if}
+		{if $edit.profile1.0.religion=="3"}Buddhist{/if}
+		{if $edit.profile1.0.religion=="19"}Cao Dai{/if}
+		{if $edit.profile1.0.religion=="26"}Christian/Anglican{/if}
+		{if $edit.profile1.0.religion=="4"}Christian/Catholic{/if}
+		{if $edit.profile1.0.religion=="5"}Christian/LDS{/if}
+		{if $edit.profile1.0.religion=="27"}Christian/Orthodox{/if}
+		{if $edit.profile1.0.religion=="7"}Christian/Other{/if}
+		{if $edit.profile1.0.religion=="6"}Christian/Protestant{/if}
+		{if $edit.profile1.0.religion=="8"}Hindu{/if}
+		{if $edit.profile1.0.religion=="17"}Jain{/if}
+		{if $edit.profile1.0.religion=="9"}Jewish{/if}
+		{if $edit.profile1.0.religion=="10"}Muslim{/if}
+		{if $edit.profile1.0.religion=="21"}Neo-Paganist{/if}
+		{if $edit.profile1.0.religion=="23"}Rastafarian{/if}
+		{if $edit.profile1.0.religion=="12"}Religious humanism{/if}
+		{if $edit.profile1.0.religion=="24"}Scientologist{/if}
+		{if $edit.profile1.0.religion=="18"}Shinto{/if}
+		{if $edit.profile1.0.religion=="15"}Sikh{/if}
+		{if $edit.profile1.0.religion=="11"}Spiritual but not religious{/if}
+		{if $edit.profile1.0.religion=="25"}Taoist{/if}
+		{if $edit.profile1.0.religion=="20"}Tenrikyo{/if}
+		{if $edit.profile1.0.religion=="22"}Unitarian Universalist{/if}
+		{if $edit.profile1.0.religion=="14"}Zoroastrian{/if}
+		{if $edit.profile1.0.religion=="13"}other{/if}      </td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Sexual Orientation: </th>
+      <td valign="top">{if $edit.profile1.0.sexual_orientation=="0"}no answer{/if}
+		{if $edit.profile1.0.sexual_orientation=="1"}straight{/if}
+		{if $edit.profile1.0.sexual_orientation=="2"}gay{/if}
+		{if $edit.profile1.0.sexual_orientation=="3"}bisexual{/if}
+		{if $edit.profile1.0.sexual_orientation=="4"}bi-curious{/if}      </td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Smoking:</th>
+      <td valign="top">{if $edit.profile1.0.smoking=="0"}no answer{/if}
+		{if $edit.profile1.0.smoking=="1"}no{/if}
+		{if $edit.profile1.0.smoking=="2"}socially{/if}
+		{if $edit.profile1.0.smoking=="3"}occasionally{/if}
+		{if $edit.profile1.0.smoking=="4"}regularly{/if}
+		{if $edit.profile1.0.smoking=="5"}heavily{/if}
+		{if $edit.profile1.0.smoking=="6"}trying to quit{/if}
+		{if $edit.profile1.0.smoking=="7"}quit{/if}	  </td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Drinking:</th>
+      <td valign="top">{if $edit.profile1.0.drinking=="0"}selected{/if}no answer
+			{if $edit.profile1.0.drinking=="1"}no{/if}
+			{if $edit.profile1.0.drinking=="2"}socially{/if}
+			{if $edit.profile1.0.drinking=="3"}occasionally{/if}
+			{if $edit.profile1.0.drinking=="4"}regularly{/if}
+			{if $edit.profile1.0.drinking=="5"}heavily{/if}      </td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Pets:</th>
+      <td valign="top">{if $edit.profile1.0.pets=="0"}no answer{/if}
+					{if $edit.profile1.0.pets=="1"}i love my pet(s){/if}
+					{if $edit.profile1.0.pets=="2"}i like them at the zoos{/if}
+					{if $edit.profile1.0.pets=="3"}i like pet(s){/if}
+					{if $edit.profile1.0.pets=="4"}i don't like pets{/if}	  </td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Living:</th>
+      <td valign="top">{if $edit.profile1.0.living=="1"}alone{/if}
+        {if $edit.profile1.0.living=="2"}with partner{/if}
+        {if $edit.profile1.0.living=="3"}with kid(s){/if}
+        {if $edit.profile1.0.living=="4"}friends visit often{/if}
+        {if $edit.profile1.0.living=="5"}with roommate(s){/if}
+        {if $edit.profile1.0.living=="6"}with pet(s){/if}
+        {if $edit.profile1.0.living=="7"}with parents{/if}
+        {if $edit.profile1.0.living=="8"}party every night{/if}      </td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Hometown:</th>
+      <td valign="top">{$edit.profile2.0.hometown}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Webpage:</th>
+      <td valign="top">{$edit.profile2.0.webpage}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">About Me: </th>
+      <td valign="top">{$edit.profile2.0.aboutme}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">My Family: </th>
+      <td valign="top">{$edit.profile2.0.myfamily}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Sports: </th>
+      <td valign="top">{$edit.profile2.0.sports}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Activities:</th>
+      <td valign="top">{$edit.profile2.0.activities}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Books:</th>
+      <td valign="top">{$edit.profile2.0.books}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Music:</th>
+      <td valign="top">{$edit.profile2.0.music}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Tv Shows: </th>
+      <td valign="top">{$edit.profile2.0.tvshows}&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="right" valign="top">Movies:</th>
+      <td valign="top">{$edit.profile2.0.movies}&nbsp;</td>
+    </tr>
+    <tr>
+  </table>

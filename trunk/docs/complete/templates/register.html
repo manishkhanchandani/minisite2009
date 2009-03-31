@@ -1,0 +1,54 @@
+<div id="header">
+			<h1>Mumbaionline.org.in :: Register</h1>
+		</div>
+
+		<div id="content">
+			<p id="status"></p>
+			<form action="" method="post" id="register" name="register">
+				<fieldset>
+					<legend>User details</legend>
+					{if $errorMessage != ""}
+						<div class="errorMessage">{$errorMessage}</div>
+					{/if}
+					{if $msg != ""}
+						<div class="errorMessage">{$msg}</div>
+					{/if}
+					<ul>
+						<li>
+							<label for="email"><span class="required">Email address</span></label>
+
+							<input id="email" name="email" type="text" />
+						</li>
+						
+						<li>
+							<label for="password"><span class="required">Password</span></label>
+							<input name="password" type="password" id="password" />
+						</li>
+						
+						<li>
+							<label for="password"><span class="required">Confirm Password</span></label>
+							<input name="confirm_password" type="password" id="confirm_password" />
+						</li>
+						<li>
+							<label for="name"><span class="required">Name</span></label>
+							<input id="name" name="name" type="text" />
+						</li>
+
+						<li>
+							<label for="agree">Please agree to our policy</label>
+							<input type="checkbox" id="agree" name="agree" />
+						</li>
+					</ul>
+				</fieldset>
+				
+				<fieldset class="submit">
+					<input type="submit" class="button" value="Register Me!" />
+				    <input name="MM_Type" type="hidden" id="MM_Type" value="register" />
+				</fieldset>
+
+				
+				<div class="clear"></div>
+			</form>
+				<div align="center"><a href="index.php">Login</a> | <a href="index.php?action=forgot">Forgot Password</a></div>
+			
+</div>

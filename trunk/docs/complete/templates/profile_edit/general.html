@@ -1,0 +1,121 @@
+{literal}
+<script language="javascript">
+$(function() { 
+	$('.error').hide();  
+	$(".clickButton").click(function() {  
+	 	// validate and process form here  
+		$('.error').hide(); 
+		var name = $("input#name").val();  
+		if (name == "") {  
+			$("label#name_error").show();  
+			$("input#name").focus();  
+			return false;  
+		}  
+		var dataString = getFormElements(document.myForm);
+		$.ajax({  
+			type: "POST",  
+			url: "index.php?p=profile_edit/tabs",  
+			data: dataString,  
+			success: function(retData) {
+				$('#displayMessageGeneral').html("<span class='errorMessage'>Form Submitted.</span>") 
+				.hide()  
+				.fadeIn(1500, function() {  
+					$('#displayMessageGeneral').append(" <span class='errorMessage'>"+retData+"</span>");  
+				});  
+			}  
+		});  
+		return false;  
+	});  
+});
+</script>
+{/literal}
+<form name="myForm" method="post" action="" id="myForm">
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <td align="right" valign="top">Name:</td>
+      <td valign="top"><input name="name" type="text" id="name" size="35" value="{$edit.users.0.name}">
+	  <br />
+	  <label class="error" for="name" id="name_error" style="display:none;">This field is required.</label>	  </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Gender:</td>
+      <td valign="top"><input name="gender" type="radio" value="Male" {if $edit.profile1.0.gender == 'Male'}checked{/if}>
+        Male
+          <br>
+          <input name="gender" type="radio" value="Female" {if $edit.profile1.0.gender == 'Female'}checked{/if}> 
+          Female 
+          <br>
+          <input name="gender" type="radio" value="Couple" {if $edit.profile1.0.gender == 'Couple'}checked{/if}>
+          Couple      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Relationship Status: </td>
+      <td valign="top"><select name="marital_status" id="marital_status">
+	  <option value="1" {if $edit.profile1.0.marital_status == '1'}selected{/if}>Single</option>
+	  <option value="2" {if $edit.profile1.0.marital_status == '2'}selected{/if}>Seperated</option>
+	  <option value="3" {if $edit.profile1.0.marital_status == '3'}selected{/if}>Divorced</option>
+	  <option value="4" {if $edit.profile1.0.marital_status == '4'}selected{/if}>Widowed</option>
+	  <option value="5" {if $edit.profile1.0.marital_status == '5'}selected{/if}>Married</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Birth Date: </td>
+      <td valign="top">{html_select_date prefix="b" time=$bdate start_year="-100" end_year="+0"}&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">City:</td>
+      <td><input name="city" type="text" id="city" size="12" maxlength="200" value="{$edit.city.0.city}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">State/ Province:</td>
+      <td><input name="province" type="text" id="province" size="20" maxlength="200" value="{$edit.province.0.province}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Zipcode/ Pincode: </td>
+      <td><input name="zipcode" type="text" id="zipcode" size="10" maxlength="10" value="{$edit.zipcode.0.zipcode}" /></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Country:</td>
+      <td valign="top"><select name="country_id" id="country_id">
+	  	{html_options options=$country_options selected=$countryId}
+      </select></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">High School: </td>
+      <td valign="top"><input name="highschool" type="text" id="highschool" value="{$edit.profile2.0.highschool}" maxlength="255"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">College/ University: </td>
+      <td valign="top"><input name="college" type="text" id="college" value="{$edit.profile2.0.college}" maxlength="255"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Company/ Organization: </td>
+      <td valign="top"><input name="company" type="text" id="company" value="{$edit.profile2.0.company}"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Interested In: </td>
+      <td valign="top"><input name="friends" type="checkbox" id="friends" value="1" {if $edit.profile1.0.friends=="1"}checked{/if}>
+        friends<br>
+        <input name="activity_partners" type="checkbox" id="activity_partners" value="1" {if $edit.profile1.0.activity_partners=="1"}checked{/if}>
+        activity partners<br>
+        <input name="business_networking" type="checkbox" id="business_networking" value="1" {if $edit.profile1.0.business_networking=="1"}checked{/if}>
+business networking<br>
+<input name="dating" type="checkbox" id="dating" value="1" {if $edit.profile1.0.dating=="1"}checked{/if}> 
+dating
+<select name="dating_type" id="dating_type">
+  <option value="1" {if $edit.profile1.0.dating_type=="1"}selected{/if}>men and woman</option>
+  <option value="2" {if $edit.profile1.0.dating_type=="2"}selected{/if}>men</option>
+  <option value="3" {if $edit.profile1.0.dating_type=="3"}selected{/if}>woman</option>
+</select>
+<br>
+        <br></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">&nbsp;</td>
+      <td valign="top">	  
+		<div id="displayMessageGeneral"></div>
+	  	<input type="button" name="Button" value="Update" class="clickButton">
+	  	<input type="hidden" name="MM_Insert" value="general" /></td>
+    </tr>
+  </table>
+</form>

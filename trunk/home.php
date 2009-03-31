@@ -62,7 +62,7 @@
 							$uid = $Common->phpinsert('blog', 'blog_id', $_POST);							
 							// inserting categories
 							if($result['settings'][0]['setting_id'] == 4){
-								$sql = "insert into blog_cat_rel (blog_id, category_id) VALUES ('".$uid."', '".$_POST['category_id']."')";
+								$sql = "insert into blog_cat_rel (blog_id, id, category_id) VALUES ('".$uid."', '".$ID."', '".$_POST['category_id']."')";
 								$mod_Blog->insertCategory($sql);	
 							}
 							if($result['settings'][0]['setting_id']==5){

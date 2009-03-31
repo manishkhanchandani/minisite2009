@@ -1,0 +1,22 @@
+<form action="index.php?p=profile_edit/tabs" method="post" enctype="multipart/form-data" name="myphotoform" id="myphotoform" target="mypic">
+<div id="displayMessage"><iframe height="35" frameborder="0" name="mypic" id="mypic" scrolling="no" src=""></iframe></div>
+  <table border="0" cellspacing="1" cellpadding="5">
+    <tr>
+      <td>Image:</td>
+      <td><input name="image" type="file" id="image" /></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Button" value="Update" />
+      <input type="hidden" name="MM_Insert" value="photo" /></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>{if $edit.profile2.0.image != ""}
+	  		<img src="{$edit.profile2.0.image}" />
+			<br />
+			<a href="index.php?p=profile_edit/tabs&action=remove" target="mypic">Remove</a>
+			{/if}&nbsp;</td>
+    </tr>
+  </table>
+</form>
