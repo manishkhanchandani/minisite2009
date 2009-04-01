@@ -5,10 +5,6 @@ ini_set('max_execution_time','-1');
 ob_start();
 session_start();
 
-if($_SERVER['HTTP_HOST']=="localhost") {
-	if(!$_SESSION['user_id']) $_SESSION['user_id'] = 1; // remove this later on
-}
-
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
 header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
 header("Cache-Control: no-cache, must-revalidate" );
@@ -37,7 +33,11 @@ $smarty->assign('DOCPATH', DOCPATH);
 $smarty->assign('PAGETITLE', $PAGETITLE);
 
 $ID = $_GET['ID'];
-if(!$ID) $ID = 2;
+if(!$ID) {
+	echo 'No Keyword Selected';
+	exit;
+}
+define('ID', $ID);
 $smarty->assign('ID', $ID);
 
 // adodb connection
