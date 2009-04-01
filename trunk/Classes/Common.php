@@ -243,7 +243,7 @@ class Common {
 	public function getConceptSettings($concept, $ID) {		
 		$sql = "select * from prebuilt_1 WHERE id = '".$ID."'";
 		$result['keyword'] = $this->selectCacheRecord($sql);
-		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and b.concept = '".$concept."'";
+		$sql = "select * from prebuilt_2_concepts as a LEFT JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and b.concept = '".$concept."'";
 		$result['concepts'] = $this->selectCacheRecord($sql);
 		$conceptsId = 0;
 		if($result['concepts']){
@@ -252,7 +252,7 @@ class Common {
 			}
 			$conceptsId = implode(",", $conceptsIdArr);
 		}
-		$sql = "select * from prebuilt_3_settings as a INNER JOIN prebuilt_concepts_settings as b ON a.setting_id = b.setting_id WHERE a.id = '".$ID."' and b.concept_id IN (".$conceptsId.")";		
+		$sql = "select * from prebuilt_3_settings as a LEFT JOIN prebuilt_concepts_settings as b ON a.setting_id = b.setting_id WHERE a.id = '".$ID."' and b.concept_id IN (".$conceptsId.")";		
 		$result['settings'] = $this->selectCacheRecord($sql);
 		return $result;
 	}
