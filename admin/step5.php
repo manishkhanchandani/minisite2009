@@ -2,6 +2,7 @@
 <?php
 ini_set('memory_limit','500M');
 ini_set('max_execution_time','-1'); 
+include ('Archive/Zip.php');        // imports
 ?>
 <?php
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -66,10 +67,14 @@ $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
 ?>
 <?php
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
+	$obj = new Archive_Zip('../'.$row_rsKeyword['id'].'.zip'); // name of zip file
+	echo 'creating db tables<br>';
 	$data = '<?php
 include("../Connections/conn.php");
 
 ';
+$qRy[] = "CREATE DATABASE IF NOT EXISTS `".$row_rsKeyword['db']."`";
+$qRy[] = "USE `".$row_rsKeyword['db']."`";
 	$sql = "SHOW TABLES FROM ".$database_conn;
 	$rst = mysql_query($sql) or die(mysql_error());
 	while ($row = mysql_fetch_row($rst)) {
@@ -79,6 +84,7 @@ include("../Connections/conn.php");
 	}
 	if($tbls) {
 		foreach($tbls as $tbl) {
+			$qRy[] = "drop table `".$tbl."`";
 			$query = "show create table `".$tbl."`";
 			mysql_select_db($database_conn, $conn) or die('could not select db');
 			$rs = mysql_query($query, $conn) or die('error'.mysql_error());
@@ -106,18 +112,17 @@ include("../Connections/conn.php");
 	}
 	foreach($qRy as $v) {
 		$data .= '$sql = "'.$v.'";
-mysql_query($sql) or die(mysql_error());
+@mysql_query($sql);
 
 ';
 	}
 	$data .= '
-header("Location: ../index.php?ID='.$row_rsKeyword['id'].'");
+header("Location: db2.php?ID='.$row_rsKeyword['id'].'");
 exit;
 ?>';
-	file_put_contents("../tmp/db.php", $data);
-	
+	file_put_contents("../db.php", $data);
+	echo "<br>";
 	include('conn_start.php');
-	
 	// check connection
 	$ftp = ftp_connect($row_rsKeyword['ftphost']);
 	if($ftp) {
@@ -147,7 +152,6 @@ exit;
 			$search = new RecursiveSearch($directory);
 			
 			//print_r($search);
-			
 			if($search->folders) {
 				foreach($search->folders as $folder) {
 					if(eregi(".svn", $folder)) {
@@ -206,12 +210,69 @@ exit;
 					}
 				}
 			}
+			echo "<br>";
+			if($search->files) {
+				foreach($search->files as $file) {		
+					$file = str_replace("..//", "../", $file);	
+					if(eregi(".svn", $file)) {
+						continue;
+					}
+					if(eregi("_mmServerScripts", $file)) {
+						continue;
+					}
+					$files[] = $file;
+				}
+			}
+			if ($obj->create($files)) {
+				echo "Uploading the files. Please wait....<br><img src='../images/loading.gif'><br>";
+				flush();
+				if(!@ftp_put($ftp, "Zip.php", "../Zip.php", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for Zip.php</strong></font><br>"; 
+				} else {
+					echo "Zip.php uploaded succcessfully<br>";
+				}
+				flush();
+				if(!@ftp_put($ftp, "unzip.php", "../unzip.php", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for unzip.php</strong></font><br>"; 
+				} else {
+					echo "unzip.php uploaded succcessfully<br>";
+				}
+				flush();
+				if(!@ftp_put($ftp, "db.php", "../db.php", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for db.php</strong></font><br>"; 
+				} else {
+					echo "db.php uploaded succcessfully<br>";
+				}
+				flush();
+				if(!@ftp_put($ftp, "db2.php", "../db2.php", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for db2.php</strong></font><br>"; 
+				} else {
+					echo "db2.php uploaded succcessfully<br>";
+				}
+				flush();
+				if(!@ftp_put($ftp, "index.php", "../index.php", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for index.php</strong></font><br>"; 
+				} else {
+					echo "index.php uploaded succcessfully<br>";
+				}
+				flush();
+				if(!@ftp_put($ftp, $row_rsKeyword['id'].".zip", "../".$row_rsKeyword['id'].".zip", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for ".$row_rsKeyword['id'].".zip</strong></font><br>"; 
+				} else {
+					echo $row_rsKeyword['id'].".zip uploaded succcessfully<br>";
+				}
+				flush();
+			} else {
+				echo 'Error in file creation';
+			}
+			
+			/*
 			echo "<hr>";
 			if($search->files) {
 				foreach($search->files as $file) {	
 					if(!@ftp_chdir($ftp, $d)) {
-						//echo "<p>Can't enter that folder! ($d)</p>"; 
-						//exit;
+						echo "<p>Can't enter that folder! ($d)</p>"; 
+						exit;
 					}
 					$file = str_replace("..//", "", $file);
 					if(eregi(".svn", $file)) {
@@ -220,9 +281,9 @@ exit;
 					if(eregi("_mmServerScripts", $file)) {
 						continue;
 					}
-					//static $i=0;$i++;
-					//echo $i.". ";
-					//echo $file."<br>";
+					static $i=0;$i++;
+					echo $i.". ";
+					echo $file."<br>";
 					$basename = basename($file);
 					$tmpDir = explode("/", $file);
 					if($tmpDir) {
@@ -232,19 +293,19 @@ exit;
 						}
 						if($str) {
 							if(!@ftp_chdir($ftp, $str)) {
-								//echo "<p>Can't enter that folder! ($str)</p>"; 
-								//exit;
+								echo "<p>Can't enter that folder! ($str)</p>"; 
+								exit;
 							}
 						}
 						$s1 = filesize("../".$file);
 						$s2 = ftp_size($ftp, $basename);
-						//echo $s1."/".$s2." (".$file.")";
-						//echo "<br>";
+						echo $s1."/".$s2." (".$file.")";
+						echo "<br>";
 						if($s1!=$s2) {
 							if(!@ftp_put($ftp, $basename, "../".$file, FTP_BINARY)) { 
-								//echo $error = "<font color=#ff0000><strong>FTP upload error for $file</strong></font><br>"; 
+								echo $error = "<font color=#ff0000><strong>FTP upload error for $file</strong></font><br>"; 
 							} else {
-								//echo "$file uploaded succcessfully<br>";
+								echo "$file uploaded succcessfully<br>";
 							}
 						}
 					}
@@ -254,10 +315,11 @@ exit;
 					flush();
 				}
 			}
+			*/
 		}
 		include('conn_end.php');
 		echo '<script language="javascript">
-			location.href="'.$row_rsKeyword['siteurl'].'/tmp/db.php";
+			location.href="'.$row_rsKeyword['siteurl'].'/unzip.php?ID='.$row_rsKeyword['id'].'";
 		</script>'; 
 		exit;
 	}	
