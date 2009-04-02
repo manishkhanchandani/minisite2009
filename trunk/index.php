@@ -94,13 +94,13 @@ if(!$body) $body = "Content Will be Displayed Here.";
 if(!$PAGEHEADING) $PAGEHEADING = "Welcome to ".SITENAME;
 $smarty->assign('PAGEHEADING', $PAGEHEADING);
 
-$pattern = array("[[SITENAME]]", "[[PAGEHEADING]]", "[[NEWS]]", "[[BLOG]]");
-$replace   = array(SITENAME, $PAGEHEADING, HTTPPATH."/index.php?action=news&ID=".$ID, HTTPPATH."/index.php?action=blog&ID=".$ID);
-
-$head = @file_get_contents("includes/sitetemplate/".$ID."_head.php");
-$head = str_replace($pattern, $replace, $head);
-$foot = @file_get_contents("includes/sitetemplate/".$ID."_foot.php");
-$foot = str_replace($pattern, $replace, $foot);
+ob_start();
+include("includes/sitetemplate/".$ID."_head.php");
+$head = ob_get_clean();
+ob_start();
+include("includes/sitetemplate/".$ID."_foot.php");
+$foot = ob_get_clean();
+ob_flush();
 $smarty->assign('HEAD', $head);
 $smarty->assign('FOOT', $foot);
 

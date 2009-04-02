@@ -1,10 +1,10 @@
-if(location.hostname=="mumbaionline.org.in"||location.hostname=="www.mumbaionline.org.in") {
+/*if(location.hostname=="mumbaionline.org.in"||location.hostname=="www.mumbaionline.org.in") {
 	var HTTPPath = "http://"+location.hostname;	
 } else if(location.hostname=="localhost") {
 	var HTTPPath = "http://"+location.hostname+"/complete";
 } else {
 	var HTTPPath = "http://"+location.hostname+"/complete";
-}
+}*/
 
 function getXmlHttpRequestObject() { 
 	if (window.XMLHttpRequest) { 
@@ -113,10 +113,11 @@ function confirmDelete(msg) {
 	else 
 		return false;
 }
-
+/*
 function openGetUrl(url, divtag, param) {
 	$(divtag).html("<img src='"+HTTPPath+"/images/loading.gif' />");
 	jQuery.get(url, param, function(data) {
 		$(divtag).html(data);
 	});	
 }
+*/
