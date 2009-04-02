@@ -2,6 +2,10 @@
 try {
 	$result = $Common->getConceptSettings('blog', $ID);				
 	$smarty->assign('result', $result);
+	if(!$result['concepts']) {	
+		unset($_GET['action']);
+		throw new Exception("Blog Concept does not exist for this id. ");
+	}
 	
 	$mod_Blog = new mod_Blog($dbFrameWork, $Common);				
 	$smarty->assign('action', $_GET['action']);				
@@ -52,6 +56,8 @@ try {
 				$success = 1;
 				$smarty->assign('success', $success);
 			}
+			// calling body
+			$body = $smarty->fetch('blog/new.html');
 			break;
 		case 'edit':
 			// defining page heading and page title
@@ -108,6 +114,8 @@ try {
 				$errorMessage = "<div class=\"error\">Comments Added Successfully. Users can view the comments in a short while.</div>";
 				$smarty->assign('errorMessage', $errorMessage);
 			}
+			// calling body
+			$body = $smarty->fetch('blog/detail.html');
 			
 			
 			break;
@@ -164,14 +172,30 @@ try {
 				$pagination = $PaginateIt->GetPageLinks_Old();
 				$smarty->assign('pagination', $pagination);
 			}
+			// calling body
+			$body = $smarty->fetch('blog/view.html');
 
 			break;
 	}
-	// calling body
-	$body = $smarty->fetch('blog.html');
 } catch (exception $e) { 
 	$errorMessage = $e->getMessage();
 	$smarty->assign('errorMessage', $errorMessage);
-	$body = $smarty->fetch('blog.html');
+	switch($_GET['action']) {
+		case 'new':
+			$body = $smarty->fetch('blog/new.html');
+			break;
+		case 'detail':
+			$body = $smarty->fetch('blog/detail.html');
+			break;
+		case 'edit':
+			$body = $smarty->fetch('blog/edit.html');
+			break;
+		case 'view':
+			$body = $smarty->fetch('blog/view.html');
+			break;
+		default:
+			$body = $smarty->fetch('errorMessage.html');
+			break;
+	}
 } 
 ?>

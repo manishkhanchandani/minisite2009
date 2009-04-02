@@ -48,11 +48,11 @@ class mod_Blog {
 			$rec = $rs->FetchRow();
 			$catId = $rec['category_id'];
 			$pid = $rec['parent_id'];
-			$category = '<a href="'.HTTPPATH.'/index.php?action='.$_GET['action'].'&section='.$_GET['section'].'&ID='.$ID.'&catId='.$catId.'">'.$rec['category'].'</a>';
+			$category = '<a href="'.HTTPPATH.'/index.php?p=blog&action=view&ID='.$ID.'&catId='.$catId.'">'.$rec['category'].'</a>';
 			array_unshift($this->catLink,$category);
 			$this->categoryParentLink($ID, $pid);	
 		} else {
-			//$this->catLinkDisplay = '<a href="'.HTTPPATH.'/index.php?action='.$_GET['action'].'&section='.$_GET['section'].'&ID='.$ID.'">Home</a> >> ';
+			//$this->catLinkDisplay = '<a href="'.HTTPPATH.'/index.php?p=blog&action=view&ID='.$ID.'">Home</a> >> ';
 			foreach($this->catLink as $value) {
 				$this->catLinkDisplay .= $value.' >> ';
 			}
@@ -88,7 +88,7 @@ class mod_Blog {
 			}
 			if ( $goOn == 1 )
 			{
-				$this->tree .= "<li class=\"lilinks\"><a href=\"".HTTPPATH."/index.php?action=blog&section=view&ID=".$ID."&catId=".$nav_row['category_id']."\" class=\"alinks\">".$nav_row['category'] . "</a></li>";				// Process the main tree node
+				$this->tree .= "<li class=\"lilinks\"><a href=\"".HTTPPATH."/index.php?p=blog&action=view&ID=".$ID."&catId=".$nav_row['category_id']."\" class=\"alinks\">".$nav_row['category'] . "</a></li>";				// Process the main tree node
 				array_push($this->exclude, $nav_row['category_id']);		// Add to the exclusion list
 				$this->tree .= $this->build_child($nav_row['category_id'], $ID);		// Start the recursive function of building the child tree
 			}
@@ -105,7 +105,7 @@ class mod_Blog {
 		{
 			if ( $child['category_id'] != $child['parent_id'] )
 			{
-				$tempTree .= "<li class=\"lilinks\"><a href=\"".HTTPPATH."/index.php?action=blog&section=view&ID=".$ID."&catId=".$child['category_id']."\" class=\"alinks\">";
+				$tempTree .= "<li class=\"lilinks\"><a href=\"".HTTPPATH."/index.php?p=blog&action=view&ID=".$ID."&catId=".$child['category_id']."\" class=\"alinks\">";
 				for ( $c=0;$c<$this->depth;$c++ )			// Indent over so that there is distinction between levels
 				{ 
 					$tempTree .= "&nbsp;&nbsp;&nbsp;&nbsp;"; 

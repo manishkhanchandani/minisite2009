@@ -1,0 +1,24 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">{$PAGEHEADING}</div>
+			<div id="contentBody5" class="contentBody">
+				{if $breadCrumb}
+					<div class="breadcrumb">{$breadCrumb}</div>
+				{/if}
+				{if $records.totalRows gt 0}
+					{foreach from=$records.record item=res}
+						<div class="title"><a href="{$HTTPPATH}/index.php?p=blog&action=detail&ID={$ID}&blog_id={$res.blog_id}" class="alinks">{$res.title|substr:0:20}</a></div>
+						<div class="created">{$res.created|date_format:"%B %e, %Y"}</div>
+						<div class="description">{$res.description|substr:0:200|nl2br}</div>
+					{/foreach}
+					<div class="pagination">{$pagination}</div>
+				{else}
+					<div>No Blog Post Found.</div>
+				{/if}
+			</div>
+		</div>	
+	</div>
+	{include file="blog/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>

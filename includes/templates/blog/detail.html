@@ -1,0 +1,44 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">{$PAGEHEADING}</div>
+			<div id="contentBody5" class="contentBody">					
+				<div class="title">{$resDetail.title}</div>
+				<div class="created">{$resDetail.created|date_format:"%B %e, %Y"}</div>
+				<div class="description">{$resDetail.description|nl2br}</div>						
+			</div>
+		</div>	
+		<div id="content6" class="contentBox">
+			<div id="contentHead6" class="contentHead">Comments On "{$resDetail.title}"</div>
+			<div id="contentBody6" class="contentBody">					
+				<div class="addcomments">
+					<form action="" name="formAddComments" method="post">
+						{$errorMessage}
+						<div>
+							<textarea name="comments" rows="3" cols="35">{$postComments}</textarea>
+						</div>
+						<div>
+							<input type="submit" name="submit" value="Add Comments" />
+							<input type="hidden" name="id" value="{$ID}" />
+							<input type="hidden" name="blog_id" value="{$smarty.get.blog_id}" />
+							<input type="hidden" name="commentor" value="{$smarty.session.user_id}" />
+							<input type="hidden" name="comment_date" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}">
+							<input type="hidden" name="MM_Insert" value="addcomment" />
+						</div>
+					</form>
+				</div>
+				<div class="viewcomments">							
+					{if $comments.totalRows gt 0}
+						{foreach from=$comments.record item=res}								
+							<div class="created"><span class="posted">Posted on </span>{$res.comment_date|date_format:"%B %e, %Y"} By <span class="posted">{$res.name}</span></div>
+							<div class="description">{$res.comments|nl2br}</div>
+						{/foreach}
+						<div class="pagination">{$pagination}</div>
+					{/if}							
+				</div>				
+			</div>
+		</div>
+	</div>
+	{include file="blog/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>

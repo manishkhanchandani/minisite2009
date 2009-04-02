@@ -1,0 +1,91 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		{if $success == 1}
+			<div id="content5" class="contentBox">
+				<div id="contentHead5" class="contentHead">Confirmation</div>
+				<div id="contentBody5" class="contentBody">
+					New Blog added successfully.
+				</div>
+			</div>
+		{else}
+			<div id="content5" class="contentBox">
+				<div id="contentHead5" class="contentHead">Add New Blog</div>
+				<div id="contentBody5" class="contentBody">
+					<form action="" method="post" name="frmNew">
+						{$errorMessage}
+						{if $categorySelBox and $result.settings.0.setting_id == 5} 
+						<div class="tr">
+							<div class="th">
+							Category: 
+							</div>
+							<div class="td">
+							  <select name="category_id[]" multiple="multiple" size="5">
+								{$categorySelBox}
+							  </select>
+							</div>
+						</div>
+						{elseif $categorySelBox and $result.settings.0.setting_id == 4} 
+						<div class="tr">
+							<div class="th">
+							Category: 
+							</div>
+							<div class="td">
+							  <select name="category_id">
+								{$categorySelBox}
+							  </select>
+							</div>
+						</div>
+						{/if}
+						<div class="tr">
+							<div class="th">
+							Title: 
+							</div>
+							<div class="td">
+							  <input type="text" name="title" id="title" size="35" value="{$smarty.post.title}">
+							</div>
+						</div>
+						<div class="tr">
+							<div class="th">
+							Description: 
+							</div>
+							<div class="td">
+							  <textarea name="description" cols="30" rows="5" id="description">{$smarty.post.description}</textarea>
+							</div>
+						</div>
+						<div class="tr">
+							<div class="th">
+							Tags: 
+							</div>
+							<div class="td">
+							  <input type="text" name="tags" id="tags" size="25" value="{$smarty.post.tags}">
+							</div>
+						</div>
+						<div class="tr">
+							<div class="th">
+							
+							</div>
+							<div class="td">
+							  Note: Comma seperated tags
+							</div>
+						</div>
+						<div class="tr">
+							<div class="th">
+							
+							</div>
+							<div class="td">
+							  <input type="submit" name="AddBlog" value="Add New Blog">
+							</div>
+						</div>
+						<input type="hidden" name="MM_Insert" value="new">
+						<input type="hidden" name="ID" value="{$ID}">
+						<input type="hidden" name="user_id" value="{$smarty.session.user_id}">
+						<input type="hidden" name="created" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}">
+					</form>
+					<div class="clear"></div>
+				</div>
+			</div>
+		{/if}
+	</div>
+	{include file="blog/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>

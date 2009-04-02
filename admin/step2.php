@@ -74,11 +74,13 @@ $totalRows_rsConcepts = mysql_num_rows($rsConcepts);
     <tr>
       <td>&nbsp;</td>
       <td><strong>Concept</strong></td>
+      <td>Link</td>
     </tr>
     <?php do { ?>
       <tr>
         <td><input name="concept_id[<?php echo $row_rsConcepts['concept_id']; ?>]" type="checkbox" id="concept_id_<?php echo $row_rsConcepts['concept_id']; ?>" value="<?php echo $row_rsConcepts['concept_id']; ?>" <?php if(in_array($row_rsConcepts['concept_id'],$ids)) echo ' checked'; ?> /></td>
         <td><?php echo ucwords($row_rsConcepts['concept']); ?></td>
+        <td>&lt;?php echo HTTPPATH; ?&gt;/index.php?p=<?php echo $row_rsConcepts['concept']; ?>&amp;ID= <?php echo $row_rsConcepts['concept_id']; ?></td>
       </tr>
       <?php } while ($row_rsConcepts = mysql_fetch_assoc($rsConcepts)); ?>
   </table>
