@@ -1,0 +1,34 @@
+<div id="contentRightCol">
+	<div id="content1" class="contentBox">
+		<div id="contentHead1" class="contentHead">Blog Links</div>
+	  <div id="contentBody1" class="contentBody">
+			<ul class="ullinks">
+				<li class="lilinks"><a href="{$HTTPPATH}/index.php?p=blog&action=new&ID={$ID}" class="alinks">Add New Blog Post</a></li>
+				<li class="lilinks"><a href="{$HTTPPATH}/index.php?p=blog&action=view&ID={$ID}" class="alinks">View Blogs</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="content2" class="contentBox">
+		<div id="contentHead2" class="contentHead">Search Blog</div>
+		<div id="contentBody2" class="contentBody">
+			<form name="form1" method="get" action="">
+				<input name="kw" type="text" id="kw" size="15" value="{$smarty.get.kw}">
+				<input type="submit" name="Submit" value="Go">
+				<input type="hidden" name="p" value="blog" />
+				<input type="hidden" name="action" value="view" />
+				<input type="hidden" name="ID" value="{$smarty.get.ID}" />
+			</form>		
+		</div>
+	</div>
+	{if $result.settings.0.setting_id == 4 or $result.settings.0.setting_id == 5}
+	<div id="content4" class="contentBox">
+		<div id="contentHead4" class="contentHead">Blog Categories</div>
+		<div id="contentBody4" class="contentBody contentBoxHeight">
+			<div class="bold"><a href="#" class="alinks">Add New Category</a></div>
+			<ul class="ullinks">
+				{$category}
+			</ul>
+		</div>
+	</div>
+	{/if}
+</div>

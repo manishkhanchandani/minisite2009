@@ -159,9 +159,9 @@ do {
   }
 ?>
       </select>
-        <a href="#" onclick="MM_openBrWindow('preview.php?tid='+document.form1.pretemplate.value,'preview','toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800')">Preview</a> | <a href="#" onclick="copyTemplate(document.form1.pretemplate.value)">Copy</a> | <a href="template.php" target="_blank">Template Management</a>
+        <a href="#" onclick="MM_openBrWindow('preview.php?tid='+document.form1.pretemplate.value,'preview','toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800')">Preview</a> | <a href="#" onclick="copyTemplate(document.form1.pretemplate.value)">Copy</a> | <a href="template.php" target="_blank">Template Management</a> | <a href="../index.php?ID=<?php echo $row_rsKeyword['id']; ?>" target="_blank">Test Link</a>
 		<div id="mes"></div>
-		</td>
+	  </td>
     </tr>
     <tr>
       <td valign="top">Template</td>

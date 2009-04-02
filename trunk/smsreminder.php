@@ -1,7 +1,7 @@
 <?php
 $result = $Common->getConceptSettings('smsreminder', $ID);
 if(!$result['concepts']) {	
-	$errorMessage = "Concept does not exist for this id. ";
+	$errorMessage = "Smsreminder Concept does not exist for this id. ";
 	$smarty->assign('errorMessage', $errorMessage);
 	$body = $smarty->fetch('errorMessage.html');
 } else {
