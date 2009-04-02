@@ -44,6 +44,7 @@ Regards,
 		$body = str_replace("{", "", $body);
 		$body = str_replace("}", "", $body);
 		@mail($to, $sub, $body, "From:".$this->fromname."<".$this->fromemail.">");
+		return $body;
 	}
 }
 ?>

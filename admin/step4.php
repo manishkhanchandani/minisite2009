@@ -73,6 +73,12 @@ $query_rsKeyword = sprintf("SELECT * FROM prebuilt_1 WHERE id = %s", $colname_rs
 $rsKeyword = mysql_query($query_rsKeyword, $conn) or die(mysql_error());
 $row_rsKeyword = mysql_fetch_assoc($rsKeyword);
 $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
+
+mysql_select_db($database_conn, $conn);
+$query_rsTemplate = "SELECT tid, name FROM prebuilt_templates ORDER BY name ASC";
+$rsTemplate = mysql_query($query_rsTemplate, $conn) or die(mysql_error());
+$row_rsTemplate = mysql_fetch_assoc($rsTemplate);
+$totalRows_rsTemplate = mysql_num_rows($rsTemplate);
 ?>
 <?php
 
@@ -81,7 +87,56 @@ $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Untitled Document</title>
+<title>Step 4: Template Management</title>
+<script type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+
+<script type="text/JavaScript">
+<!--
+function getXmlHttpRequestObject() { 
+	if (window.XMLHttpRequest) { 
+		return new XMLHttpRequest(); 
+	} else if(window.ActiveXObject) { 
+		return new ActiveXObject("Microsoft.XMLHTTP"); 
+	} else { 
+		alert('Status: Cound not create XmlHttpRequest Object. Consider upgrading your browser.'); 
+	} 
+} 
+function copyTemplate(id) { 
+	var Req = getXmlHttpRequestObject(); 
+	document.getElementById('mes').innerHTML = "Loading ...";
+	url = "getTemplate.php";
+	getStr = "tid="+id;
+	if (Req.readyState == 4 || Req.readyState == 0) {  
+		Req.open("GET", url+"?"+getStr, true);  
+		Req.onreadystatechange = function() { 
+			if (Req.readyState == 4) {  
+				var xmldoc = Req.responseXML; 
+				if(xmldoc) { 
+					var message_nodes = xmldoc.getElementsByTagName("message"); 
+					var n_messages = message_nodes.length;
+					for (i = 0; i < n_messages; i++) {
+						var template_node = message_nodes[i].getElementsByTagName("template");
+						var css_node = message_nodes[i].getElementsByTagName("css");
+						var js_node = message_nodes[i].getElementsByTagName("js");
+						document.form1.template.value = template_node[0].firstChild.nodeValue;
+						document.form1.css.value = css_node[0].firstChild.nodeValue;
+						document.form1.js.value = js_node[0].firstChild.nodeValue;
+						document.getElementById('mes').innerHTML = "";
+					}
+				} 
+			}  
+		}  
+		Req.send(null); 
+	} 
+}
+//-->
+</script>
 </head>
 
 <body>
@@ -90,16 +145,29 @@ $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
   <table border="1" cellspacing="1" cellpadding="5">
     <tr>
       <td valign="top">PreTemplate</td>
-      <td valign="top"><select name="pretemplate" id="pretemplate">
+      <td colspan="2" valign="top"><select name="pretemplate" id="pretemplate">
+        <?php
+do {  
+?>
+        <option value="<?php echo $row_rsTemplate['tid']?>"><?php echo $row_rsTemplate['name']?></option>
+        <?php
+} while ($row_rsTemplate = mysql_fetch_assoc($rsTemplate));
+  $rows = mysql_num_rows($rsTemplate);
+  if($rows > 0) {
+      mysql_data_seek($rsTemplate, 0);
+	  $row_rsTemplate = mysql_fetch_assoc($rsTemplate);
+  }
+?>
       </select>
-        <a href="#">Template Management </a></td>
-      <td valign="top">&nbsp;</td>
+        <a href="#" onclick="MM_openBrWindow('preview.php?tid='+document.form1.pretemplate.value,'preview','toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800')">Preview</a> | <a href="#" onclick="copyTemplate(document.form1.pretemplate.value)">Copy</a> | <a href="template.php" target="_blank">Template Management</a>
+		<div id="mes"></div>
+		</td>
     </tr>
     <tr>
       <td valign="top">Template</td>
       <td valign="top"><textarea name="template" cols="45" rows="10" id="template"><?php echo $row_rsKeyword['template']; ?></textarea></td>
       <td valign="top">Sperate Header and Footer Area by [[BODY]]<br />
-        Menu Should contain [[NEWS]] for news link, [[BLOG]] for blog link, etc. </td>
+      Content can be any html or php tags. Site url is called by &lt;?php echo HTTPPATH; ?&gt;. ID of the Site is called as: &lt;?php echo $ID; ?&gt; </td>
     </tr>
     <tr>
       <td valign="top">CSS</td>
@@ -125,4 +193,6 @@ $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
 </html>
 <?php
 mysql_free_result($rsKeyword);
+
+mysql_free_result($rsTemplate);
 ?>

@@ -52,18 +52,50 @@ switch($_GET['action']) {
 		exit;
 		break;
 	case 'forgot':
-		// defining page heading and page title
-		$PAGEHEADING = "Forgot Password";
-		$smarty->assign('PAGEHEADING', $PAGEHEADING);
-		// calling body
-		$body = $smarty->fetch('users/forgot.html');
+		try {		
+			$users = new mod_Users($dbFrameWork, $Common);
+			if($_POST['MM_insert']==1) {
+				// validate fields
+				$users->validate_email($_POST['email']);
+				// check if email already exists
+				$users->send_forgot_password($_POST['email']);
+				$errorMessage = "Password send to your email address.";
+				$smarty->assign('errorMessage', $errorMessage);
+				$success = 1;
+				$smarty->assign('success', $success);
+			}			
+			// defining page heading and page title
+			$PAGEHEADING = "Forgot Password";
+			$smarty->assign('PAGEHEADING', $PAGEHEADING);
+			// calling body
+			$body = $smarty->fetch('users/forgot.html');
+		} catch (exception $e) { 
+			$errorMessage = $e->getMessage();
+			$smarty->assign('errorMessage', $errorMessage);
+			$body = $smarty->fetch('users/forgot.html');
+		} 
 		break;
 	case 'change':
-		// defining page heading and page title
-		$PAGEHEADING = "Change Password";
-		$smarty->assign('PAGEHEADING', $PAGEHEADING);
-		// calling body
-		$body = $smarty->fetch('users/change.html');
+		try {		
+			$users = new mod_Users($dbFrameWork, $Common);
+			if($_POST['MM_insert']==1) {
+				// validate fields
+				$users->validate_change_password($_POST, $_POST['email']);
+				$errorMessage = "Password updated successfully.";
+				$smarty->assign('errorMessage', $errorMessage);
+				$success = 1;
+				$smarty->assign('success', $success);
+			}						
+			// defining page heading and page title
+			$PAGEHEADING = "Change Password";
+			$smarty->assign('PAGEHEADING', $PAGEHEADING);
+			// calling body
+			$body = $smarty->fetch('users/change.html');
+		} catch (exception $e) { 
+			$errorMessage = $e->getMessage();
+			$smarty->assign('errorMessage', $errorMessage);
+			$body = $smarty->fetch('users/change.html');
+		} 		
 		break;	
 	case 'loginalready':
 		// defining page heading and page title
