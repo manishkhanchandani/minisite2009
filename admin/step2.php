@@ -15,11 +15,19 @@ $ids = array();
 if($totalRows_rsView) {
 	do {
 		$ids[] = $row_rsView['concept_id'];
+		$homepage[$row_rsView['id']][$row_rsView['concept_id']] = $row_rsView['homepage'];
+		$displayname[$row_rsView['id']][$row_rsView['concept_id']] = $row_rsView['displayname'];
 	} while ($row_rsView = mysql_fetch_assoc($rsView));
 }
 if($_POST['MM_Insert']==1) {
 	$array1 = $ids;
 	$array2 = $_POST['concept_id'];
+	if($_POST['concept_id']) {
+		foreach($_POST['concept_id'] as $value) {
+			$sql = "update prebuilt_2_concepts set homepage = '".$_POST['homepage'][$value]."', displayname = '".addslashes(stripslashes(trim($_POST['displayname'][$value])))."' WHERE `id` = '".$_GET['id']."' and `concept_id` = '".$value."'";
+			mysql_query($sql) or die('error '.__LINE__);
+		}
+	}
 	if(!$array2) $array2 = array();
 	$result = array_diff($array1, $array2);
 	if($result) {
@@ -32,9 +40,9 @@ if($_POST['MM_Insert']==1) {
 	}
 	$result = array_diff($array2, $array1);
 	if($result) {
-		$sql = "insert into prebuilt_2_concepts (`id`, `concept_id`) VALUES ";
+		$sql = "insert into prebuilt_2_concepts (`id`, `concept_id`, `homepage`) VALUES ";
 		foreach($result as $value) {
-			$sql .= "('".$_GET['id']."', '".$value."'), ";
+			$sql .= "('".$_GET['id']."', '".$value."', '".$_POST['homepage'][$value]."'), ";
 			array_push($ids, $value);
 		}
 		$sql = substr($sql, 0, -2);
@@ -74,12 +82,19 @@ $totalRows_rsConcepts = mysql_num_rows($rsConcepts);
     <tr>
       <td>&nbsp;</td>
       <td><strong>Concept</strong></td>
-      <td>Link</td>
+      <td><strong>Homepage</strong></td>
+      <td><strong>Display Name</strong> </td>
+      <td><strong>Link For Creating Templates </strong></td>
     </tr>
     <?php do { ?>
       <tr>
         <td><input name="concept_id[<?php echo $row_rsConcepts['concept_id']; ?>]" type="checkbox" id="concept_id_<?php echo $row_rsConcepts['concept_id']; ?>" value="<?php echo $row_rsConcepts['concept_id']; ?>" <?php if(in_array($row_rsConcepts['concept_id'],$ids)) echo ' checked'; ?> /></td>
         <td><?php echo ucwords($row_rsConcepts['concept']); ?></td>
+        <td><input name="homepage[<?php echo $row_rsConcepts['concept_id']; ?>]" type="radio" value="1" <?php if($homepage[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]==1) echo 'checked'; ?> />
+          Yes 
+            <input name="homepage[<?php echo $row_rsConcepts['concept_id']; ?>]" type="radio" value="0" <?php if($homepage[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]==0) echo 'checked'; ?> />
+          No </td>
+        <td><input name="displayname[<?php echo $row_rsConcepts['concept_id']; ?>]" type="text" id="displayname_<?php echo $row_rsConcepts['concept_id']; ?>" value="<?php echo $displayname[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?>" size="30" /></td>
         <td>&lt;?php echo HTTPPATH; ?&gt;/index.php?p=<?php echo $row_rsConcepts['concept']; ?>&amp;ID= <?php echo $row_rsConcepts['concept_id']; ?></td>
       </tr>
       <?php } while ($row_rsConcepts = mysql_fetch_assoc($rsConcepts)); ?>
