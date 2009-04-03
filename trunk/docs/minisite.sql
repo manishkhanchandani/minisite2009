@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2009 at 05:35 AM
+-- Generation Time: Apr 03, 2009 at 05:42 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `created` datetime DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`blog_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `blog`
@@ -44,7 +44,8 @@ INSERT INTO `blog` (`blog_id`, `id`, `user_id`, `title`, `description`, `created
 (1, 1, 1, 'My Great India', 'i am indian and born in india. so come enjoy me. that is the spirit.', '2009-03-30 03:40:41', 1),
 (2, 1, 1, 'great maharashtra', 'great maharashtra is here . so come and enjoy it, thanks for adding by.', '2009-03-30 04:02:23', 1),
 (3, 2, 1, 'testtest', 'testest testest testest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testest', '2009-03-30 17:16:53', 1),
-(4, 3, 1, 'dd', 'ddd dddddddd ddd\r\nddd\r\nddddddddddddddddddddddddd\r\nDddddddddd ddddddddddddddddddddd ddddddddd ddddddddddd', '2009-03-30 17:29:13', 1);
+(4, 3, 1, 'dd', 'ddd dddddddd ddd\r\nddd\r\nddddddddddddddddddddddddd\r\nDddddddddd ddddddddddddddddddddd ddddddddd ddddddddddd', '2009-03-30 17:29:13', 1),
+(5, 1, 0, 'aaaaa', 'aaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa', '2009-04-02 16:42:34', 1);
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,8 @@ CREATE TABLE IF NOT EXISTS `blog_cat_rel` (
 INSERT INTO `blog_cat_rel` (`blog_id`, `id`, `category_id`) VALUES
 (1, 0, 1),
 (2, 0, 3),
-(3, 0, 7);
+(3, 0, 7),
+(5, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -111,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `blog_comments` (
   `comment_date` datetime DEFAULT NULL,
   `cstatus` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `blog_comments`
@@ -133,7 +135,9 @@ INSERT INTO `blog_comments` (`comment_id`, `id`, `blog_id`, `commentor`, `commen
 (13, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:41', 1),
 (14, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:42', 1),
 (15, 3, 4, 1, 'dddddddddd ddddddddddddddddddd ddddddddd ddddddddd ddddddddddddddd', '2009-03-30 17:29:32', 1),
-(16, 3, 4, 1, 'ee\r\ne\r\ne\r\ne\r\ne\r\n\r\ne\r\neeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee', '2009-03-30 18:23:59', 1);
+(16, 3, 4, 1, 'ee\r\ne\r\ne\r\ne\r\ne\r\n\r\ne\r\neeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee', '2009-03-30 18:23:59', 1),
+(17, 1, 2, 0, 'aaa aaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaaaaaaaaaa a aaaaaaaaaaaaaaaaaaaa', '2009-04-02 16:27:56', 1),
+(18, 1, 2, 0, 'aaa aaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaaaaaaaaaa a aaaaaaaaaaaaaaaaaaaa', '2009-04-02 16:27:56', 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +162,8 @@ INSERT INTO `blog_tags` (`blog_id`, `id`, `tag_id`) VALUES
 (2, 1, 1),
 (2, 1, 3),
 (3, 2, 2),
-(4, 3, 4);
+(4, 3, 4),
+(5, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -272,6 +277,7 @@ INSERT INTO `forms` (`form_id`, `form_name`, `category`) VALUES
 CREATE TABLE IF NOT EXISTS `prebuilt_1` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(200) DEFAULT NULL,
+  `default_id` int(1) NOT NULL,
   `template` text,
   `css` text,
   `js` text,
@@ -293,11 +299,11 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
 -- Dumping data for table `prebuilt_1`
 --
 
-INSERT INTO `prebuilt_1` (`id`, `keyword`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`) VALUES
-(1, 'Mumbai', '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>Blog Site</h1>\r\n		<p>New blog site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=blog&ID=<?php echo $ID; ?>">Blog</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>\r\n', '<!--\r\nbody {\r\n	background-color: #990000;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'Mumbai', 'mumbai@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project1', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123'),
-(2, 'Mulund', 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'Bhandup', 'Bhandup header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Tomato', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `prebuilt_1` (`id`, `keyword`, `default_id`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`) VALUES
+(1, 'Mumbai', 1, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>Blog Site</h1>\r\n		<p>New blog site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=blog&ID=<?php echo $ID; ?>">Blog</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>\r\n', '<!--\r\nbody {\r\n	background-color: #990000;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'Mumbai', 'mumbai@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project1', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123'),
+(2, 'Mulund', 0, 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Bhandup', 0, 'Bhandup header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'Tomato', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -308,6 +314,8 @@ INSERT INTO `prebuilt_1` (`id`, `keyword`, `template`, `css`, `js`, `siteurl`, `
 CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
   `id` int(11) NOT NULL DEFAULT '0',
   `concept_id` int(11) NOT NULL DEFAULT '0',
+  `homepage` int(1) NOT NULL DEFAULT '1',
+  `displayname` varchar(200) NOT NULL,
   PRIMARY KEY (`id`,`concept_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -315,12 +323,12 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 -- Dumping data for table `prebuilt_2_concepts`
 --
 
-INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`) VALUES
-(1, 1),
-(1, 7),
-(2, 1),
-(3, 1),
-(4, 5);
+INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`) VALUES
+(1, 1, 1, 'My Blog'),
+(2, 1, 1, ''),
+(3, 1, 1, ''),
+(4, 5, 1, ''),
+(1, 5, 1, 'My News');
 
 -- --------------------------------------------------------
 
@@ -339,6 +347,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 --
 
 INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
+(1, 2),
 (1, 5),
 (1, 7),
 (1, 8),
@@ -459,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tagname` varchar(100) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tags`
@@ -469,7 +478,8 @@ INSERT INTO `tags` (`tag_id`, `tagname`) VALUES
 (1, 'great india'),
 (2, 'test'),
 (3, 'great maharashtra'),
-(4, 'dd');
+(4, 'dd'),
+(5, 'aaaaa');
 
 -- --------------------------------------------------------
 
