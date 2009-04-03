@@ -12,6 +12,9 @@ class mod_SMS {
 			$this->Common = $Common;
 		}
 	}
+	public function viewHomePage($ID, $data, $settings) {
+		return true;
+	}
 	public function validateForm($post) {
 		if(!trim($post['title'])) $msg .= "Please insert the title. ";
 		if(!trim($post['message'])) $msg .= "Please insert the message. ";

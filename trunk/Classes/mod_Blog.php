@@ -13,6 +13,23 @@ class mod_Blog {
 			$this->Common = $Common;
 		}
 	}
+	public function viewHomePage($ID, $data, $settings) {
+		$sql = "select * from blog WHERE id = '".$ID."' ORDER BY blog_id DESC LIMIT 5";
+		$result = $this->Common->selectCacheRecord($sql);
+		if($result) {
+			foreach($result as $k=>$v) {
+				$ret[$k]['created'] = $v['created'];
+				$ret[$k]['id'] = $v['blog_id'];
+				$ret[$k]['title'] = $v['title'];
+				$desc = substr($v['description'],0,50);
+				if($desc) {
+					$ret[$k]['description'] = $desc." ...";
+				}	
+				$ret[$k]['link'] = HTTPPATH."/index.php?p=blog&action=detail&blog_id=".$v['blog_id']."&ID=".$ID;			
+			}
+		}
+		return $ret;
+	}
 	public function validateNewBlog($post, $setting) {
 		if(!trim($post['title'])) {
 			throw new Exception('please insert title. ');

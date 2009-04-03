@@ -1,4 +1,26 @@
 <div id="bodyContent">
-	{$content}
+	{foreach from=$result.concepts item=showConcepts}
+		<div id="contentHomeCol">
+			<div id="content1" class="contentBox">
+				<div id="contentHead1" class="contentHead">
+					{if $showConcepts.displayname != ""}
+						{$showConcepts.displayname} 
+					{else} 
+						{$showConcepts.concept|capitalize:true} 
+					{/if}
+				</div>
+				<div id="contentBody1" class="contentBody">					
+					{foreach from=$box[$showConcepts.concept_id] item=boxDetails}
+						<div class="hometitle"><a href="{$boxDetails.link}" class="alinks">{$boxDetails.title}</a></div>
+						<div class="created">{$boxDetails.created|date_format:"%B %e, %Y"}</div>
+						{if $boxDetails.description != ""}
+							<div class="description">{$boxDetails.description|nl2br}</div>
+						{/if}
+					{/foreach}	
+					<div class="pagination"><a href="{$HTTPPATH}/index.php?p={$showConcepts.concept}&ID={$ID}" class="alinks">More</a> ....</div>			
+				</div>
+			</div>
+		</div>
+	{/foreach}
 	<div style="clear:both;"></div>
 </div>

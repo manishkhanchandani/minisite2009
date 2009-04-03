@@ -32,14 +32,6 @@ $smarty->assign('FOLDER', FOLDER);
 $smarty->assign('DOCPATH', DOCPATH);
 $smarty->assign('PAGETITLE', $PAGETITLE);
 
-$ID = $_GET['ID'];
-if(!$ID) {
-	echo 'No Keyword Selected';
-	exit;
-}
-define('ID', $ID);
-$smarty->assign('ID', $ID);
-
 // adodb connection
 include('includes/adodb/adodb-exceptions.inc.php'); # load code common to ADOdb
 include('includes/adodb/adodb.inc.php'); # load code common to ADOdb 
@@ -66,6 +58,13 @@ if (function_exists('__autoload')) {
 	spl_autoload_register('__autoload');
 }
 $Common = new Common($dbFrameWork);
+
+$ID = $_GET['ID'];
+if(!$ID) {
+	$ID = $Common->getId();
+}
+define('ID', $ID);
+$smarty->assign('ID', $ID);
 
 $sql = "select * from prebuilt_1 where id = '".$ID."'";
 $SITE = $Common->selectCacheRecord($sql);

@@ -243,7 +243,7 @@ class Common {
 	public function getConceptSettings($concept, $ID) {		
 		$sql = "select * from prebuilt_1 WHERE id = '".$ID."'";
 		$result['keyword'] = $this->selectCacheRecord($sql);
-		$sql = "select * from prebuilt_2_concepts as a LEFT JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and b.concept = '".$concept."'";
+		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and b.concept = '".$concept."'";
 		$result['concepts'] = $this->selectCacheRecord($sql);
 		$conceptsId = 0;
 		if($result['concepts']){
@@ -255,6 +255,31 @@ class Common {
 		$sql = "select * from prebuilt_3_settings as a LEFT JOIN prebuilt_concepts_settings as b ON a.setting_id = b.setting_id WHERE a.id = '".$ID."' and b.concept_id IN (".$conceptsId.")";		
 		$result['settings'] = $this->selectCacheRecord($sql);
 		return $result;
+	}
+	
+	public function getConceptId($ID) {
+		$sql = "select * from prebuilt_1 WHERE id = '".$ID."'";
+		$result = $this->selectCacheRecord($sql);
+		return $result;	
+	}
+	public function getConceptHomePageSettings($ID) {	
+		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and a.homepage = '1'";
+		$result['concepts'] = $this->selectCacheRecord($sql);
+		$conceptsId = 0;
+		if($result['concepts']){
+			foreach($result['concepts'] as $concept) {
+				$conceptsIdArr[] = $concept['concept_id'];
+			}
+			$conceptsId = implode(",", $conceptsIdArr);
+		}
+		$sql = "select * from prebuilt_3_settings as a LEFT JOIN prebuilt_concepts_settings as b ON a.setting_id = b.setting_id WHERE a.id = '".$ID."' and b.concept_id IN (".$conceptsId.")";		
+		$ret = $this->selectCacheRecord($sql);
+		if($ret) {
+			foreach($ret as $k => $v) {
+				$result['settings'][$v['concept_id']][$v['setting_id']] = $v;
+			}
+		}
+		return $result;	
 	}
 	
 	public function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")  {
@@ -287,6 +312,18 @@ class Common {
 		  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 		}
 		return $editFormAction;
+	}
+	public function getId() {
+		$sql = "select id from prebuilt_1 WHERE default_id = 1";
+		$result = $this->selectCacheRecord($sql);
+		if($result[0]) {
+			$ID = $result[0]['id'];
+		} else {
+			$sql = "select id from prebuilt_1 limit 1";
+			$result = $this->selectCacheRecord($sql);
+			$ID = $result[0]['id'];
+		}
+		return $ID;
 	}
 }
 ?>
