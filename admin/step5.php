@@ -411,7 +411,8 @@ function MM_validateForm() { //v4.0
     <tr>
       <th align="right">&nbsp;</th>
       <td><input type="submit" name="Submit" value="Publish" />
-      <input name="id" type="hidden" id="id" value="<?php echo $row_rsKeyword['id']; ?>" /></td>
+        <a href="../index.php?ID=<?php echo $row_rsKeyword['id']; ?>" target="_blank">Preview</a>
+        <input name="id" type="hidden" id="id" value="<?php echo $row_rsKeyword['id']; ?>" /></td>
     </tr>
   </table>
   
