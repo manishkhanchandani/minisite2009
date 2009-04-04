@@ -10,6 +10,9 @@
 					{/if}
 				</div>
 				<div id="contentBody1" class="contentBody">					
+					{if $showConcepts.home_text}
+						<div class="hometext">{$showConcepts.home_text}</div>
+					{/if}
 					{foreach from=$box[$showConcepts.concept_id] item=boxDetails}
 						<div class="hometitle"><a href="{$boxDetails.link}" class="alinks">{$boxDetails.title}</a></div>
 						<div class="created">{$boxDetails.created|date_format:"%B %e, %Y"}</div>

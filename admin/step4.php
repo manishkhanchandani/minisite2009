@@ -135,6 +135,11 @@ function copyTemplate(id) {
 		Req.send(null); 
 	} 
 }
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
 //-->
 </script>
 </head>
@@ -160,8 +165,7 @@ do {
 ?>
       </select>
         <a href="#" onclick="MM_openBrWindow('preview.php?tid='+document.form1.pretemplate.value,'preview','toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800')">Preview</a> | <a href="#" onclick="copyTemplate(document.form1.pretemplate.value)">Copy</a> | <a href="template.php" target="_blank">Template Management</a> | <a href="../index.php?ID=<?php echo $row_rsKeyword['id']; ?>" target="_blank">Test Link</a>
-		<div id="mes"></div>
-	  </td>
+		<div id="mes"></div>	  </td>
     </tr>
     <tr>
       <td valign="top">Template</td>
@@ -180,10 +184,12 @@ do {
       <td valign="top">&nbsp;</td>
     </tr>
     <tr>
-      <td valign="top">&nbsp;</td>
-      <td valign="top"><input type="submit" name="Submit" value="Go To Step 5" />
+      <td colspan="3" valign="top"><input type="submit" name="Submit" value="Go To Step 5" />
+        <input name="Submit22" type="button" onclick="MM_goToURL('parent','step3.php?id=<?php echo $_GET['id']; ?>');return document.MM_returnValue" value="Go To Step 3" />
+      
+        <input name="Submit2" type="button" onclick="MM_goToURL('parent','step2.php?id=<?php echo $_GET['id']; ?>');return document.MM_returnValue" value="Go To Step 2" />
+        <input name="Submit3" type="button" onclick="MM_goToURL('parent','step1.php');return document.MM_returnValue" value="Go To Step 1" />
       <input name="id" type="hidden" id="id" value="<?php echo $row_rsKeyword['id']; ?>" /></td>
-      <td valign="top">&nbsp;</td>
     </tr>
   </table>
   <input type="hidden" name="MM_update" value="form1">

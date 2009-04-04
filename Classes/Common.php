@@ -281,6 +281,17 @@ class Common {
 		}
 		return $result;	
 	}
+	public function generateMenu($ID) {	
+		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."'";
+		$MENU = $this->selectCacheRecord($sql);
+		$menuString = "<a href=\"".HTTPPATH."/index.php?ID=".$ID."\">Home</a> ";
+		if($MENU){
+			foreach($MENU as $concept) {
+				$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$concept['displayname']."</a> ";
+			}
+		}
+		return $menuString;	
+	}
 	
 	public function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")  {
 		$theValue = (!get_magic_quotes_gpc()) ? addslashes($theValue) : $theValue;

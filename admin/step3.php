@@ -86,7 +86,24 @@ $totalRows_rsSettings = mysql_num_rows($rsSettings);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Untitled Document</title>
+<title>Step 3: Settings</title>
+<script type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+
+<style type="text/css">
+<!--
+body,td,th,textarea,select,input,button {
+	font-family: Verdana;
+	font-size: 11px;
+}
+-->
+</style>
 </head>
 
 <body>
@@ -132,6 +149,8 @@ $totalRows_rsSettings = mysql_num_rows($rsSettings);
   <?php } ?>
 </ol>
 <input type="submit" name="Submit" value="Go To Step 4" />
+<input name="Submit2" type="button" onclick="MM_goToURL('parent','step2.php?id=<?php echo $_GET['id']; ?>');return document.MM_returnValue" value="Go To Step 2" />
+<input name="Submit3" type="button" onclick="MM_goToURL('parent','step1.php');return document.MM_returnValue" value="Go To Step 1" />
 <input name="MM_Insert" type="hidden" id="MM_Insert" value="1" />
 </form>
 <?php } ?>
