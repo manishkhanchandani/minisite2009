@@ -3,6 +3,11 @@
 ini_set('memory_limit','500M');
 ini_set('max_execution_time','-1'); 
 include ('Archive/Zip.php');        // imports
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
+  $up = "UPDATE prebuilt_1 SET default_id = 0";
+  mysql_select_db($database_conn, $conn);
+  mysql_query($up) or die(mysql_error());
+}
 ?>
 <?php
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -36,7 +41,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-  $updateSQL = sprintf("UPDATE prebuilt_1 SET siteurl=%s, sitename=%s, siteemail=%s, ftphost=%s, ftpuser=%s, ftppassword=%s, ftpdir=%s, dbhost=%s, db=%s, dbuser=%s, dbpassword=%s WHERE id=%s",
+  $updateSQL = sprintf("UPDATE prebuilt_1 SET default_id=%s, siteurl=%s, sitename=%s, siteemail=%s, ftphost=%s, ftpuser=%s, ftppassword=%s, ftpdir=%s, dbhost=%s, db=%s, dbuser=%s, dbpassword=%s WHERE id=%s",
+                       GetSQLValueString($_POST['default_id'], "int"),
                        GetSQLValueString($_POST['siteurl'], "text"),
                        GetSQLValueString($_POST['sitename'], "text"),
                        GetSQLValueString($_POST['siteemail'], "text"),
@@ -330,7 +336,7 @@ exit;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Untitled Document</title>
+<title>Step 5: Publish</title>
 <script type="text/JavaScript">
 <!--
 function MM_findObj(n, d) { //v4.01
@@ -355,6 +361,11 @@ function MM_validateForm() { //v4.0
     } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
   } if (errors) alert('The following error(s) occurred:\n'+errors);
   document.MM_returnValue = (errors == '');
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
 }
 //-->
 </script>
@@ -409,10 +420,14 @@ function MM_validateForm() { //v4.0
       <td><input name="dbpassword" type="password" id="dbpassword" value="<?php echo $row_rsKeyword['dbpassword']; ?>" maxlength="255" /></td>
     </tr>
     <tr>
-      <th align="right">&nbsp;</th>
-      <td><input type="submit" name="Submit" value="Publish" />
-        <a href="../index.php?ID=<?php echo $row_rsKeyword['id']; ?>" target="_blank">Preview</a>
-        <input name="id" type="hidden" id="id" value="<?php echo $row_rsKeyword['id']; ?>" /></td>
+      <th colspan="2" align="right"><input type="submit" name="Submit" value="Publish" />
+        <input name="Submit222" type="button" onclick="MM_goToURL('parent','step4.php?id=<?php echo $_GET['id']; ?>');return document.MM_returnValue" value="Go To Step 4" />
+        <input name="Submit22" type="button" onclick="MM_goToURL('parent','step3.php?id=<?php echo $_GET['id']; ?>');return document.MM_returnValue" value="Go To Step 3" />
+        <input name="Submit2" type="button" onclick="MM_goToURL('parent','step2.php?id=<?php echo $_GET['id']; ?>');return document.MM_returnValue" value="Go To Step 2" />
+        <input name="Submit3" type="button" onclick="MM_goToURL('parent','step1.php');return document.MM_returnValue" value="Go To Step 1" />
+<a href="../index.php?ID=<?php echo $row_rsKeyword['id']; ?>" target="_blank">Preview</a>
+        <input name="id" type="hidden" id="id" value="<?php echo $row_rsKeyword['id']; ?>" />
+      <input name="default_id" type="hidden" id="default_id" value="1" /></th>
     </tr>
   </table>
   

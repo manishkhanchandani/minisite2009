@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2009 at 07:40 PM
+-- Generation Time: Apr 04, 2009 at 01:16 PM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -127,21 +127,22 @@ INSERT INTO `blog_categories` (`category_id`, `id`, `category`, `parent_id`) VAL
 --
 
 CREATE TABLE IF NOT EXISTS `blog_cat_rel` (
-  `blog_id` int(11) NOT NULL DEFAULT '0',
+  `product_id` int(11) NOT NULL DEFAULT '0',
   `id` int(11) NOT NULL DEFAULT '0',
+  `concept_id` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`blog_id`,`category_id`)
+  PRIMARY KEY (`product_id`,`concept_id`,`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `blog_cat_rel`
 --
 
-INSERT INTO `blog_cat_rel` (`blog_id`, `id`, `category_id`) VALUES
-(1, 0, 1),
-(2, 0, 3),
-(3, 0, 7),
-(5, 0, 5);
+INSERT INTO `blog_cat_rel` (`product_id`, `id`, `concept_id`, `category_id`) VALUES
+(1, 0, 0, 1),
+(2, 0, 0, 3),
+(3, 0, 0, 7),
+(5, 0, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -251,6 +252,115 @@ CREATE TABLE IF NOT EXISTS `datas` (
 
 --
 -- Dumping data for table `datas`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deathreminder`
+--
+
+CREATE TABLE IF NOT EXISTS `deathreminder` (
+  `reminder_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `message` int(11) DEFAULT NULL,
+  `sms` int(1) DEFAULT NULL,
+  `smsmessage` varchar(160) DEFAULT NULL,
+  `smsphone` text,
+  `emails` text,
+  `login_freq` varchar(200) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `lastreminderdate` datetime DEFAULT NULL,
+  `loginfailedattempt` int(4) DEFAULT NULL,
+  `loginattemptrequired` int(4) DEFAULT NULL,
+  `is_dead` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`reminder_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `deathreminder`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `downtime`
+--
+
+CREATE TABLE IF NOT EXISTS `downtime` (
+  `downtime_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `url` text,
+  `usphone` varchar(50) DEFAULT NULL,
+  `email` text,
+  `smsphone` varchar(255) DEFAULT NULL,
+  `checkfrequency` varchar(200) DEFAULT NULL,
+  `datetocheck` int(11) DEFAULT NULL,
+  `lastcheckdate` int(11) DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '1',
+  `texttocheck` varchar(50) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`downtime_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `downtime`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `downtime_results`
+--
+
+CREATE TABLE IF NOT EXISTS `downtime_results` (
+  `result_id` int(11) NOT NULL AUTO_INCREMENT,
+  `downtime_id` int(11) DEFAULT NULL,
+  `id` int(11) DEFAULT NULL,
+  `check_date` datetime DEFAULT NULL,
+  `pingstatus` int(1) NOT NULL DEFAULT '1',
+  `textcheckstatus` int(1) NOT NULL DEFAULT '1',
+  `finalstatus` int(1) NOT NULL,
+  PRIMARY KEY (`result_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `downtime_results`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emailreminder`
+--
+
+CREATE TABLE IF NOT EXISTS `emailreminder` (
+  `rid` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(50) DEFAULT NULL,
+  `message` text,
+  `toemail` varchar(150) DEFAULT NULL,
+  `senddate` int(11) DEFAULT NULL,
+  `emailtype` enum('Fixed','Recurring') DEFAULT NULL,
+  `emaildatetime` datetime DEFAULT NULL,
+  `recurringtype` enum('Every 10 Minutes','Every Half Hourly','Hourly','Every 2 Hour','Every 3 Hours','Every 6 Hours','Daily','WeekDays','Sunday','SatSun','Fortnight','Monthly','Quarterly','SixMonthly','Yearly','Fixed') DEFAULT NULL,
+  `recurringfixedtypedates` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `status` int(2) DEFAULT NULL,
+  `lastsenddate` datetime DEFAULT NULL,
+  PRIMARY KEY (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `emailreminder`
 --
 
 
@@ -497,6 +607,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(200) DEFAULT NULL,
   `default_id` int(1) NOT NULL,
+  `home_text` text,
   `template` text,
   `css` text,
   `js` text,
@@ -518,11 +629,11 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
 -- Dumping data for table `prebuilt_1`
 --
 
-INSERT INTO `prebuilt_1` (`id`, `keyword`, `default_id`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`) VALUES
-(1, 'Mumbai', 1, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>Blog Site</h1>\r\n		<p>New blog site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=blog&ID=<?php echo $ID; ?>">Blog</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>\r\n', '<!--\r\nbody {\r\n	background-color: #990000;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'Mumbai', 'mumbai@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project1', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123'),
-(2, 'Mulund', 0, 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'Bhandup', 0, 'Bhandup header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Tomato', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `prebuilt_1` (`id`, `keyword`, `default_id`, `home_text`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`) VALUES
+(1, 'Mumbai', 1, NULL, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1><?php echo ucwords($SITE[0][''sitename'']); ?></h1>\r\n		<p><?php echo $SITE[0][''home_text'']; ?></p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<?php echo $MENU; ?>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #990099;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'Mumbai', 'mumbai@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project1', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123'),
+(2, 'Mulund', 0, NULL, 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Bhandup', 0, NULL, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>Blog Site</h1>\r\n		<p>New blog site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=blog&ID=<?php echo $ID; ?>">Blog</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>\r\n', '<!--\r\nbody {\r\n	background-color: #990000;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'bhandup', 'bhandup@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'manishkk', 'www/minisite/project1', 'test', 'test', 'test', 'test'),
+(4, 'Tomato', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -535,6 +646,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
   `concept_id` int(11) NOT NULL DEFAULT '0',
   `homepage` int(1) NOT NULL DEFAULT '1',
   `displayname` varchar(200) NOT NULL,
+  `home_text` text,
   PRIMARY KEY (`id`,`concept_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -542,12 +654,11 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 -- Dumping data for table `prebuilt_2_concepts`
 --
 
-INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`) VALUES
-(1, 1, 1, 'My Blog'),
-(2, 1, 1, ''),
-(3, 1, 1, ''),
-(4, 5, 1, ''),
-(1, 5, 1, 'My News');
+INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`) VALUES
+(2, 1, 1, '', NULL),
+(3, 1, 1, '', NULL),
+(4, 5, 1, '', NULL),
+(1, 5, 1, 'My News', 'good news');
 
 -- --------------------------------------------------------
 
@@ -567,9 +678,6 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 
 INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
 (1, 2),
-(1, 5),
-(1, 7),
-(1, 8),
 (2, 4),
 (3, 3),
 (4, 2);
@@ -637,7 +745,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_templates` (
   `css` text,
   `js` text,
   PRIMARY KEY (`tid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `prebuilt_templates`
@@ -645,7 +753,200 @@ CREATE TABLE IF NOT EXISTS `prebuilt_templates` (
 
 INSERT INTO `prebuilt_templates` (`tid`, `name`, `template`, `css`, `js`) VALUES
 (1, 'Blog Template', '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>Blog Site</h1>\r\n		<p>New blog site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=blog&ID=<?php echo $ID; ?>">Blog</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>\r\n', '<!--\r\nbody {\r\n	background-color: #990000;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n-->', NULL),
-(3, 'News Template', '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>News Site</h1>\r\n		<p>News site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=news&ID=<?php echo $ID; ?>">News</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #0000FF;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #0000FF;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #0000FF;\r\n}\r\n-->', NULL);
+(3, 'News Template', '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>News Site</h1>\r\n		<p>News site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=news&ID=<?php echo $ID; ?>">News</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #0000FF;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #0000FF;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #0000FF;\r\n}\r\n-->', NULL),
+(4, 'Master Template', '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1><?php echo ucwords($SITE[0][''sitename'']); ?></h1>\r\n		<p><?php echo $SITE[0][''home_text'']; ?></p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<?php echo $MENU; ?>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #990099;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n-->', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE IF NOT EXISTS `product` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `concept_id` int(11) DEFAULT NULL,
+  `product_name` varchar(200) DEFAULT NULL,
+  `product_description` text,
+  `product_price` float DEFAULT NULL,
+  `product_tax` float DEFAULT NULL,
+  `product_tax_type` enum('Percentage','Fixed') DEFAULT NULL,
+  `is_taxable` int(1) DEFAULT NULL,
+  `product_discount` float DEFAULT NULL,
+  `product_discount_type` enum('Percentage','Fixed') DEFAULT NULL,
+  `product_final_price` float DEFAULT NULL,
+  `product_quantity` int(11) DEFAULT NULL,
+  `product_start_date` datetime DEFAULT NULL,
+  `product_end_date` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `product`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_categories`
+--
+
+CREATE TABLE IF NOT EXISTS `product_categories` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL DEFAULT '0',
+  `concept_id` int(11) DEFAULT NULL,
+  `category` varchar(200) DEFAULT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`category_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_cat_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `product_cat_rel` (
+  `blog_id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL DEFAULT '0',
+  `category_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`blog_id`,`category_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_cat_rel`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `product_comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL DEFAULT '0',
+  `concept_id` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL DEFAULT '0',
+  `commentor` int(11) NOT NULL DEFAULT '0',
+  `comments` text,
+  `comment_date` datetime DEFAULT NULL,
+  `cstatus` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `product_comments`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE IF NOT EXISTS `product_images` (
+  `file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `concept_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `filename` varchar(255) DEFAULT NULL,
+  `filerealname` varchar(255) DEFAULT NULL,
+  `filepath` varchar(255) DEFAULT NULL,
+  `filesize` int(11) DEFAULT NULL,
+  `fileext` varchar(15) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`file_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `product_images`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_settings`
+--
+
+CREATE TABLE IF NOT EXISTS `product_settings` (
+  `product_setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `concept_id` int(11) DEFAULT NULL,
+  `image_height` int(11) DEFAULT NULL,
+  `image_width` int(11) DEFAULT NULL,
+  `thumbnail_height` int(11) DEFAULT NULL,
+  `thumbnail_width` int(11) DEFAULT NULL,
+  `is_proportionate` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`product_setting_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `product_settings`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `ref_id` int(11) DEFAULT NULL,
+  `concept_id` int(11) DEFAULT NULL,
+  `review_title` varchar(200) DEFAULT NULL,
+  `review_comments` text,
+  `review_rating` int(4) NOT NULL DEFAULT '5',
+  `review_date` datetime DEFAULT NULL,
+  `review_confirm` int(1) DEFAULT '1',
+  `ip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`review_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `reviews`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_confirm`
+--
+
+CREATE TABLE IF NOT EXISTS `review_confirm` (
+  `confirm_id` int(11) NOT NULL AUTO_INCREMENT,
+  `review_id` int(11) DEFAULT NULL,
+  `cuser_id` int(11) DEFAULT NULL,
+  `id` int(11) DEFAULT NULL,
+  `ref_id` int(11) DEFAULT NULL,
+  `concept_id` int(11) DEFAULT NULL,
+  `agree` int(1) DEFAULT NULL,
+  `comments` text,
+  `ip` int(11) DEFAULT NULL,
+  `agree_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`confirm_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `review_confirm`
+--
+
 
 -- --------------------------------------------------------
 

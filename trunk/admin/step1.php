@@ -140,6 +140,15 @@ function MM_validateForm() { //v4.0
 }
 //-->
 </script>
+
+<style type="text/css">
+<!--
+body,td,th,textarea,select,input,button {
+	font-family: Verdana;
+	font-size: 11px;
+}
+-->
+</style>
 </head>
 
 <body>

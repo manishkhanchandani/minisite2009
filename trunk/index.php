@@ -79,7 +79,11 @@ $smarty->assign('SITENAME', SITENAME);
 $smarty->assign('SITEURL', SITEURL);
 $smarty->assign('SITEEMAIL', SITEEMAIL);
 $smarty->assign('ADMINEMAIL', ADMINEMAIL);
+$smarty->assign('SITE', $SITE);
 
+$MENU = $Common->generateMenu($ID);
+define('MENU', $MENU);
+$smarty->assign('MENU', $MENU);
 
 if($_GET['p']) $p = $_GET['p'].".php";
 if(!$p) {
