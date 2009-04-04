@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2009 at 05:42 AM
+-- Generation Time: Apr 03, 2009 at 07:40 PM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -18,6 +18,51 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `minisite`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albums`
+--
+
+CREATE TABLE IF NOT EXISTS `albums` (
+  `album_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `album` varchar(200) DEFAULT NULL,
+  `album_created` datetime DEFAULT NULL,
+  `file_type` enum('Image','File','Music','Video') DEFAULT NULL,
+  PRIMARY KEY (`album_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `albums`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ask_expert`
+--
+
+CREATE TABLE IF NOT EXISTS `ask_expert` (
+  `ask_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `message` text,
+  `pid` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`ask_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `ask_expert`
+--
+
 
 -- --------------------------------------------------------
 
@@ -212,6 +257,57 @@ CREATE TABLE IF NOT EXISTS `datas` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `events`
+--
+
+CREATE TABLE IF NOT EXISTS `events` (
+  `event_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `event_title` varchar(200) DEFAULT NULL,
+  `event_desc` text,
+  `event_phone` varchar(50) DEFAULT NULL,
+  `event_email` varchar(150) DEFAULT NULL,
+  `event_url` varchar(255) DEFAULT NULL,
+  `event_contact_person` varchar(200) DEFAULT NULL,
+  `event_start_date` datetime DEFAULT NULL,
+  `event_end_date` datetime DEFAULT NULL,
+  `event_created` datetime DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`event_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `events`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events_rsvp`
+--
+
+CREATE TABLE IF NOT EXISTS `events_rsvp` (
+  `rsvp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `cuser_id` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `status_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`rsvp_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `events_rsvp`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fields`
 --
 
@@ -250,6 +346,33 @@ INSERT INTO `fields` (`field_id`, `form_id`, `field_name`, `field_label`, `field
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `files`
+--
+
+CREATE TABLE IF NOT EXISTS `files` (
+  `file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `filename` varchar(255) DEFAULT NULL,
+  `filerealname` varchar(255) DEFAULT NULL,
+  `filepath` varchar(255) DEFAULT NULL,
+  `filesize` int(11) DEFAULT NULL,
+  `fileext` varchar(15) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `album_id` int(11) NOT NULL,
+  `hosttype` enum('Image','File','Music','Video') NOT NULL,
+  PRIMARY KEY (`file_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `files`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `forms`
 --
 
@@ -267,6 +390,102 @@ CREATE TABLE IF NOT EXISTS `forms` (
 INSERT INTO `forms` (`form_id`, `form_name`, `category`) VALUES
 (1, 'Test', 'None'),
 (2, 'test2', 'Single');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forums`
+--
+
+CREATE TABLE IF NOT EXISTS `forums` (
+  `forum_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `subject` varchar(200) DEFAULT NULL,
+  `message` text,
+  `forum_created_date` datetime DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`forum_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `forums`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `mes_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `from_user_id` int(11) DEFAULT NULL,
+  `to_user_id` int(11) DEFAULT NULL,
+  `from_delete` int(1) NOT NULL DEFAULT '0',
+  `to_delete` int(1) NOT NULL DEFAULT '0',
+  `read` int(1) NOT NULL DEFAULT '0',
+  `subject` varchar(200) DEFAULT NULL,
+  `message` text,
+  `mes_created` datetime DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`mes_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `messages`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll`
+--
+
+CREATE TABLE IF NOT EXISTS `poll` (
+  `poll_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `poll_question` text,
+  `poll_options` text,
+  `created` datetime DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`poll_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `poll`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll_results`
+--
+
+CREATE TABLE IF NOT EXISTS `poll_results` (
+  `result_id` int(11) NOT NULL AUTO_INCREMENT,
+  `poll_id` int(11) DEFAULT NULL,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `puser_id` int(11) DEFAULT NULL,
+  `option_id` int(4) DEFAULT NULL,
+  `pdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`result_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `poll_results`
+--
+
 
 -- --------------------------------------------------------
 
