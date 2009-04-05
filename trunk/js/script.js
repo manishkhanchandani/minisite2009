@@ -113,6 +113,10 @@ function confirmDelete(msg) {
 	else 
 		return false;
 }
+function GP_popupConfirmMsg(msg) { //v1.0
+  document.MM_returnValue = confirm(msg);
+  //onclick="GP_popupConfirmMsg('Are you sure you want to delete this record?');return document.MM_returnValue"
+}
 /*
 function openGetUrl(url, divtag, param) {
 	$(divtag).html("<img src='"+HTTPPath+"/images/loading.gif' />");

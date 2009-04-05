@@ -1,0 +1,81 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">My Reminders</div>
+			<div id="contentBody5" class="contentBody">					
+
+{if $records.record}
+	{if $errorMessage}
+		<div class="error">{$errorMessage}</div>	
+	{/if}
+	<div class="vtable">
+		{foreach item=rec from=$records.record}
+			<div class="vtr">
+				{if $rec.title}
+				<div class="vtdet">
+					<div class="vtrbold">Title: </div> <div class="vtrnormal">{$rec.title}</div>
+				</div>
+				{/if}
+				{if $rec.message}
+				<div class="vtdet">
+					<div class="vtrbold">Message: </div> <div class="vtrnormal">{$rec.message}</div>
+				</div>
+				{/if}
+				{if $rec.tophone}
+				<div class="vtdet">
+					<div class="vtrbold">Phone Number: </div> <div class="vtrnormal">{$rec.tophone}</div>
+				</div>
+				{/if}
+				{if $rec.senddate}
+				<div class="vtdet">
+					<div class="vtrbold">Next Send Date: </div> <div class="vtrnormal">{$rec.senddate|date_format:"%b %e, %Y %H:%M"}</div>
+				</div>
+				{/if}
+				{if $rec.smsdatetime}
+				<div class="vtdet">
+					<div class="vtrbold">Expected Send Date: </div> <div class="vtrnormal">{$rec.smsdatetime|date_format:"%b %e, %Y %H:%M"}</div>
+				</div>
+				{/if}
+				{if $rec.lastsenddate}
+				<div class="vtdet">
+					<div class="vtrbold">Last Send Date: </div> <div class="vtrnormal">{$rec.lastsenddate|date_format:"%b %e, %Y %H:%M"}</div>
+				</div>
+				{/if}
+				{if $rec.smstype}
+				<div class="vtdet">
+					<div class="vtrbold">SMS Type: </div> <div class="vtrnormal">{$rec.smstype}</div>
+				</div>
+				{/if}
+				{if $rec.recurringtype}
+				<div class="vtdet">
+					<div class="vtrbold">Recurring Type: </div> <div class="vtrnormal">{$rec.recurringtype}</div>
+				</div>
+				{/if}
+				{if $rec.recurringfixedtypedates}
+				<div class="vtdet">
+					<div class="vtrbold">Recurring Dates: </div> <div class="vtrnormal">{$rec.recurringfixedtypedates}</div>
+				</div>
+				{/if}
+				<div class="vtdet pagination">
+					<div><a href="{$HTTPPATH}/index.php?ID={$ID}&p=smsreminder&action=view&delId={$rec.rid}&page={$page}" onclick="GP_popupConfirmMsg('Are you sure you want to delete this reminder?');return document.MM_returnValue">Delete</a></div>
+				</div>
+				<div class="bottomborder"></div>
+			</div>		
+		{/foreach}
+		<div class="pagination">
+			{$pagination}
+		</div>
+	</div>	
+{else}
+	{if $errorMessage}
+		<div class="error">{$errorMessage}</div>	
+	{/if}	
+	<div>No Reminder in Your List.</div>	
+{/if}
+									
+			</div>
+		</div>
+	</div>
+	{include file="smsreminder/contentRightCol.html"}
+	<div style="clear:both;"></div>
+</div>

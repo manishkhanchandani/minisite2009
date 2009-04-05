@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 04, 2009 at 01:16 PM
+-- Generation Time: Apr 05, 2009 at 05:12 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -655,9 +655,11 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 --
 
 INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`) VALUES
+(1, 1, 0, 'my blog', 'blog'),
 (2, 1, 1, '', NULL),
 (3, 1, 1, '', NULL),
 (4, 5, 1, '', NULL),
+(1, 7, 0, 'My SMS Reminder', 'come and enjoy sms reminder'),
 (1, 5, 1, 'My News', 'good news');
 
 -- --------------------------------------------------------
@@ -678,6 +680,9 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 
 INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
 (1, 2),
+(1, 5),
+(1, 7),
+(1, 8),
 (2, 4),
 (3, 3),
 (4, 2);
@@ -716,6 +721,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts_settings` (
   `setting_label` varchar(200) DEFAULT NULL,
   `comments` text,
   `inputtype` enum('radio','checkbox') DEFAULT NULL,
+  `reference` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`setting_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
@@ -723,14 +729,14 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts_settings` (
 -- Dumping data for table `prebuilt_concepts_settings`
 --
 
-INSERT INTO `prebuilt_concepts_settings` (`setting_id`, `concept_id`, `setting_label`, `comments`, `inputtype`) VALUES
-(1, 5, 'Yahoo News', 'http://news.search.yahoo.com/news/rss?p=[[KEYWORD]]&ei=UTF-8&fl=0&x=wrt\r\n', 'checkbox'),
-(2, 5, 'Google News', 'http://news.google.com/news?pz=1&ned=us&hl=en&q=[[KEYWORD]]&output=rss', 'checkbox'),
-(3, 1, 'No Category', NULL, 'radio'),
-(4, 1, 'Single Level Category', NULL, 'radio'),
-(5, 1, 'Multilevel Category', NULL, 'radio'),
-(7, 1, 'Logged In Users can only Post', NULL, 'checkbox'),
-(8, 1, 'Logged In Users can only Comment', NULL, 'checkbox');
+INSERT INTO `prebuilt_concepts_settings` (`setting_id`, `concept_id`, `setting_label`, `comments`, `inputtype`, `reference`) VALUES
+(1, 5, 'Yahoo News', 'http://news.search.yahoo.com/news/rss?p=[[KEYWORD]]&ei=UTF-8&fl=0&x=wrt\r\n', 'checkbox', 'yahoonews'),
+(2, 5, 'Google News', 'http://news.google.com/news?pz=1&ned=us&hl=en&q=[[KEYWORD]]&output=rss', 'checkbox', 'googlenews'),
+(3, 1, 'No Category', NULL, 'radio', 'nocat'),
+(4, 1, 'Single Level Category', NULL, 'radio', 'single'),
+(5, 1, 'Multilevel Category', NULL, 'radio', 'multi'),
+(7, 1, 'Logged In Users can only Post', NULL, 'checkbox', 'loginpost'),
+(8, 1, 'Logged In Users can only Comment', NULL, 'checkbox', 'logincomment');
 
 -- --------------------------------------------------------
 
@@ -971,12 +977,16 @@ CREATE TABLE IF NOT EXISTS `smsreminders` (
   `status` int(2) DEFAULT NULL,
   `lastsenddate` datetime DEFAULT NULL,
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `smsreminders`
 --
 
+INSERT INTO `smsreminders` (`rid`, `id`, `user_id`, `title`, `message`, `tophone`, `senddate`, `smstype`, `smsdatetime`, `recurringtype`, `recurringfixedtypedates`, `created`, `modified`, `status`, `lastsenddate`) VALUES
+(4, 1, 1, 'qqq', 'hi, i love you, happy birthday to you, many many happy returns of the day. manish', '919324044912', NULL, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 05:01:10', '2009-04-05 05:02:04', 1, '2009-04-05 05:02:04'),
+(3, 1, 1, 'ddd', 'dddd', '919323532886', NULL, 'Fixed', '2009-04-08 03:30:00', '', NULL, '2009-04-05 04:59:36', '2009-04-05 05:02:04', 1, '2009-04-05 05:02:04'),
+(6, 1, 1, 'xx', 'xxx', 'xxx', 1238986800, 'Fixed', '2009-04-06 03:00:00', '', NULL, '2009-04-05 05:10:25', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 

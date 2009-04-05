@@ -114,3 +114,46 @@ button, select, input, textarea {
 .posted {
 	font-weight: bold;
 }
+.vtable {
+	width: 100%;
+}
+.vth {
+	font-size: 12px;
+	padding:5px;
+	width: 16%;
+	float:left;	
+}
+.vtd {
+	font-size: 11px;
+	padding:5px;
+	width: 16%;
+	float:left;	
+	background-color:#CCCCCC;
+}
+.vtd2 {
+	font-size: 11px;
+	padding:5px;
+	width: 16%;
+	float:left;	
+	background-color:#999999;
+}
+.vtrbold {
+	float: left;
+	width: 130px;
+	text-align:right;
+	font-weight: bold;
+	padding-right: 5px;
+}
+.vtrnormal {
+	float: left;
+	width: 70%;
+
+}
+.vtdet {
+	padding-bottom:15px;
+}
+.bottomborder {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #999999;
+}

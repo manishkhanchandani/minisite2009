@@ -1,5 +1,5 @@
 <?php
-class mod_SMS {	
+class mod_Smsreminder {	
 	private $cacheSecs = -300;
 	private static $instance;
 	
@@ -21,6 +21,9 @@ class mod_SMS {
 		if(!trim($post['tophone'])) $msg .= "Please insert the 'To Phone Numbers'. ";
 		if(!trim($post['smsdatetime'])) $msg .= "Please insert the sms date. ";
 		if(!trim($post['smstime'])) $msg .= "Please insert the sms time. ";
+		if($post['smstype']=="Recurring" && !trim($post['recurringtype'])) {
+			$msg .= "Please choose the recurring type. ";
+		}
 		if($msg) throw new Exception($msg);
 	}
 	
@@ -28,7 +31,7 @@ class mod_SMS {
 		global $common;
 		$currentTime = time();
 		$sql = "select id, tophone, message, smstype, senddate, recurringtype, recurringfixedtypedates from smsreminders WHERE status = 1 AND senddate != '' AND senddate IS NOT NULL AND senddate < ".$currentTime;
-		$record = $common->selectRecord($sql);
+		$record = $this->Common->selectRecord($sql);
 		if($record) {
 			foreach($record as $rec) {
 				// get phone number and text message
@@ -45,7 +48,7 @@ class mod_SMS {
 					if($ret['senddate']) $ret['smsdatetime'] = date('Y-m-d H:i:s',$ret['senddate']);
 					$ret['lastsenddate'] = date('Y-m-d H:i:s');
 					$ret['modified'] = date('Y-m-d H:i:s');
-					$common->editRecord('smsreminders', 'id', $ret, $rec['id']);
+					$this->Common->phpedit('smsreminders', 'id', $ret, $rec['id']);
 				} else {
 					// mail to administrator
 					@mail(ADMINEMAIL, "sms send failed on ".date('r'), "sms send failed on ".$_SERVER['PHP_SELF']." due to ".$smsResult);
@@ -151,9 +154,6 @@ class mod_SMS {
 					break;
 				case 'Yearly':
 					$newTime = strtotime("+1 Year", $rec['senddate']);
-					break;
-				case 'Fixed':
-					//$newTime = $rec['senddate']+(60*60*24*14);
 					break;
 			}
 			return $newTime;
