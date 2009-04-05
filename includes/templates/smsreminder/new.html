@@ -8,95 +8,109 @@
 		<div id="content5" class="contentBox">
 			<div id="contentHead5" class="contentHead">New SMS Reminder</div>
 			<div id="contentBody5" class="contentBody">
-<form name="form1" method="post" action="">
-	<div class="tr">
-		<div class="th">
-			Title:* 
+<form action="" method="post" name="form1">
+	{if $errorMessage != ""}
+		<div class="error">{$errorMessage}</div>
+	{/if}
+	{if $success != 1}
+		<div class="tr">
+			<div class="th">
+				Title:* 
+			</div>
+			<div class="td">
+			  <input name="title" type="text" id="title" size="25" value="{$smarty.post.title}">
+			</div>
 		</div>
-		<div class="td">
-		  <input name="title" type="text" id="title" size="25" value="{$smarty.post.title}">
+		<div class="tr">
+			<div class="th">
+				Message:*
+			</div>
+			<div class="td">
+			  <textarea name="message" cols="35" rows="2" id="message">{$smarty.post.message}</textarea>
+			</div>
 		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			Message:*
+		<div class="tr">
+			<div class="th">
+				To Phone Numbers:*
+			</div>
+			<div class="td">
+			  <input name="tophone" type="text" id="tophone" value="{$smarty.post.tophone}" size="35" />
+			</div>
 		</div>
-		<div class="td">
-		  <textarea name="message" cols="35" rows="2" id="message">{$smarty.post.message}</textarea>
+		<div class="tr">
+			<div class="th">
+				
+			</div>
+			<div class="td">
+				(eg. 919111111111) 
+			</div>
 		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			To Phone Numbers:*
+		<div class="tr">
+			<div class="th">
+				SMS Type:
+			</div>
+			<div class="td">
+			  <select name="smstype" id="smstype">
+				<option value="Fixed" {if $smarty.post.smstype == "Fixed"}selected{/if}>Fixed</option>
+				<option value="Recurring" {if $smarty.post.smstype == "Recurring"}selected{/if}>Recurring</option>
+			  </select>
+			</div>
 		</div>
-		<div class="td">
-		  <input name="tophone" type="text" id="tophone" value="{$smarty.post.tophone}" size="35" />
+		<div class="tr">
+			<div class="th">
+				SMS Date:*
+			</div>
+			<div class="td">
+			  <input name="smsdatetime" type="text" id="smsdatetime" value="{$smarty.post.smsdatetime}">
+			</div>
 		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			SMS Type:
+		<div class="tr">
+			<div class="th">
+				SMS Time:*
+			</div>
+			<div class="td">
+			  <input name="smstime" type="text" id="smstime" size="12" value="{$smarty.post.smstime}" />
+			</div>
 		</div>
-		<div class="td">
-		  <select name="smstype" id="smstype">
-			<option value="Fixed" {if $smarty.post.smstype == "Fixed"}selected{/if}>Fixed</option>
-			<option value="Recurring" {if $smarty.post.smstype == "Recurring"}selected{/if}>Recurring</option>
-    		</select>
+		<div class="tr">
+			<div class="th">
+				Recurring Type:
+			</div>
+			<div class="td">
+			  <select name="recurringtype" id="recurringtype">
+			  <option value="" {if $smarty.post.recurringtype == ""}selected{/if}>No Recurring</option>
+			  <option value="Every 10 Minutes" {if $smarty.post.recurringtype == "Every 10 Minutes"}selected{/if}>Every 10 Minutes</option>
+			  <option value="Every Half Hourly" {if $smarty.post.recurringtype == "Every Half Hourly"}selected{/if}>Every Half Hourly</option>
+			  <option value="Hourly" {if $smarty.post.recurringtype == "Hourly"}selected{/if}>Hourly</option>
+			  <option value="Every 2 Hour" {if $smarty.post.recurringtype == "Every 2 Hour"}selected{/if}>Every 2 Hour</option>
+			  <option value="Every 3 Hours" {if $smarty.post.recurringtype == "Every 3 Hours"}selected{/if}>Every 3 Hours</option>
+			  <option value="Every 6 Hours" {if $smarty.post.recurringtype == "Every 6 Hours"}selected{/if}>Every 6 Hours</option>
+			  <option value="Daily" {if $smarty.post.recurringtype == "Daily"}selected{/if}>Daily</option>
+			  <option value="WeekDays" {if $smarty.post.recurringtype == "WeekDays"}selected{/if}>WeekDays</option>
+			  <option value="Sunday" {if $smarty.post.recurringtype == "Sunday"}selected{/if}>Sunday</option>
+			  <option value="SatSun" {if $smarty.post.recurringtype == "SatSun"}selected{/if}>SatSun</option>
+			  <option value="Fortnight" {if $smarty.post.recurringtype == "Fortnight"}selected{/if}>Fortnight</option>
+			  <option value="Monthly" {if $smarty.post.recurringtype == "Monthly"}selected{/if}>Monthly</option>
+			  <option value="Quarterly" {if $smarty.post.recurringtype == "Quarterly"}selected{/if}>Quarterly</option>
+			  <option value="SixMonthly" {if $smarty.post.recurringtype == "SixMonthly"}selected{/if}>SixMonthly</option>
+			  <option value="Yearly" {if $smarty.post.recurringtype == "Yearly"}selected{/if}>Yearly</option>
+			</select>
+			</div>
 		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			SMS Date:*
+		<div class="tr">
+			<div class="th">
+				
+			</div>
+			<div class="td">
+				<input type="submit" name="Submit" value="Create New Reminder">
+				<input name="senddatetime" type="hidden" id="senddatetime" />
+				<input name="created" type="hidden" id="created" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}" />
+				<input name="status" type="hidden" id="status" value="1" />
+				<input name="MM_Insert" type="hidden" id="MM_Insert" value="1" />
+			    <input name="id" type="hidden" id="id" value="{$ID}" />
+			</div>
 		</div>
-		<div class="td">
-		  <input name="smsdatetime" type="text" id="smsdatetime" value="{$smarty.post.smsdatetime}">
-		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			SMS Time:*
-		</div>
-		<div class="td">
-		  <input name="smstime" type="text" id="smstime" size="12" value="{$smarty.post.smstime}" />
-		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			Recurring Type:
-		</div>
-		<div class="td">
-		  <select name="recurringtype" id="recurringtype">
-		  <option value="" {if $smarty.post.recurringtype == ""}selected{/if}>No Recurring</option>
-		  <option value="Every 10 Minutes" {if $smarty.post.recurringtype == "Every 10 Minutes"}selected{/if}>Every 10 Minutes</option>
-		  <option value="Every Half Hourly" {if $smarty.post.recurringtype == "Every Half Hourly"}selected{/if}>Every Half Hourly</option>
-		  <option value="Hourly" {if $smarty.post.recurringtype == "Hourly"}selected{/if}>Hourly</option>
-		  <option value="Every 2 Hour" {if $smarty.post.recurringtype == "Every 2 Hour"}selected{/if}>Every 2 Hour</option>
-		  <option value="Every 3 Hours" {if $smarty.post.recurringtype == "Every 3 Hours"}selected{/if}>Every 3 Hours</option>
-		  <option value="Every 6 Hours" {if $smarty.post.recurringtype == "Every 6 Hours"}selected{/if}>Every 6 Hours</option>
-		  <option value="Daily" {if $smarty.post.recurringtype == "Daily"}selected{/if}>Daily</option>
-		  <option value="WeekDays" {if $smarty.post.recurringtype == "WeekDays"}selected{/if}>WeekDays</option>
-		  <option value="Sunday" {if $smarty.post.recurringtype == "Sunday"}selected{/if}>Sunday</option>
-		  <option value="SatSun" {if $smarty.post.recurringtype == "SatSun"}selected{/if}>SatSun</option>
-		  <option value="Fortnight" {if $smarty.post.recurringtype == "Fortnight"}selected{/if}>Fortnight</option>
-		  <option value="Monthly" {if $smarty.post.recurringtype == "Monthly"}selected{/if}>Monthly</option>
-		  <option value="Quarterly" {if $smarty.post.recurringtype == "Quarterly"}selected{/if}>Quarterly</option>
-		  <option value="SixMonthly" {if $smarty.post.recurringtype == "SixMonthly"}selected{/if}>SixMonthly</option>
-		  <option value="Yearly" {if $smarty.post.recurringtype == "Yearly"}selected{/if}>Yearly</option>
-		</select>
-		</div>
-	</div>
-	<div class="tr">
-		<div class="th">
-			
-		</div>
-		<div class="td">
-			<input type="submit" name="Submit" value="Create New Reminder">
-			<input name="senddatetime" type="hidden" id="senddatetime" />
-			<input name="created" type="hidden" id="created" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}" />
-			<input name="status" type="hidden" id="status" value="1" />
-			<input name="MM_Insert" type="hidden" id="MM_Insert" value="1" />
-		</div>
-	</div>
+	{/if}
 </form>
 {literal}
 <script language="javascript">
@@ -112,17 +126,6 @@
 		</div>
 
 	</div>
-	<div id="contentRightCol">
-		<div id="content1" class="contentBox">
-			<div id="contentHead1" class="contentHead">SMS Links</div>
-		  <div id="contentBody1" class="contentBody">
-				<ul class="ullinks">
-					<li class="lilinks"><a href="{$HTTPPATH}/index.php?p=smsreminder&action=new&ID={$ID}" class="alinks">Create New SMS</a></li>
-					<li class="lilinks"><a href="{$HTTPPATH}/index.php?p=smsreminder&action=view&ID={$ID}" class="alinks">View My SMS</a></li>
-					<li class="lilinks"><a href="{$HTTPPATH}/index.php?p=smsreminder&action=viewinactive&ID={$ID}" class="alinks">View Inactive SMS</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	{include file="smsreminder/contentRightCol.html"}
 	<div style="clear:both;"></div>
 </div>

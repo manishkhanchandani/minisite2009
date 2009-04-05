@@ -290,6 +290,11 @@ class Common {
 				$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$concept['displayname']."</a> ";
 			}
 		}
+		if($_SESSION['user_id']) {
+			$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=change\">Change Password</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=logout\">Logout</a>";
+		} else {
+			$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=login\">Login</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=register\">Register</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=forgot\">Forgot Password</a>";
+		}
 		return $menuString;	
 	}
 	

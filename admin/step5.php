@@ -256,6 +256,12 @@ exit;
 					echo "db2.php uploaded succcessfully<br>";
 				}
 				flush();
+				if(!@ftp_put($ftp, "index.php", "../config.php", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for config.php</strong></font><br>"; 
+				} else {
+					echo "index.php uploaded succcessfully<br>";
+				}
+				flush();
 				if(!@ftp_put($ftp, "index.php", "../index.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for index.php</strong></font><br>"; 
 				} else {
