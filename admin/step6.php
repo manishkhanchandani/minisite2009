@@ -137,12 +137,12 @@ exit;
 		include('conn_start.php');
 		if(!$row_rsKeyword['ftpdir']) $d=ftp_pwd($ftp); else $d = $row_rsKeyword['ftpdir'];	
 		if ($d=="/") $d="";	
-		//echo "Path is ".$d."<br>";	
+		echo "Path is ".$d."<br>";	
 		if (!@ftp_chdir($ftp,$d)) {
-			//echo "<p>Can't enter that folder!</p>"; 
+			echo "<p>Can't enter that folder!</p>"; 
 		} else {
 			require_once("RecursiveSearch.php");
-			$directory = "../".$dirs;
+			$directory = "../";
 			
 			// uploading folders and files
 			$search = new RecursiveSearch($directory);
@@ -172,32 +172,34 @@ exit;
 							} else {
 								//echo "already created<br>";
 							}
-							if($direc=="templates_c") {
-								if(ftp_chmod($ftp, 0777, $newDir) !== false) {
-									//echo "$newDir chmoded successfully to 777<br>";
-								} else {
-									//echo "could not chmod $newDir<br>";
+							if($_POST['server']=="linux") {
+								if($direc=="templates_c") {
+									if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+										//echo "$newDir chmoded successfully to 777<br>";
+									} else {
+										//echo "could not chmod $newDir<br>";
+									}
 								}
-							}
-							if($direc=="ADODB_cache") {
-								if(ftp_chmod($ftp, 0777, $newDir) !== false) {
-									//echo "$newDir chmoded successfully to 777<br>";
-								} else {
-									//echo "could not chmod $newDir<br>";
+								if($direc=="ADODB_cache") {
+									if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+										//echo "$newDir chmoded successfully to 777<br>";
+									} else {
+										//echo "could not chmod $newDir<br>";
+									}
 								}
-							}
-							if($direc=="cache") {
-								if(ftp_chmod($ftp, 0777, $newDir) !== false) {
-									//echo "$newDir chmoded successfully to 777<br>";
-								} else {
-									//echo "could not chmod $newDir<br>";
+								if($direc=="cache") {
+									if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+										//echo "$newDir chmoded successfully to 777<br>";
+									} else {
+										//echo "could not chmod $newDir<br>";
+									}
 								}
-							}
-							if($direc=="tmp") {
-								if(ftp_chmod($ftp, 0777, $newDir) !== false) {
-									//echo "$newDir chmoded successfully to 777<br>";
-								} else {
-									//echo "could not chmod $newDir<br>";
+								if($direc=="tmp") {
+									if(ftp_chmod($ftp, 0777, $newDir) !== false) {
+										//echo "$newDir chmoded successfully to 777<br>";
+									} else {
+										//echo "could not chmod $newDir<br>";
+									}
 								}
 							}
 							//echo "<br>";
@@ -388,44 +390,52 @@ function MM_goToURL() { //v3.0
 <form action="<?php echo $editFormAction; ?>" method="POST" name="form1" id="form1" onsubmit="MM_validateForm('ftphost','','R','ftpuser','','R','dbhost','','R','db','','R','dbuser','','R','ftppassword','','R');return document.MM_returnValue">
   <table border="1" cellpadding="5" cellspacing="1">
     <tr>
+      <th align="right">Server Type: </th>
+      <td><select name="server" id="server">
+        <option value="linux">Linux</option>
+        <option value="windows">Windows</option>
+      </select>
+      </td>
+    </tr>
+    <tr>
       <th align="right">Site FTP Host: </th>
       <td><input name="ftphost" type="text" id="ftphost" value="<?php echo $row_rsKeyword['ftphost']; ?>" maxlength="255" /> 
-      eg. ftp.servage.net</td>
+      eg. ftp.servage.net/ 64.186.128.115</td>
     </tr>
     <tr>
       <th align="right">Site FTP User: </th>
       <td><input name="ftpuser" type="text" id="ftpuser" value="<?php echo $row_rsKeyword['ftpuser']; ?>" maxlength="255" /> 
-      eg. manishkk </td>
+      eg. manishkk/ administrator </td>
     </tr>
     <tr>
       <th align="right">Site FTP Password: </th>
       <td><input name="ftppassword" type="password" id="ftppassword" value="<?php echo $row_rsKeyword['ftppassword']; ?>" maxlength="255" /> 
-      eg. password </td>
+      eg. password</td>
     </tr>
     <tr>
       <th align="right">Site FTP Dir: </th>
       <td><input name="ftpdir" type="text" id="ftpdir" value="<?php echo $row_rsKeyword['ftpdir']; ?>" maxlength="255" /> 
-      eg. /www/minisite/project1 </td>
+      eg. /www/minisite/project1 or /minisite/project1 </td>
     </tr>
     <tr>
       <th align="right">Mysql Host: </th>
       <td><input name="dbhost" type="text" id="dbhost" value="<?php echo $row_rsKeyword['dbhost']; ?>" /> 
-      eg. mysql1076.servage.net</td>
+      eg. mysql1076.servage.net/ 64.186.128.115</td>
     </tr>
     <tr>
       <th align="right">Mysql DB: </th>
       <td><input name="db" type="text" id="db" value="<?php echo $row_rsKeyword['db']; ?>" /> 
-      eg. minisite09</td>
+      eg. minisite09 or minisite </td>
     </tr>
     <tr>
       <th align="right">Mysql User: </th>
       <td><input name="dbuser" type="text" id="dbuser" value="<?php echo $row_rsKeyword['dbuser']; ?>" maxlength="255" /> 
-      eg. minisite09</td>
+      eg. minisite09 or manishkk </td>
     </tr>
     <tr>
       <th align="right">Mysql Password: </th>
       <td><input name="dbpassword" type="password" id="dbpassword" value="<?php echo $row_rsKeyword['dbpassword']; ?>" maxlength="255" /> 
-      eg. password123</td>
+      eg. password123 or manishkk </td>
     </tr>
     <tr>
       <th colspan="2" align="right"><input type="submit" name="Submit" value="Publish" />

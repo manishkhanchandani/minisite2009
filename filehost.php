@@ -6,7 +6,7 @@ try {
 		unset($_GET['action']);
 		throw new Exception("File Host Concept does not exist for this id. ");
 	}
-	$mod_Host = new mod_Host($dbFrameWork, $Common);				
+	$mod_Host = new mod_Filehost($dbFrameWork, $Common);				
 	$smarty->assign('action', $_GET['action']);	
 	$hosttype = 'File';
 	
