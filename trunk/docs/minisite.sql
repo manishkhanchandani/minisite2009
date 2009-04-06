@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2009 at 05:43 PM
+-- Generation Time: Apr 06, 2009 at 06:59 PM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -642,14 +642,16 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 --
 
 INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`, `priority`) VALUES
-(1, 1, 1, 'Mumbai Blogs', 'Join us to some exciting blog site.', 0),
+(1, 1, 0, 'Mumbai Blogs', 'Join us to some exciting blog site.', 0),
 (1, 5, 1, 'News on Mumbai', 'Watch news live', 0),
-(1, 7, 1, 'SMS Reminder', 'Remind your important jobs using our sms service', 0),
-(1, 8, 1, 'Email Reminder', 'Remind your important jobs using our email service', 0),
-(1, 9, 1, '', 'File Hosted here.', 0),
-(1, 10, 1, 'Videos', 'You tube', 0),
+(1, 7, 0, 'SMS Reminder', 'Remind your important jobs using our sms service', 0),
+(1, 8, 0, 'Email Reminder', 'Remind your important jobs using our email service', 0),
+(1, 9, 0, '', 'File Hosted here.', 0),
+(1, 10, 0, 'Videos', 'You tube', 0),
 (1, 11, 0, '', '', 0),
-(1, 13, 0, '', '', 0);
+(1, 13, 0, '', '', 0),
+(1, 14, 0, 'Cricket Scores', 'ckt', 0),
+(1, 15, 0, 'Send SMS', '', 0);
 
 -- --------------------------------------------------------
 
@@ -684,7 +686,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts` (
   `concept_id` int(11) NOT NULL AUTO_INCREMENT,
   `concept` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`concept_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `prebuilt_concepts`
@@ -698,7 +700,9 @@ INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`) VALUES
 (9, 'filehost'),
 (10, 'youtube'),
 (11, 'gtalk'),
-(13, 'allchat');
+(13, 'allchat'),
+(14, 'cricketscore'),
+(15, 'sendsms');
 
 -- --------------------------------------------------------
 
