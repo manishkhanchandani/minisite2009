@@ -212,9 +212,9 @@ exit;
 			flush();
 			if($search->files) {
 				foreach($search->files as $file) {		
-					if(eregi("..//includes/templates/footer.html", $file)) {
-						continue;
-					}
+					//if(eregi("..//includes/templates/footer.html", $file)) {
+						//continue;
+					//}
 					$file = str_replace("..//", "../", $file);	
 					if(eregi(".svn", $file)) {
 						continue;
@@ -256,13 +256,6 @@ exit;
 					echo "db2.php uploaded succcessfully<br>";
 				}
 				flush();
-				if(!@ftp_put($ftp, "config.php", "../config.php", FTP_BINARY)) { 
-					echo $error = "<font color=#ff0000><strong>FTP upload error for config.php</strong></font><br>"; 
-					exit;
-				} else {
-					echo "config.php uploaded succcessfully<br>";
-				}
-				flush();
 				if(!@ftp_put($ftp, "index.php", "../index.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for index.php</strong></font><br>"; 
 					exit;
@@ -278,7 +271,7 @@ exit;
 					echo $row_rsKeyword['id'].".zip uploaded succcessfully<br>";
 				}
 				flush();
-				$tdir = $d."/includes/templates";
+				/*$tdir = $d."/includes/templates";
 				ftp_chdir($ftp,$tdir);
 				if(!@ftp_put($ftp, "footer.html", "../includes/templates/footer.html", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for ../includes/templates/footer.html</strong></font><br>";
@@ -286,7 +279,7 @@ exit;
 				} else {
 					echo "../includes/templates/footer.html uploaded succcessfully<br>";
 				}
-				flush();
+				flush();*/
 				
 			} else {
 				echo 'Error in file creation';
