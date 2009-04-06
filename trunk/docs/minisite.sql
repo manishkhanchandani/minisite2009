@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2009 at 12:15 AM
+-- Generation Time: Apr 06, 2009 at 01:49 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -436,16 +436,23 @@ CREATE TABLE IF NOT EXISTS `files` (
   `filepath` varchar(255) DEFAULT NULL,
   `filesize` int(11) DEFAULT NULL,
   `fileext` varchar(15) DEFAULT NULL,
+  `filetype` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `album_id` int(11) NOT NULL,
   `hosttype` enum('Image','File','Music','Video') NOT NULL,
   PRIMARY KEY (`file_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `files`
 --
 
+INSERT INTO `files` (`file_id`, `id`, `group_id`, `user_id`, `filename`, `filerealname`, `filepath`, `filesize`, `fileext`, `filetype`, `created`, `album_id`, `hosttype`) VALUES
+(1, NULL, NULL, 0, '1648649d958660b0d6.sql', 'st.sql', 'st/user_0', 1663, 'sql', 'text/x-sql', NULL, 0, 'File'),
+(2, 1, NULL, 0, '2241549d95895a7701.sql', 't.sql', 't./user_0', 1663, 'sql', 'text/x-sql', NULL, 0, 'File'),
+(3, 1, NULL, 1, '2533749d958c53c5d4.txt', 'domains.txt', 'do/user_1', 1790, 'txt', 'text/plain', NULL, 0, 'File'),
+(4, 1, NULL, 1, '1671949d95a62aefc4.txt', 'flashpaypal.txt', 'fl/user_1', 6613, 'txt', 'text/plain', NULL, 0, 'File'),
+(5, 1, NULL, 1, '603049d95aa30cb98.txt', 'domains.txt', 'do/user_1', 1790, 'txt', 'text/plain', '2009-04-06 01:28:03', 0, 'File');
 
 -- --------------------------------------------------------
 
@@ -612,6 +619,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
   `homepage` int(1) NOT NULL DEFAULT '1',
   `displayname` varchar(200) NOT NULL,
   `home_text` text,
+  `priority` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`,`concept_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -619,11 +627,12 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 -- Dumping data for table `prebuilt_2_concepts`
 --
 
-INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`) VALUES
-(1, 1, 1, 'Mumbai Blogs', 'Join us to some exciting blog site.'),
-(1, 5, 1, 'News on Mumbai', 'Watch news live'),
-(1, 7, 1, 'SMS Reminder', 'Remind your important jobs using our sms service'),
-(1, 8, 1, 'Email Reminder', 'Remind your important jobs using our email service');
+INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`, `priority`) VALUES
+(1, 1, 1, 'Mumbai Blogs', 'Join us to some exciting blog site.', 0),
+(1, 5, 1, 'News on Mumbai', 'Watch news live', 0),
+(1, 7, 1, 'SMS Reminder', 'Remind your important jobs using our sms service', 0),
+(1, 8, 1, 'Email Reminder', 'Remind your important jobs using our email service', 0),
+(1, 9, 1, '', 'File Hosted here.', 0);
 
 -- --------------------------------------------------------
 
@@ -655,7 +664,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts` (
   `concept_id` int(11) NOT NULL AUTO_INCREMENT,
   `concept` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`concept_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `prebuilt_concepts`
@@ -665,7 +674,8 @@ INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`) VALUES
 (1, 'blog'),
 (5, 'news'),
 (7, 'smsreminder'),
-(8, 'emailreminder');
+(8, 'emailreminder'),
+(9, 'filehost');
 
 -- --------------------------------------------------------
 
