@@ -20,6 +20,7 @@ class mod_Host {
 		$record['user_id'] = $user_id;
 		$record['ip']  = $_SERVER['REMOTE_ADDR'];		
 		$record['created'] = date('Y-m-d H:i:s');	
+		$record['ref']  = $_SESSION['ref'];	
 		foreach($files as $file){
 			if ($file->upload['error']) {
 				throw new Exception($file->getMessage());
@@ -47,7 +48,8 @@ class mod_Host {
 			}			
 			$record['filepath']  = $firsttwo."/user_".$record['user_id'];	
 			$record['hosttype'] = 'File';		
-			$record['id'] = $post['id'];					
+			$record['id'] = $post['id'];	
+			if(!$record['id']) $record['id'] = ID;				
 			$dest_name = $file->moveTo($path);
 			if (PEAR::isError($dest_name)) {
 				throw new Exception($dest_name->getMessage());	
@@ -61,7 +63,8 @@ class mod_Host {
 				$record['fileext']  = $ext;
 				$record['filetype']  = $filetype;
 				$uid = $this->Common->phpinsert('files', 'file_id', $record);
-				$filehostlinks .= "File Location: <a href='".HTTPPATH."/filehost/download.php?fid=".$uid."'>".$real."</a> <br><br>";
+				$filehostlinks .= "File Location: <a href='".HTTPPATH."/filehost/download.php?fid=".$uid."'>".$real."</a>, or Copy the following link:<br>";
+				$filehostlinks .= HTTPPATH."/filehost/download.php?fid=".$uid."<br><br>";
 				unset($_SESSION['checksum']);
 				$success = 1;
 			} else {
@@ -77,7 +80,8 @@ class mod_Host {
 	public function uploadImageFile($files, $post, $user_id) {
 		$record['user_id'] = $user_id;
 		$record['ip']  = $_SERVER['REMOTE_ADDR'];		
-		$record['created'] = date('Y-m-d H:i:s');	
+		$record['created'] = date('Y-m-d H:i:s');
+		$record['ref']  = $_SESSION['ref'];	
 		foreach($files as $file){
 			if ($file->upload['error']) {
 				throw new Exception($file->getMessage());
@@ -105,7 +109,8 @@ class mod_Host {
 			}			
 			$record['filepath']  = $firsttwo."/user_".$record['user_id'];	
 			$record['hosttype'] = 'Image';		
-			$record['id'] = $post['id'];					
+			$record['id'] = $post['id'];	
+			if(!$record['id']) $record['id'] = ID;				
 			$dest_name = $file->moveTo($path);
 			if (PEAR::isError($dest_name)) {
 				throw new Exception($dest_name->getMessage());	
@@ -119,7 +124,8 @@ class mod_Host {
 				$record['fileext']  = $ext;
 				$record['filetype']  = $filetype;
 				$uid = $this->Common->phpinsert('files', 'file_id', $record);
-				$filehostlinks .= "File Location: <a href='".HTTPPATH."/filehost/download.php?fid=".$uid."'>".$real."</a> <br><br>";
+				$filehostlinks .= "File Location: <a href='".HTTPPATH."/filehost/download.php?fid=".$uid."'>".$real."</a>, or Copy the following link:<br>";
+				$filehostlinks .= HTTPPATH."/filehost/download.php?fid=".$uid."<br><br>";
 				unset($_SESSION['checksum']);
 				$success = 1;
 			} else {

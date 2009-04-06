@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2009 at 01:49 AM
+-- Generation Time: Apr 06, 2009 at 04:00 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -431,6 +431,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `ref` varchar(255) NOT NULL,
   `filename` varchar(255) DEFAULT NULL,
   `filerealname` varchar(255) DEFAULT NULL,
   `filepath` varchar(255) DEFAULT NULL,
@@ -441,18 +442,30 @@ CREATE TABLE IF NOT EXISTS `files` (
   `album_id` int(11) NOT NULL,
   `hosttype` enum('Image','File','Music','Video') NOT NULL,
   PRIMARY KEY (`file_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`file_id`, `id`, `group_id`, `user_id`, `filename`, `filerealname`, `filepath`, `filesize`, `fileext`, `filetype`, `created`, `album_id`, `hosttype`) VALUES
-(1, NULL, NULL, 0, '1648649d958660b0d6.sql', 'st.sql', 'st/user_0', 1663, 'sql', 'text/x-sql', NULL, 0, 'File'),
-(2, 1, NULL, 0, '2241549d95895a7701.sql', 't.sql', 't./user_0', 1663, 'sql', 'text/x-sql', NULL, 0, 'File'),
-(3, 1, NULL, 1, '2533749d958c53c5d4.txt', 'domains.txt', 'do/user_1', 1790, 'txt', 'text/plain', NULL, 0, 'File'),
-(4, 1, NULL, 1, '1671949d95a62aefc4.txt', 'flashpaypal.txt', 'fl/user_1', 6613, 'txt', 'text/plain', NULL, 0, 'File'),
-(5, 1, NULL, 1, '603049d95aa30cb98.txt', 'domains.txt', 'do/user_1', 1790, 'txt', 'text/plain', '2009-04-06 01:28:03', 0, 'File');
+INSERT INTO `files` (`file_id`, `id`, `group_id`, `user_id`, `ref`, `filename`, `filerealname`, `filepath`, `filesize`, `fileext`, `filetype`, `created`, `album_id`, `hosttype`) VALUES
+(1, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '2748149d97a29b33af.jpg', 'i73gn5.jpg', 'i7/user_1', 55257, 'jpg', 'image/jpeg', '2009-04-06 03:42:33', 0, 'File'),
+(2, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '43949d97a29b50ce.doc', 'Project.doc', 'Pr/user_1', 29696, 'doc', 'application/msword', '2009-04-06 03:42:33', 0, 'File'),
+(3, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '1783849d97a29b5e3e.jpg', 'r8tf0i.jpg', 'r8/user_1', 57559, 'jpg', 'image/jpeg', '2009-04-06 03:42:33', 0, 'File'),
+(4, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '3148549d97a29b6b69.txt', 'readme.txt', 're/user_1', 1737, 'txt', 'text/plain', '2009-04-06 03:42:33', 0, 'File'),
+(5, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '79049d97a29d903f.jpg', '28nng0.jpg', '28/user_1', 79754, 'jpg', 'image/jpeg', '2009-04-06 03:42:33', 0, 'File'),
+(6, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '1923849d97a29dae99.jpg', '3020yua.jpg', '30/user_1', 63455, 'jpg', 'image/jpeg', '2009-04-06 03:42:33', 0, 'File'),
+(7, 1, NULL, 1, '9b32fb4b2fe3e33ba4ecb256ab3e4958', '1764749d97a29dbde7.doc', '1237353762_Project.doc', '12/user_1', 29696, 'doc', 'application/msword', '2009-04-06 03:42:33', 0, 'File'),
+(8, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '2859349d97bb40b267.jpg', 'r8tf0i.jpg', 'r8/user_1', 57559, 'jpg', 'image/jpeg', '2009-04-06 03:49:08', 0, 'File'),
+(9, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '2730649d97bb40c9bc.txt', 'readme.txt', 're/user_1', 1737, 'txt', 'text/plain', '2009-04-06 03:49:08', 0, 'File'),
+(10, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '311049d97bb40d394.jpg', '28nng0.jpg', '28/user_1', 79754, 'jpg', 'image/jpeg', '2009-04-06 03:49:08', 0, 'File'),
+(11, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '1197449d97bb40dcc9.jpg', '3020yua.jpg', '30/user_1', 63455, 'jpg', 'image/jpeg', '2009-04-06 03:49:08', 0, 'File'),
+(12, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '3144249d97bb41e16c.doc', '1237353762_Project.doc', '12/user_1', 29696, 'doc', 'application/msword', '2009-04-06 03:49:08', 0, 'File'),
+(13, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '1391749d97bb41f849.jpg', 'i73gn5.jpg', 'i7/user_1', 55257, 'jpg', 'image/jpeg', '2009-04-06 03:49:08', 0, 'File'),
+(14, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '2298649d97bb420146.doc', 'Project.doc', 'Pr/user_1', 29696, 'doc', 'application/msword', '2009-04-06 03:49:08', 0, 'File'),
+(15, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '3262649d97c1ed948c.jpg', 'Death.jpg', 'De/user_1', 554242, 'jpg', 'image/jpeg', '2009-04-06 03:50:54', 0, 'File'),
+(16, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '880349d97c39318a1.jpg', 'img03.jpg', 'im/user_1', 3063, 'jpg', 'image/jpeg', '2009-04-06 03:51:21', 0, 'File'),
+(17, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '664649d97c39336a8.png', 'mumbaionline.png', 'mu/user_1', 43096, 'png', 'image/png', '2009-04-06 03:51:21', 0, 'File');
 
 -- --------------------------------------------------------
 

@@ -1,0 +1,30 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">Drag N Drop Upload</div>
+			<div id="contentBody5" class="contentBody" style="overflow:scroll;">
+				{if $errorMessage}
+					<div class="error">{$errorMessage}</div>
+				{/if}
+<p>
+<applet code="wjhk.jupload2.JUploadApplet" name="JUpload" archive="wjhk.jupload.jar" width="640" height="300" mayscript alt=""> 
+<param name="CODE" value="wjhk.jupload2.JUploadApplet" />
+<param name="ARCHIVE" value="wjhk.jupload.jar" />
+<param name="type"
+value="application/x-java-applet;version=1.5" />
+<param name="scriptable" value="false" />
+<param name="postURL"
+value="{$HTTPPATH}/index.php?ID={$ID}&p=filehost&action=newdragsubmit" />
+<param name="nbFilesPerRequest" value="4" />
+Java 1.5 or higher plugin required. 
+	</applet>	
+  </p>
+<p><a href="{$HTTPPATH}/index.php?ID={$ID}&p=filehost&action=viewtmp" target="_blank">View Your Files</a> </p>
+
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	{include file="filehost/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>

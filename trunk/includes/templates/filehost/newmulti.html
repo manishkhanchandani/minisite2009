@@ -1,3 +1,8 @@
+<script src="{$HTTPPATH}/js/multiupload/jquery.form.js" type="text/javascript" language="javascript"></script>
+<script src="{$HTTPPATH}/js/multiupload/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
+<script src="{$HTTPPATH}/js/multiupload/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+<script src="{$HTTPPATH}/js/multiupload/jquery.blockUI.js" type="text/javascript" language="javascript"></script>
+
 <div id="bodyContent">
 	<div id="contentLeftCol">
 		{if $success == 1}
@@ -10,9 +15,9 @@
 			</div>
 		{/if}
 		<div id="content5" class="contentBox">
-			<div id="contentHead5" class="contentHead">Upload New File</div>
+			<div id="contentHead5" class="contentHead">Upload Multiple Files</div>
 			<div id="contentBody5" class="contentBody">
-				<form action="" method="post" enctype="multipart/form-data" name="frmNew">
+				<form action="" method="post" enctype="multipart/form-data" name="frmNew" class="P10">
 					{if $errorMessage}
 						<div class="error">{$errorMessage}</div>
 					{/if}
@@ -21,7 +26,7 @@
 						File 
 						</div>
 						<div class="td">
-						  <input type="file" name="userfile[]" size="35" />
+						  <input type="file" name="userfile[]" class="multi" />
 						</div>
 					</div>
 					<div class="tr">
