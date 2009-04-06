@@ -51,14 +51,19 @@ class mod_Emailreminder {
 	}
 	
 	public function sendEmail($email, $text) {
+		$em = explode(",",$email);
 		$myEmail = new myEmail;
-		$myEmail->to = $email;
 		$myEmail->txt = strip_tags($text);
 		$myEmail->html = $text;
 		$myEmail->from = SITEEMAIL;
 		$myEmail->subject = "New Email Reminder";
-		$ret = $myEmail->emailTxtHtml();
-		return $ret;
+		if($em) {
+			foreach($em as $to) {
+				$myEmail->to = $to;
+				$myEmail->emailTxtHtml();
+			}
+		}
+		return true;
 	}
 	
 	public function getSendDate($rec) {
