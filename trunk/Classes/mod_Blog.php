@@ -70,10 +70,12 @@ class mod_Blog {
 			$this->categoryParentLink($ID, $pid);	
 		} else {
 			//$this->catLinkDisplay = '<a href="'.HTTPPATH.'/index.php?p=blog&action=view&ID='.$ID.'">Home</a> >> ';
-			foreach($this->catLink as $value) {
-				$this->catLinkDisplay .= $value.' >> ';
+			if($this->catLink) {
+				foreach($this->catLink as $value) {
+					$this->catLinkDisplay .= $value.' >> ';
+				}
+				$this->catLinkDisplay = substr($this->catLinkDisplay,0,-4);
 			}
-			$this->catLinkDisplay = substr($this->catLinkDisplay,0,-4);
 		}
 	}
 	

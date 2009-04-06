@@ -1,7 +1,7 @@
 <div id="bodyContent">
 	<div id="contentLeftCol">
 		<div id="content5" class="contentBox">
-			<div id="contentHead5" class="contentHead">My SMS Reminders</div>
+			<div id="contentHead5" class="contentHead">My Email Reminders</div>
 			<div id="contentBody5" class="contentBody">					
 
 {if $records.record}
@@ -31,9 +31,9 @@
 					<div class="vtrbold">Next Send Date: </div> <div class="vtrnormal">{$rec.senddate|date_format:"%b %e, %Y %H:%M"}</div>
 				</div>
 				{/if}
-				{if $rec.smsdatetime}
+				{if $rec.emaildatetime}
 				<div class="vtdet">
-					<div class="vtrbold">Expected Send Date: </div> <div class="vtrnormal">{$rec.smsdatetime|date_format:"%b %e, %Y %H:%M"}</div>
+					<div class="vtrbold">Expected Send Date: </div> <div class="vtrnormal">{$rec.emaildatetime|date_format:"%b %e, %Y %H:%M"}</div>
 				</div>
 				{/if}
 				{if $rec.lastsenddate}
@@ -41,9 +41,9 @@
 					<div class="vtrbold">Last Send Date: </div> <div class="vtrnormal">{$rec.lastsenddate|date_format:"%b %e, %Y %H:%M"}</div>
 				</div>
 				{/if}
-				{if $rec.smstype}
+				{if $rec.emailtype}
 				<div class="vtdet">
-					<div class="vtrbold">SMS Type: </div> <div class="vtrnormal">{$rec.smstype}</div>
+					<div class="vtrbold">SMS Type: </div> <div class="vtrnormal">{$rec.emailtype}</div>
 				</div>
 				{/if}
 				{if $rec.recurringtype}
@@ -57,7 +57,7 @@
 				</div>
 				{/if}
 				<div class="vtdet pagination">
-					<div><a href="{$HTTPPATH}/index.php?ID={$ID}&p=smsreminder&action=view&delId={$rec.rid}&page={$page}" onclick="GP_popupConfirmMsg('Are you sure you want to delete this reminder?');return document.MM_returnValue">Delete</a></div>
+					<div><a href="{$HTTPPATH}/index.php?ID={$ID}&p=emailreminder&action=view&delId={$rec.rid}&page={$page}" onclick="GP_popupConfirmMsg('Are you sure you want to delete this reminder?');return document.MM_returnValue">Delete</a></div>
 				</div>
 				<div class="bottomborder"></div>
 			</div>		
@@ -76,6 +76,6 @@
 			</div>
 		</div>
 	</div>
-	{include file="smsreminder/contentRightCol.html"}
+	{include file="emailreminder/contentRightCol.html"}
 	<div style="clear:both;"></div>
 </div>

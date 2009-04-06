@@ -157,12 +157,12 @@ body,td,th,textarea,select,input,button {
 <form action="" method="POST" name="form1" id="form1" onsubmit="MM_validateForm('keyword','','R');return document.MM_returnValue">
   <table border="1" cellspacing="1" cellpadding="5">
     <tr>
-      <th align="right">Keyword: </th>
-      <td><input name="keyword" type="text" id="keyword" value="<?php echo $_POST['keyword']; ?>" size="50" /></td>
+      <th align="right" valign="top">Keyword: </th>
+      <td valign="top"><input name="keyword" type="text" id="keyword" value="<?php echo $_POST['keyword']; ?>" size="50" /></td>
     </tr>
     <tr>
-      <th align="right">&nbsp;</th>
-      <td><input type="submit" name="Submit" value="Go" /></td>
+      <th align="right" valign="top">&nbsp;</th>
+      <td valign="top"><input type="submit" name="Submit" value="Go" /></td>
     </tr>
   </table>
   <p><input type="hidden" name="MM_insert" value="form1">
