@@ -1,0 +1,1 @@
+<a href="<?php echo $CONFIG['httpPath']."/filehost/index.".URLPATH; ?>">File Upload</a> | <a href="<?php echo $CONFIG['httpPath']."/filehost/multiplefileupload.".URLPATH; ?>">Multiple File Upload</a> | <a href="<?php echo $CONFIG['httpPath']."/filehost/dragndrop.".URLPATH; ?>">Drag and Drop Upload</a>
