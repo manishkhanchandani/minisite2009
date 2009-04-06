@@ -287,7 +287,8 @@ class Common {
 		$menuString = "<a href=\"".HTTPPATH."/index.php?ID=".$ID."\">Home</a> ";
 		if($MENU){
 			foreach($MENU as $concept) {
-				$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$concept['displayname']."</a> ";
+				if($concept['displayname']) $disp = $concept['displayname']; else $disp = $concept['concept'];
+				$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$disp."</a> ";
 			}
 		}
 		if($_SESSION['user_id']) {
