@@ -29,6 +29,8 @@ try {
 			break;
 		case 'new':
 			try {	
+				$PAGEHEADING= "Create New SMS Reminder";
+				$smarty->assign('PAGEHEADING',$PAGEHEADING);
 				if($_POST['MM_Insert']==1) {
 					$SMS->validateForm($_POST);
 					$_POST['user_id'] = $_SESSION['user_id'];
@@ -50,9 +52,10 @@ try {
 				$body = $smarty->fetch('smsreminder/new.html');
 			}
 			break;
-		case 'view':
-		default:
-			try {					
+		case 'viewinactive':
+			try {			
+				$PAGEHEADING= "View My Inactive Reminder";
+				$smarty->assign('PAGEHEADING',$PAGEHEADING);		
 				if($_GET['delId']) {
 					// delete the record
 					$Common->deleteRecord('smsreminders', 'rid', $_GET['delId']);
@@ -66,8 +69,48 @@ try {
 				$smarty->assign('maxRows', $maxRows);
 				$smarty->assign('pageNum', $pageNum);
 				$smarty->assign('page', ($pageNum+1));
-				$sql = "(select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime >= NOW() ORDER BY smsdatetime ASC) UNION (select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime < NOW() ORDER BY smsdatetime DESC) ";
-				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1";
+				$sql = "select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime < '".date('Y-m-d H:i:s')."' ORDER BY smsdatetime DESC";
+				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and smsdatetime < '".date('Y-m-d H:i:s')."'";
+				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
+				$smarty->assign('records', $records);
+				$totalRows = $records['totalRows'];
+				$totalPages = ceil($totalRows/$maxRows)-1;
+				
+				if($totalRows>$maxRows) {
+					// pagination
+					$PaginateIt = new PaginateIt();
+					$PaginateIt->SetItemCount($totalRows);
+					$PaginateIt->SetItemsPerPage($maxRows);
+					$pagination = $PaginateIt->GetPageLinks_Old();
+					$smarty->assign('pagination', $pagination);
+				}							
+				$body = $smarty->fetch('smsreminder/view.html');
+			} catch(Exception $e) {
+				$errorMessage = $e->getMessage();
+				$smarty->assign('errorMessage', $errorMessage);
+				$body = $smarty->fetch('smsreminder/view.html');
+			}
+			break;
+		case 'view':
+		default:
+			try {			
+				$PAGEHEADING= "View My Active SMS Reminder";
+				$smarty->assign('PAGEHEADING',$PAGEHEADING);		
+				if($_GET['delId']) {
+					// delete the record
+					$Common->deleteRecord('smsreminders', 'rid', $_GET['delId']);
+					$errorMessage = "Record Deleted Successfully";
+					$smarty->assign('errorMessage', $errorMessage);
+				}
+				if($_GET['page']) $pageNum = $_GET['page']-1;
+				if(!$pageNum) $pageNum = 0;
+				$maxRows = 5;
+				$startRow = $pageNum * $maxRows;
+				$smarty->assign('maxRows', $maxRows);
+				$smarty->assign('pageNum', $pageNum);
+				$smarty->assign('page', ($pageNum+1));
+				$sql = "(select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime >= '".date('Y-m-d H:i:s')."' ORDER BY smsdatetime ASC)";
+				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and smsdatetime >= '".date('Y-m-d H:i:s')."'";
 				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
 				$smarty->assign('records', $records);
 				$totalRows = $records['totalRows'];

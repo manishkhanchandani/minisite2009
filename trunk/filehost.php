@@ -12,7 +12,8 @@ try {
 	
 	switch($_GET['action']) {
 		case 'newmulti':
-			try {				
+			try {	
+				$_SESSION['ref'] = md5(time());					
 				// defining page heading and page title
 				$PAGEHEADING = "Multiple File Upload";
 				$smarty->assign('PAGEHEADING', $PAGEHEADING);
@@ -139,7 +140,8 @@ try {
 			break;
 		case 'new':
 		default:
-			try {				
+			try {	
+				$_SESSION['ref'] = md5(time());					
 				// defining page heading and page title
 				$PAGEHEADING = "File Upload";
 				$smarty->assign('PAGEHEADING', $PAGEHEADING);

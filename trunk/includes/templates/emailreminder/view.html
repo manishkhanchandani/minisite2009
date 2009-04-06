@@ -1,7 +1,7 @@
 <div id="bodyContent">
 	<div id="contentLeftCol">
 		<div id="content5" class="contentBox">
-			<div id="contentHead5" class="contentHead">My Email Reminders</div>
+			<div id="contentHead5" class="contentHead">{$PAGEHEADING}</div>
 			<div id="contentBody5" class="contentBody">					
 
 {if $records.record}
@@ -24,11 +24,6 @@
 				{if $rec.tophone}
 				<div class="vtdet">
 					<div class="vtrbold">Phone Number: </div> <div class="vtrnormal">{$rec.tophone}</div>
-				</div>
-				{/if}
-				{if $rec.senddate}
-				<div class="vtdet">
-					<div class="vtrbold">Next Send Date: </div> <div class="vtrnormal">{$rec.senddate|date_format:"%b %e, %Y %H:%M"}</div>
 				</div>
 				{/if}
 				{if $rec.emaildatetime}
