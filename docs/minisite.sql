@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2009 at 04:00 AM
+-- Generation Time: Apr 06, 2009 at 05:43 PM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -442,7 +442,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `album_id` int(11) NOT NULL,
   `hosttype` enum('Image','File','Music','Video') NOT NULL,
   PRIMARY KEY (`file_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `files`
@@ -465,7 +465,8 @@ INSERT INTO `files` (`file_id`, `id`, `group_id`, `user_id`, `ref`, `filename`, 
 (14, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '2298649d97bb420146.doc', 'Project.doc', 'Pr/user_1', 29696, 'doc', 'application/msword', '2009-04-06 03:49:08', 0, 'File'),
 (15, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '3262649d97c1ed948c.jpg', 'Death.jpg', 'De/user_1', 554242, 'jpg', 'image/jpeg', '2009-04-06 03:50:54', 0, 'File'),
 (16, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '880349d97c39318a1.jpg', 'img03.jpg', 'im/user_1', 3063, 'jpg', 'image/jpeg', '2009-04-06 03:51:21', 0, 'File'),
-(17, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '664649d97c39336a8.png', 'mumbaionline.png', 'mu/user_1', 43096, 'png', 'image/png', '2009-04-06 03:51:21', 0, 'File');
+(17, 1, NULL, 1, 'f8270315053a9e2c2d492150b2aef7e3', '664649d97c39336a8.png', 'mumbaionline.png', 'mu/user_1', 43096, 'png', 'image/png', '2009-04-06 03:51:21', 0, 'File'),
+(18, 1, NULL, 0, 'cd6c0cfabedfc9d5a0759bfbc23ddb46', '2299849d9800c40a00.png', 'mumbaionline.png', 'mu/user_0', 43096, 'png', 'image/png', '2009-04-06 04:07:40', 0, 'File');
 
 -- --------------------------------------------------------
 
@@ -645,7 +646,10 @@ INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`
 (1, 5, 1, 'News on Mumbai', 'Watch news live', 0),
 (1, 7, 1, 'SMS Reminder', 'Remind your important jobs using our sms service', 0),
 (1, 8, 1, 'Email Reminder', 'Remind your important jobs using our email service', 0),
-(1, 9, 1, '', 'File Hosted here.', 0);
+(1, 9, 1, '', 'File Hosted here.', 0),
+(1, 10, 1, 'Videos', 'You tube', 0),
+(1, 11, 0, '', '', 0),
+(1, 13, 0, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -665,7 +669,10 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 
 INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
 (1, 2),
-(1, 4);
+(1, 4),
+(1, 9),
+(1, 10),
+(1, 11);
 
 -- --------------------------------------------------------
 
@@ -677,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts` (
   `concept_id` int(11) NOT NULL AUTO_INCREMENT,
   `concept` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`concept_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `prebuilt_concepts`
@@ -688,7 +695,10 @@ INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`) VALUES
 (5, 'news'),
 (7, 'smsreminder'),
 (8, 'emailreminder'),
-(9, 'filehost');
+(9, 'filehost'),
+(10, 'youtube'),
+(11, 'gtalk'),
+(13, 'allchat');
 
 -- --------------------------------------------------------
 
@@ -704,7 +714,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts_settings` (
   `inputtype` enum('radio','checkbox') DEFAULT NULL,
   `reference` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `prebuilt_concepts_settings`
@@ -715,7 +725,11 @@ INSERT INTO `prebuilt_concepts_settings` (`setting_id`, `concept_id`, `setting_l
 (2, 5, 'Google News', 'http://news.google.com/news?pz=1&ned=us&hl=en&q=[[KEYWORD]]&output=rss', 'checkbox', 'googlenews'),
 (3, 1, 'No Category', NULL, 'radio', 'nocat'),
 (4, 1, 'Single Level Category', NULL, 'radio', 'single'),
-(5, 1, 'Multilevel Category', NULL, 'radio', 'multi');
+(5, 1, 'Multilevel Category', NULL, 'radio', 'multi'),
+(10, 10, 'Top Rated Videos', NULL, 'checkbox', 'toprated'),
+(9, 10, 'Most Viewed Videos', NULL, 'checkbox', 'mostviewed'),
+(11, 10, 'Recently Featured Videos', NULL, 'checkbox', 'featured'),
+(12, 10, 'Large Result Set', NULL, 'checkbox', 'largeresultset');
 
 -- --------------------------------------------------------
 

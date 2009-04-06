@@ -9,7 +9,7 @@ try {
 			$class = new $classVar($dbFrameWork, $Common);	
 			$box[$value['concept_id']] = $class->viewHomePage($ID, $result, $result['settings'][$value['concept_id']]);
 		}
-	}			
+	}	
 	$smarty->assign('box', $box);
 	$body = $smarty->fetch('home.html');
 } catch (exception $e) { 
