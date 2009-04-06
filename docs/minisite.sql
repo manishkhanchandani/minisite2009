@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2009 at 05:12 AM
+-- Generation Time: Apr 06, 2009 at 12:15 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -79,18 +79,19 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `created` datetime DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`blog_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `blog`
 --
 
 INSERT INTO `blog` (`blog_id`, `id`, `user_id`, `title`, `description`, `created`, `status`) VALUES
-(1, 1, 1, 'My Great India', 'i am indian and born in india. so come enjoy me. that is the spirit.', '2009-03-30 03:40:41', 1),
-(2, 1, 1, 'great maharashtra', 'great maharashtra is here . so come and enjoy it, thanks for adding by.', '2009-03-30 04:02:23', 1),
-(3, 2, 1, 'testtest', 'testest testest testest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testesttestest testest', '2009-03-30 17:16:53', 1),
-(4, 3, 1, 'dd', 'ddd dddddddd ddd\r\nddd\r\nddddddddddddddddddddddddd\r\nDddddddddd ddddddddddddddddddddd ddddddddd ddddddddddd', '2009-03-30 17:29:13', 1),
-(5, 1, 0, 'aaaaa', 'aaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa', '2009-04-02 16:42:34', 1);
+(1, 1, 1, 'ddd', 'ddddd ddddddddd ddddddddddd dddddddddddddddd dddddddddddd ddddddddddddd d ddddddddddd', '2009-04-05 14:30:24', 1),
+(2, 1, 1, 'ddd', 'ddddd ddddddddd ddddddddddd dddddddddddddddd dddddddddddd ddddddddddddd d ddddddddddd', '2009-04-05 14:30:24', 1),
+(3, 1, 1, 'ddd', 'ddddd ddddddddd ddddddddddd dddddddddddddddd dddddddddddd ddddddddddddd d ddddddddddd', '2009-04-05 14:30:24', 1),
+(4, 1, 1, 'ddd', 'ddddd ddddddddd ddddddddddd dddddddddddddddd dddddddddddd ddddddddddddd d ddddddddddd', '2009-04-05 14:30:24', 1),
+(5, 1, 1, 'ddd', 'ddddd ddddddddd ddddddddddd dddddddddddddddd dddddddddddd ddddddddddddd d ddddddddddd', '2009-04-05 14:30:24', 1),
+(6, 1, 1, 'test', 'est dd ddd\r\nd\r\nd\r\nd\r\n\r\nd\r\nd\r\nd\r\nd\r\n\r\nd\r\ndgddff fdddddddddddd', '2009-04-05 15:32:30', 1);
 
 -- --------------------------------------------------------
 
@@ -104,21 +105,14 @@ CREATE TABLE IF NOT EXISTS `blog_categories` (
   `category` varchar(200) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `blog_categories`
 --
 
 INSERT INTO `blog_categories` (`category_id`, `id`, `category`, `parent_id`) VALUES
-(1, 1, 'India', 0),
-(2, 1, 'USA', 0),
-(3, 1, 'Maharashtra', 1),
-(4, 1, 'Gujarat', 1),
-(5, 1, 'Pune', 3),
-(6, 1, 'Mumbai', 3),
-(7, 2, 'test', 0),
-(8, 2, 'test1', 0);
+(1, 1, 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -127,22 +121,18 @@ INSERT INTO `blog_categories` (`category_id`, `id`, `category`, `parent_id`) VAL
 --
 
 CREATE TABLE IF NOT EXISTS `blog_cat_rel` (
-  `product_id` int(11) NOT NULL DEFAULT '0',
+  `blog_id` int(11) NOT NULL DEFAULT '0',
   `id` int(11) NOT NULL DEFAULT '0',
-  `concept_id` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_id`,`concept_id`,`category_id`)
+  PRIMARY KEY (`blog_id`,`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `blog_cat_rel`
 --
 
-INSERT INTO `blog_cat_rel` (`product_id`, `id`, `concept_id`, `category_id`) VALUES
-(1, 0, 0, 1),
-(2, 0, 0, 3),
-(3, 0, 0, 7),
-(5, 0, 0, 5);
+INSERT INTO `blog_cat_rel` (`blog_id`, `id`, `category_id`) VALUES
+(6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -159,31 +149,12 @@ CREATE TABLE IF NOT EXISTS `blog_comments` (
   `comment_date` datetime DEFAULT NULL,
   `cstatus` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `blog_comments`
 --
 
-INSERT INTO `blog_comments` (`comment_id`, `id`, `blog_id`, `commentor`, `comments`, `comment_date`, `cstatus`) VALUES
-(1, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:10:31', 1),
-(2, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:13:15', 1),
-(3, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:14:15', 1),
-(4, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:15:19', 1),
-(5, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:15:19', 1),
-(6, 1, 2, 1, 'aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:15:52', 1),
-(7, 1, 2, 1, 'dddmanish aaa ssssssssssss ssssssssssss ssssssssssssssssssss sssssssssssssssss', '2009-03-30 16:19:59', 1),
-(8, 2, 3, 1, 'sssssssss sssssssssssssss sssssssssssssssssssssssssssssssss', '2009-03-30 17:17:03', 1),
-(9, 2, 3, 1, 'axxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxccccccccccccc cx', '2009-03-30 17:17:13', 1),
-(10, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss\r\n', '2009-03-30 17:20:04', 1),
-(11, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:20:23', 1),
-(12, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:39', 1),
-(13, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:41', 1),
-(14, 2, 3, 1, 'asssss\r\ns\r\ns\r\ns\r\ns\r\ns\r\n\r\ns\r\n\r\ns\r\nssssssssssssssssssssssssssssssssssssssss\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nsssssssssssssssss', '2009-03-30 17:28:42', 1),
-(15, 3, 4, 1, 'dddddddddd ddddddddddddddddddd ddddddddd ddddddddd ddddddddddddddd', '2009-03-30 17:29:32', 1),
-(16, 3, 4, 1, 'ee\r\ne\r\ne\r\ne\r\ne\r\n\r\ne\r\neeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeeeeeeeeeee\r\neeeeeeeeeeeeeeeeeee', '2009-03-30 18:23:59', 1),
-(17, 1, 2, 0, 'aaa aaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaaaaaaaaaa a aaaaaaaaaaaaaaaaaaaa', '2009-04-02 16:27:56', 1),
-(18, 1, 2, 0, 'aaa aaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaaaaaaaaaa a aaaaaaaaaaaaaaaaaaaa', '2009-04-02 16:27:56', 1);
 
 -- --------------------------------------------------------
 
@@ -203,13 +174,9 @@ CREATE TABLE IF NOT EXISTS `blog_tags` (
 --
 
 INSERT INTO `blog_tags` (`blog_id`, `id`, `tag_id`) VALUES
-(1, 1, 1),
-(1, 1, 2),
-(2, 1, 1),
-(2, 1, 3),
-(3, 2, 2),
-(4, 3, 4),
-(5, 1, 5);
+(4, 1, 1),
+(5, 1, 1),
+(6, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -223,18 +190,12 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `form_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`category_id`, `category`, `parent_id`, `form_id`) VALUES
-(1, 'india', 0, 2),
-(2, 'usa', 0, 2),
-(3, 'maharashtra', 1, 2),
-(4, 'mumbai', 3, 2),
-(5, 'pune', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -337,10 +298,10 @@ CREATE TABLE IF NOT EXISTS `downtime_results` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `emailreminder`
+-- Table structure for table `emailreminders`
 --
 
-CREATE TABLE IF NOT EXISTS `emailreminder` (
+CREATE TABLE IF NOT EXISTS `emailreminders` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
   `id` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '0',
@@ -357,12 +318,18 @@ CREATE TABLE IF NOT EXISTS `emailreminder` (
   `status` int(2) DEFAULT NULL,
   `lastsenddate` datetime DEFAULT NULL,
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `emailreminder`
+-- Dumping data for table `emailreminders`
 --
 
+INSERT INTO `emailreminders` (`rid`, `id`, `user_id`, `title`, `message`, `toemail`, `senddate`, `emailtype`, `emaildatetime`, `recurringtype`, `recurringfixedtypedates`, `created`, `modified`, `status`, `lastsenddate`) VALUES
+(6, 1, 1, 'a', 'aa', 'aaa', NULL, 'Recurring', '2009-04-14 02:00:00', 'Every Half Hourly', NULL, '2009-04-05 08:19:46', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
+(5, 1, 1, 'a', 'aa', 'aaa', NULL, 'Recurring', '2009-04-14 02:00:00', 'Every Half Hourly', NULL, '2009-04-05 08:19:46', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
+(7, 1, 1, 'dd', 'ddd', 'na', NULL, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 15:32:57', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
+(8, 1, 1, 'dd', 'ddd', 'na', 1238805000, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 15:32:57', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
+(9, 1, 1, 'dd', 'ddd', 'na', 1238805000, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 15:32:57', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03');
 
 -- --------------------------------------------------------
 
@@ -622,18 +589,16 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
   `db` varchar(255) DEFAULT NULL,
   `dbuser` varchar(255) DEFAULT NULL,
   `dbpassword` varchar(255) DEFAULT NULL,
+  `login_site` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `prebuilt_1`
 --
 
-INSERT INTO `prebuilt_1` (`id`, `keyword`, `default_id`, `home_text`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`) VALUES
-(1, 'Mumbai', 1, NULL, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1><?php echo ucwords($SITE[0][''sitename'']); ?></h1>\r\n		<p><?php echo $SITE[0][''home_text'']; ?></p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<?php echo $MENU; ?>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #990099;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'Mumbai', 'mumbai@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project1', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123'),
-(2, 'Mulund', 0, NULL, 'Mulund header\r\n<hr>\r\n[[BODY]]\r\n<hr>\r\nfooter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'Bhandup', 0, NULL, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1>Blog Site</h1>\r\n		<p>New blog site is back</p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<a href="<?php echo HTTPPATH; ?>/index.php?ID=<?php echo $ID; ?>">Home</a> | <a href="<?php echo HTTPPATH; ?>/index.php?p=blog&ID=<?php echo $ID; ?>">Blog</a>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>\r\n', '<!--\r\nbody {\r\n	background-color: #990000;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990000;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project1', 'bhandup', 'bhandup@mkgalaxy.com', 'ftp.servage.net', 'manishkk', 'manishkk', 'www/minisite/project1', 'test', 'test', 'test', 'test'),
-(4, 'Tomato', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `prebuilt_1` (`id`, `keyword`, `default_id`, `home_text`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`, `login_site`) VALUES
+(1, 'Mumbai', 1, NULL, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1><?php echo ucwords($SITE[0][''sitename'']); ?></h1>\r\n		<p><?php echo $SITE[0][''home_text'']; ?></p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<?php echo $MENU; ?>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #990099;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project2', 'Mumbai', 'admin@mumbaionline.org.in', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project2', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123', 1);
 
 -- --------------------------------------------------------
 
@@ -655,12 +620,10 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 --
 
 INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`) VALUES
-(1, 1, 0, 'my blog', 'blog'),
-(2, 1, 1, '', NULL),
-(3, 1, 1, '', NULL),
-(4, 5, 1, '', NULL),
-(1, 7, 0, 'My SMS Reminder', 'come and enjoy sms reminder'),
-(1, 5, 1, 'My News', 'good news');
+(1, 1, 1, 'Mumbai Blogs', 'Join us to some exciting blog site.'),
+(1, 5, 1, 'News on Mumbai', 'Watch news live'),
+(1, 7, 1, 'SMS Reminder', 'Remind your important jobs using our sms service'),
+(1, 8, 1, 'Email Reminder', 'Remind your important jobs using our email service');
 
 -- --------------------------------------------------------
 
@@ -680,12 +643,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 
 INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
 (1, 2),
-(1, 5),
-(1, 7),
-(1, 8),
-(2, 4),
-(3, 3),
-(4, 2);
+(1, 4);
 
 -- --------------------------------------------------------
 
@@ -696,18 +654,18 @@ INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
 CREATE TABLE IF NOT EXISTS `prebuilt_concepts` (
   `concept_id` int(11) NOT NULL AUTO_INCREMENT,
   `concept` varchar(200) DEFAULT NULL,
-  `links` text,
   PRIMARY KEY (`concept_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `prebuilt_concepts`
 --
 
-INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`, `links`) VALUES
-(1, 'blog', NULL),
-(5, 'news', NULL),
-(7, 'smsreminder', '');
+INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`) VALUES
+(1, 'blog'),
+(5, 'news'),
+(7, 'smsreminder'),
+(8, 'emailreminder');
 
 -- --------------------------------------------------------
 
@@ -734,9 +692,7 @@ INSERT INTO `prebuilt_concepts_settings` (`setting_id`, `concept_id`, `setting_l
 (2, 5, 'Google News', 'http://news.google.com/news?pz=1&ned=us&hl=en&q=[[KEYWORD]]&output=rss', 'checkbox', 'googlenews'),
 (3, 1, 'No Category', NULL, 'radio', 'nocat'),
 (4, 1, 'Single Level Category', NULL, 'radio', 'single'),
-(5, 1, 'Multilevel Category', NULL, 'radio', 'multi'),
-(7, 1, 'Logged In Users can only Post', NULL, 'checkbox', 'loginpost'),
-(8, 1, 'Logged In Users can only Comment', NULL, 'checkbox', 'logincomment');
+(5, 1, 'Multilevel Category', NULL, 'radio', 'multi');
 
 -- --------------------------------------------------------
 
@@ -822,10 +778,11 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
 --
 
 CREATE TABLE IF NOT EXISTS `product_cat_rel` (
-  `blog_id` int(11) NOT NULL DEFAULT '0',
+  `product_id` int(11) NOT NULL DEFAULT '0',
   `id` int(11) NOT NULL DEFAULT '0',
+  `concept_id` int(11) DEFAULT NULL,
   `category_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`blog_id`,`category_id`)
+  PRIMARY KEY (`product_id`,`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -977,16 +934,12 @@ CREATE TABLE IF NOT EXISTS `smsreminders` (
   `status` int(2) DEFAULT NULL,
   `lastsenddate` datetime DEFAULT NULL,
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `smsreminders`
 --
 
-INSERT INTO `smsreminders` (`rid`, `id`, `user_id`, `title`, `message`, `tophone`, `senddate`, `smstype`, `smsdatetime`, `recurringtype`, `recurringfixedtypedates`, `created`, `modified`, `status`, `lastsenddate`) VALUES
-(4, 1, 1, 'qqq', 'hi, i love you, happy birthday to you, many many happy returns of the day. manish', '919324044912', NULL, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 05:01:10', '2009-04-05 05:02:04', 1, '2009-04-05 05:02:04'),
-(3, 1, 1, 'ddd', 'dddd', '919323532886', NULL, 'Fixed', '2009-04-08 03:30:00', '', NULL, '2009-04-05 04:59:36', '2009-04-05 05:02:04', 1, '2009-04-05 05:02:04'),
-(6, 1, 1, 'xx', 'xxx', 'xxx', 1238986800, 'Fixed', '2009-04-06 03:00:00', '', NULL, '2009-04-05 05:10:25', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -998,18 +951,15 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tagname` varchar(100) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tags`
 --
 
 INSERT INTO `tags` (`tag_id`, `tagname`) VALUES
-(1, 'great india'),
-(2, 'test'),
-(3, 'great maharashtra'),
-(4, 'dd'),
-(5, 'aaaaa');
+(1, 'dd'),
+(2, 'test');
 
 -- --------------------------------------------------------
 
