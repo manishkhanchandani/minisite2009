@@ -262,7 +262,9 @@ class Common {
 		$result = $this->selectCacheRecord($sql);
 		return $result;	
 	}
-	public function getConceptHomePageSettings($ID) {	
+	public function getConceptHomePageSettings($ID) {		
+		$sql = "select * from prebuilt_1 WHERE id = '".$ID."'";
+		$result['keyword'] = $this->selectCacheRecord($sql);
 		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' and a.homepage = '1'";
 		$result['concepts'] = $this->selectCacheRecord($sql);
 		$conceptsId = 0;

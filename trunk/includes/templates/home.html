@@ -1,23 +1,27 @@
 <div id="bodyContent">
-	{foreach from=$result.concepts item=showConcepts}
+	{foreach from=$result.concepts item=showConcepts key=key}
 		<div id="contentHomeCol">
-			<div id="content1" class="contentBox">
-				<div id="contentHead1" class="contentHead">
+			<div id="content{$key}" class="contentBox">
+				<div id="contentHead{$key}" class="contentHead">
 					{if $showConcepts.displayname != ""}
 						{$showConcepts.displayname} 
 					{else} 
 						{$showConcepts.concept|capitalize:true} 
 					{/if}
 				</div>
-				<div id="contentBody1" class="contentBody">					
+				<div id="contentBody{$key}" class="contentBody">					
 					{if $showConcepts.home_text}
 						<div class="hometext">{$showConcepts.home_text}</div>
 					{/if}
 					{foreach from=$box[$showConcepts.concept_id] item=boxDetails}
-						<div class="hometitle"><a href="{$boxDetails.link}" class="alinks">{$boxDetails.title}</a></div>
-						<div class="created">{$boxDetails.created|date_format:"%B %e, %Y"}</div>
-						{if $boxDetails.description != ""}
-							<div class="description">{$boxDetails.description|nl2br}</div>
+						{if $box[$showConcepts.concept_id].content}
+							{$box[$showConcepts.concept_id].content}
+						{else}
+							<div class="hometitle"><a href="{$boxDetails.link}" class="alinks">{$boxDetails.title}</a></div>
+							<div class="created">{$boxDetails.created|date_format:"%B %e, %Y"}</div>
+							{if $boxDetails.description != ""}
+								<div class="description">{$boxDetails.description|nl2br}</div>
+							{/if}
 						{/if}
 					{/foreach}	
 					<div class="pagination"><a href="{$HTTPPATH}/index.php?p={$showConcepts.concept}&ID={$ID}" class="alinks">More</a> ....</div>			
