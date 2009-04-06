@@ -68,10 +68,11 @@ $smarty->assign('ID', $ID);
 $sql = "select * from prebuilt_1 where id = '".$ID."'";
 $SITE = $Common->selectCacheRecord($sql);
 
-define('SITENAME', $SITE[0]['keyword']); 
-define('SITEURL', $SITE[0]['site_url']); 
-define('SITEEMAIL', $SITE[0]['site_email']);
-define('ADMINEMAIL', $SITE[0]['admin_email']); 
+define('SITENAME', $SITE[0]['sitename']);
+define('KEYWORD', $SITE[0]['keyword']); 
+define('SITEURL', $SITE[0]['siteurl']); 
+define('SITEEMAIL', $SITE[0]['siteemail']);
+define('ADMINEMAIL', $SITE[0]['siteemail']); 
 $smarty->assign('CACHETIME', CACHETIME);
 $smarty->assign('SITENAME', SITENAME);
 $smarty->assign('SITEURL', SITEURL);

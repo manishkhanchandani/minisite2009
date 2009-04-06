@@ -67,11 +67,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 	$obj = new Archive_Zip('../'.$row_rsKeyword['id'].'.zip'); // name of zip file
 	echo 'creating db tables<br>';
 	$data = '<?php
-include("../Connections/conn.php");
+include("Connections/conn.php");
 
 ';
-$qRy[] = "CREATE DATABASE IF NOT EXISTS `".$row_rsKeyword['db']."`";
-$qRy[] = "USE `".$row_rsKeyword['db']."`";
+//$qRy[] = "CREATE DATABASE IF NOT EXISTS `".$row_rsKeyword['db']."`";
+//$qRy[] = "USE `".$row_rsKeyword['db']."`";
 	$sql = "SHOW TABLES FROM ".$database_conn;
 	$rst = mysql_query($sql) or die(mysql_error());
 	while ($row = mysql_fetch_row($rst)) {
@@ -81,7 +81,6 @@ $qRy[] = "USE `".$row_rsKeyword['db']."`";
 	}
 	if($tbls) {
 		foreach($tbls as $tbl) {
-			$qRy[] = "drop table `".$tbl."`";
 			$query = "show create table `".$tbl."`";
 			mysql_select_db($database_conn, $conn) or die('could not select db');
 			$rs = mysql_query($query, $conn) or die('error'.mysql_error());
@@ -109,7 +108,7 @@ $qRy[] = "USE `".$row_rsKeyword['db']."`";
 	}
 	foreach($qRy as $v) {
 		$data .= '$sql = "'.$v.'";
-@mysql_query($sql);
+mysql_query($sql) or die(\'error\'.__LINE__." ".mysql_error());
 
 ';
 	}
@@ -119,7 +118,6 @@ exit;
 ?>';
 	file_put_contents("../db.php", $data);
 	echo "<br>";
-	include('conn_start.php');
 	// check connection
 	$ftp = ftp_connect($row_rsKeyword['ftphost']);
 	if($ftp) {
@@ -136,6 +134,7 @@ exit;
 	}
 	flush();
 	if($done == 1) {
+		include('conn_start.php');
 		if(!$row_rsKeyword['ftpdir']) $d=ftp_pwd($ftp); else $d = $row_rsKeyword['ftpdir'];	
 		if ($d=="/") $d="";	
 		//echo "Path is ".$d."<br>";	
@@ -149,6 +148,7 @@ exit;
 			$search = new RecursiveSearch($directory);
 			
 			//print_r($search);
+			echo "Creating Folders on Server<br>";
 			if($search->folders) {
 				foreach($search->folders as $folder) {
 					if(eregi(".svn", $folder)) {
@@ -208,8 +208,13 @@ exit;
 				}
 			}
 			echo "<br>";
+			echo "Zipping all files<br>";
+			flush();
 			if($search->files) {
 				foreach($search->files as $file) {		
+					if(eregi("..//includes/templates/footer.html", $file)) {
+						continue;
+					}
 					$file = str_replace("..//", "../", $file);	
 					if(eregi(".svn", $file)) {
 						continue;
@@ -225,46 +230,64 @@ exit;
 				flush();
 				if(!@ftp_put($ftp, "Zip.php", "../Zip.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for Zip.php</strong></font><br>"; 
+					exit;
 				} else {
 					echo "Zip.php uploaded succcessfully<br>";
 				}
 				flush();
 				if(!@ftp_put($ftp, "unzip.php", "../unzip.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for unzip.php</strong></font><br>"; 
+					exit;
 				} else {
 					echo "unzip.php uploaded succcessfully<br>";
 				}
 				flush();
 				if(!@ftp_put($ftp, "db.php", "../db.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for db.php</strong></font><br>"; 
+					exit;
 				} else {
 					echo "db.php uploaded succcessfully<br>";
 				}
 				flush();
 				if(!@ftp_put($ftp, "db2.php", "../db2.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for db2.php</strong></font><br>"; 
+					exit;
 				} else {
 					echo "db2.php uploaded succcessfully<br>";
 				}
 				flush();
-				if(!@ftp_put($ftp, "index.php", "../config.php", FTP_BINARY)) { 
+				if(!@ftp_put($ftp, "config.php", "../config.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for config.php</strong></font><br>"; 
+					exit;
 				} else {
-					echo "index.php uploaded succcessfully<br>";
+					echo "config.php uploaded succcessfully<br>";
 				}
 				flush();
 				if(!@ftp_put($ftp, "index.php", "../index.php", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for index.php</strong></font><br>"; 
+					exit;
 				} else {
 					echo "index.php uploaded succcessfully<br>";
 				}
+				echo "uploading zip file<br>";
 				flush();
 				if(!@ftp_put($ftp, $row_rsKeyword['id'].".zip", "../".$row_rsKeyword['id'].".zip", FTP_BINARY)) { 
 					echo $error = "<font color=#ff0000><strong>FTP upload error for ".$row_rsKeyword['id'].".zip</strong></font><br>"; 
+					exit;
 				} else {
 					echo $row_rsKeyword['id'].".zip uploaded succcessfully<br>";
 				}
 				flush();
+				$tdir = $d."/includes/templates";
+				ftp_chdir($ftp,$tdir);
+				if(!@ftp_put($ftp, "footer.html", "../includes/templates/footer.html", FTP_BINARY)) { 
+					echo $error = "<font color=#ff0000><strong>FTP upload error for ../includes/templates/footer.html</strong></font><br>";
+					exit; 
+				} else {
+					echo "../includes/templates/footer.html uploaded succcessfully<br>";
+				}
+				flush();
+				
 			} else {
 				echo 'Error in file creation';
 			}
@@ -326,14 +349,13 @@ exit;
 		</script>'; 
 		exit;
 	}	
-	include('conn_end.php');
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Step 5: Publish</title>
+<title>Step 6: Publish</title>
 <script type="text/JavaScript">
 <!--
 function MM_findObj(n, d) { //v4.01
@@ -369,40 +391,48 @@ function MM_goToURL() { //v3.0
 </head>
 
 <body>
-<h1>Step 5: Set FTP and DB Details for &quot;<?php echo $row_rsKeyword['keyword']; ?>&quot;</h1>
+<h1>Step 6: Set FTP and DB Details for &quot;<?php echo $row_rsKeyword['keyword']; ?>&quot;</h1>
 <form action="<?php echo $editFormAction; ?>" method="POST" name="form1" id="form1" onsubmit="MM_validateForm('ftphost','','R','ftpuser','','R','dbhost','','R','db','','R','dbuser','','R','ftppassword','','R');return document.MM_returnValue">
   <table border="1" cellpadding="5" cellspacing="1">
     <tr>
       <th align="right">Site FTP Host: </th>
-      <td><input name="ftphost" type="text" id="ftphost" value="<?php echo $row_rsKeyword['ftphost']; ?>" maxlength="255" /></td>
+      <td><input name="ftphost" type="text" id="ftphost" value="<?php echo $row_rsKeyword['ftphost']; ?>" maxlength="255" /> 
+      eg. ftp.servage.net</td>
     </tr>
     <tr>
       <th align="right">Site FTP User: </th>
-      <td><input name="ftpuser" type="text" id="ftpuser" value="<?php echo $row_rsKeyword['ftpuser']; ?>" maxlength="255" /></td>
+      <td><input name="ftpuser" type="text" id="ftpuser" value="<?php echo $row_rsKeyword['ftpuser']; ?>" maxlength="255" /> 
+      eg. manishkk </td>
     </tr>
     <tr>
       <th align="right">Site FTP Password: </th>
-      <td><input name="ftppassword" type="password" id="ftppassword" value="<?php echo $row_rsKeyword['ftppassword']; ?>" maxlength="255" /></td>
+      <td><input name="ftppassword" type="password" id="ftppassword" value="<?php echo $row_rsKeyword['ftppassword']; ?>" maxlength="255" /> 
+      eg. password </td>
     </tr>
     <tr>
       <th align="right">Site FTP Dir: </th>
-      <td><input name="ftpdir" type="text" id="ftpdir" value="<?php echo $row_rsKeyword['ftpdir']; ?>" maxlength="255" /></td>
+      <td><input name="ftpdir" type="text" id="ftpdir" value="<?php echo $row_rsKeyword['ftpdir']; ?>" maxlength="255" /> 
+      eg. /www/minisite/project1 </td>
     </tr>
     <tr>
       <th align="right">Mysql Host: </th>
-      <td><input name="dbhost" type="text" id="dbhost" value="<?php echo $row_rsKeyword['dbhost']; ?>" /></td>
+      <td><input name="dbhost" type="text" id="dbhost" value="<?php echo $row_rsKeyword['dbhost']; ?>" /> 
+      eg. mysql1076.servage.net</td>
     </tr>
     <tr>
       <th align="right">Mysql DB: </th>
-      <td><input name="db" type="text" id="db" value="<?php echo $row_rsKeyword['db']; ?>" /></td>
+      <td><input name="db" type="text" id="db" value="<?php echo $row_rsKeyword['db']; ?>" /> 
+      eg. minisite09</td>
     </tr>
     <tr>
       <th align="right">Mysql User: </th>
-      <td><input name="dbuser" type="text" id="dbuser" value="<?php echo $row_rsKeyword['dbuser']; ?>" maxlength="255" /></td>
+      <td><input name="dbuser" type="text" id="dbuser" value="<?php echo $row_rsKeyword['dbuser']; ?>" maxlength="255" /> 
+      eg. minisite09</td>
     </tr>
     <tr>
       <th align="right">Mysql Password: </th>
-      <td><input name="dbpassword" type="password" id="dbpassword" value="<?php echo $row_rsKeyword['dbpassword']; ?>" maxlength="255" /></td>
+      <td><input name="dbpassword" type="password" id="dbpassword" value="<?php echo $row_rsKeyword['dbpassword']; ?>" maxlength="255" /> 
+      eg. password123</td>
     </tr>
     <tr>
       <th colspan="2" align="right"><input type="submit" name="Submit" value="Publish" />

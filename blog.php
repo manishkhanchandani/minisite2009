@@ -29,7 +29,10 @@ try {
 				$smarty->assign('categorySelBox', $categorySelBox);	
 			}
 			
-			if($_POST['MM_Insert']=="new") {
+			if($_POST['MM_Insert']=="new") {							
+				if(!$_SESSION['user_id']) {
+					throw new Exception('Please <a href="'.HTTPPATH.'/index.php?p=users&action=login&ID='.$ID.'&accesscheck='.urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']).'">login</a> first to continue. ');	
+				}
 				// validate the fields
 				$mod_Blog->validateNewBlog($_POST, $result['settings'][0]['setting_id']);
 				// insert in db
@@ -40,10 +43,10 @@ try {
 					$mod_Blog->insertCategory($sql);	
 				}
 				if($result['settings'][0]['setting_id']==5){
-					$sql = "insert into blog_cat_rel (blog_id, category_id) VALUES ";
+					$sql = "insert into blog_cat_rel (blog_id, id, category_id) VALUES ";
 					foreach($_POST['category_id'] as $catId) {
 						if($catId==0) continue;
-						$sql .= "('".$uid."', '".$catId."'), ";
+						$sql .= "('".$uid."', '".$ID."', '".$catId."'), ";
 					}
 					$sql = substr($sql, 0, -2);
 					$mod_Blog->insertCategory($sql);
@@ -58,6 +61,38 @@ try {
 			}
 			// calling body
 			$body = $smarty->fetch('blog/new.html');
+			break;
+		case 'catview':
+			// defining page heading and page title
+			$PAGEHEADING = "Manage Category";
+			$smarty->assign('PAGEHEADING', $PAGEHEADING);
+			
+			if($result['settings'][0]['reference']=='nocat'){
+				throw new Exception("Category is not allowed in this concept.");
+			}
+			$catId = $_GET['catId'];
+			if(!$catId) $catId = 0;			
+			$smarty->assign('catId', $catId);
+			
+			if($result['settings'][0]['reference']=='multi'){
+				$breadCrumb = $mod_Blog->categoryParentLink($ID, $catId);
+				$smarty->assign('breadCrumb', $mod_Blog->catLinkDisplay);		
+			}
+			if($_POST['MM_Insert']==1) {
+				if(!trim($_POST['category'])) {
+					throw new Exception("Could not add category. Please fill the category field.");
+				}
+				$Common->phpinsert('blog_categories', 'category_id', $_POST);
+			}
+			$sql = "select * from blog_categories WHERE category_id = '".$catId."' and id = '".$ID."'";
+			$current = $Common->selectCacheRecord($sql);
+			$smarty->assign('current', $current[0]);
+			$sql = "select * from blog_categories WHERE parent_id = '".$catId."' and id = '".$ID."'";
+			$records = $Common->selectCacheRecord($sql);
+			$smarty->assign('records', $records);	
+			
+			// calling body
+			$body = $smarty->fetch('blog/cat.html');
 			break;
 		case 'edit':
 			// defining page heading and page title
@@ -100,7 +135,10 @@ try {
 			// defining page heading and page title
 			$PAGEHEADING = "Blog Details";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
-			if($_POST['MM_Insert']=="addcomment") {
+			if($_POST['MM_Insert']=="addcomment") {						
+				if(!$_SESSION['user_id']) {
+					throw new Exception('Please <a href="'.HTTPPATH.'/index.php?p=users&action=login&ID='.$ID.'&accesscheck='.urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']).'">login</a> first to continue. ');	
+				}
 				$postComments = $_POST['comments'];
 				$smarty->assign('postComments', $postComments);
 				if(!trim($_POST['comments']) || strlen(trim($_POST['comments']))<50) {
@@ -186,7 +224,7 @@ try {
 			break;
 		case 'detail':
 			$body = $smarty->fetch('blog/detail.html');
-			break;
+			break;			
 		case 'edit':
 			$body = $smarty->fetch('blog/edit.html');
 			break;
