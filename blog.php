@@ -105,7 +105,7 @@ try {
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			break;
 		case 'detail':
-			$sql = "select * from blog WHERE id = '".$ID."' AND blog_id = '".$_GET['blog_id']."'";
+			$sql = "select * from blog as a LEFT JOIN users as b ON a.user_id = b.user_id WHERE a.id = '".$ID."' AND a.blog_id = '".$_GET['blog_id']."'";
 			$blogDetail = $Common->selectCacheRecord($sql);
 			$resDetail = $blogDetail[0];
 			$smarty->assign('resDetail', $resDetail);

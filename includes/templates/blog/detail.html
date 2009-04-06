@@ -4,7 +4,7 @@
 			<div id="contentHead5" class="contentHead">{$PAGEHEADING}</div>
 			<div id="contentBody5" class="contentBody">					
 				<div class="title">{$resDetail.title}</div>
-				<div class="created">{$resDetail.created|date_format:"%B %e, %Y"}</div>
+				<div class="created"><span class="posted">Posted on </span>{$resDetail.created|date_format:"%B %e, %Y"} By <span class="posted">{$resDetail.name}</span></div>
 				<div class="description">{$resDetail.description|nl2br}</div>						
 			</div>
 		</div>	
