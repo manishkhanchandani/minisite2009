@@ -29,6 +29,8 @@ try {
 			break;
 		case 'new':
 			try {	
+				$PAGEHEADING= "Create New Email Reminder";
+				$smarty->assign('PAGEHEADING',$PAGEHEADING);
 				if($_POST['MM_Insert']==1) {
 					$EMAIL->validateForm($_POST);
 					$_POST['user_id'] = $_SESSION['user_id'];
@@ -50,9 +52,10 @@ try {
 				$body = $smarty->fetch('emailreminder/new.html');
 			}
 			break;
-		case 'view':
-		default:
-			try {					
+		case 'viewinactive':
+			try {			
+				$PAGEHEADING= "View My Inactive Reminders";
+				$smarty->assign('PAGEHEADING',$PAGEHEADING);		
 				if($_GET['delId']) {
 					// delete the record
 					$Common->deleteRecord('emailreminders', 'rid', $_GET['delId']);
@@ -66,8 +69,49 @@ try {
 				$smarty->assign('maxRows', $maxRows);
 				$smarty->assign('pageNum', $pageNum);
 				$smarty->assign('page', ($pageNum+1));
-				$sql = "(select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime >= NOW() ORDER BY emaildatetime ASC) UNION (select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime < NOW() ORDER BY emaildatetime DESC) ";
-				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1";
+				$sql = "select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime < '".date('Y-m-d H:i:s')."' ORDER BY emaildatetime DESC";
+				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and emaildatetime < '".date('Y-m-d H:i:s')."'";
+				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
+				$smarty->assign('records', $records);
+				$totalRows = $records['totalRows'];
+				$totalPages = ceil($totalRows/$maxRows)-1;
+				
+				if($totalRows>$maxRows) {
+					// pagination
+					$PaginateIt = new PaginateIt();
+					$PaginateIt->SetItemCount($totalRows);
+					$PaginateIt->SetItemsPerPage($maxRows);
+					$pagination = $PaginateIt->GetPageLinks_Old();
+					$smarty->assign('pagination', $pagination);
+				}							
+				$body = $smarty->fetch('emailreminder/view.html');
+			} catch(Exception $e) {
+				$errorMessage = $e->getMessage();
+				$smarty->assign('errorMessage', $errorMessage);
+				$body = $smarty->fetch('emailreminder/view.html');
+			}
+			break;
+			
+		case 'view':
+		default:
+			try {	
+				$PAGEHEADING= "View My Active Email Reminders";
+				$smarty->assign('PAGEHEADING',$PAGEHEADING);				
+				if($_GET['delId']) {
+					// delete the record
+					$Common->deleteRecord('emailreminders', 'rid', $_GET['delId']);
+					$errorMessage = "Record Deleted Successfully";
+					$smarty->assign('errorMessage', $errorMessage);
+				}
+				if($_GET['page']) $pageNum = $_GET['page']-1;
+				if(!$pageNum) $pageNum = 0;
+				$maxRows = 5;
+				$startRow = $pageNum * $maxRows;
+				$smarty->assign('maxRows', $maxRows);
+				$smarty->assign('pageNum', $pageNum);
+				$smarty->assign('page', ($pageNum+1));
+				$sql = "select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime >= '".date('Y-m-d H:i:s')."' ORDER BY emaildatetime ASC";
+				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and emaildatetime >= '".date('Y-m-d H:i:s')."'";
 				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
 				$smarty->assign('records', $records);
 				$totalRows = $records['totalRows'];

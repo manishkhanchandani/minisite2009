@@ -44,7 +44,6 @@ class mod_Smsreminder {
 				// if it is Message Submitted then update the database
 				if($smsResultArr[0]=="Message Submitted") {
 					$ret['senddate'] = $this->getSendSMSDate($rec);
-					@mail(ADMINEMAIL, "sms send to ".$PhoneNumber." on ".date('r'), "sms send to ".$PhoneNumber." on ".date('r')." with message '".$text."' and return message is: ".$smsResult);
 					if($ret['senddate']) $ret['smsdatetime'] = date('Y-m-d H:i:s',$ret['senddate']);
 					$ret['lastsenddate'] = date('Y-m-d H:i:s');
 					$ret['modified'] = date('Y-m-d H:i:s');
