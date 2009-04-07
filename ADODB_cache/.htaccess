@@ -1,0 +1,20 @@
+<FILES ~ "\.php$">
+	Order allow,deny
+	Deny from all
+</FILES>
+<FILES ~ "\.html$">
+	Order allow,deny
+	Deny from all
+</FILES>
+<FILES ~ "\.htm$">
+	Order allow,deny
+	Deny from all
+</FILES>
+<FILES ~ "\.cgi$">
+	Order allow,deny
+	Deny from all
+</FILES>
+<FILES ~ "\.pl$">
+	Order allow,deny
+	Deny from all
+</FILES>
