@@ -93,7 +93,7 @@ try {
 				$PAGEHEADING = "My Current Session Files";
 				$smarty->assign('PAGEHEADING', $PAGEHEADING);
 				
-				$sql = "select * from files where hosttype = 'File' and ref = '".$_SESSION['ref']."' order by file_id desc";
+				$sql = "select * from files where hosttype = 'File' and ref = '".$_SESSION['ref']."' and id = '".$ID."' order by file_id desc";
 				$fileResult = $Common->selectCacheRecord($sql);
 				$smarty->assign('fileResult', $fileResult);
 			} catch (exception $e) { 
@@ -112,8 +112,8 @@ try {
 				$PAGEHEADING = "My Files";
 				$smarty->assign('PAGEHEADING', $PAGEHEADING);
 				
-				$sql = "select * from files where hosttype = 'File' and user_id = '".$_SESSION['user_id']."' order by file_id desc";
-				$sqlCnt = "select count(*) as cnt from files where hosttype = 'File' and user_id = '".$_SESSION['user_id']."' order by file_id desc";
+				$sql = "select * from files where hosttype = 'File' and user_id = '".$_SESSION['user_id']."' and id = '".$ID."' order by file_id desc";
+				$sqlCnt = "select count(*) as cnt from files where hosttype = 'File' and user_id = '".$_SESSION['user_id']."' and id = '".$ID."' order by file_id desc";
 				$max = 5;
 				$page = $_GET['page'];
 				if(!$page) $page = 1;
