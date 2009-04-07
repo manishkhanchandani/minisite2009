@@ -69,8 +69,8 @@ try {
 				$smarty->assign('maxRows', $maxRows);
 				$smarty->assign('pageNum', $pageNum);
 				$smarty->assign('page', ($pageNum+1));
-				$sql = "select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime < '".date('Y-m-d H:i:s')."' ORDER BY emaildatetime DESC";
-				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and emaildatetime < '".date('Y-m-d H:i:s')."'";
+				$sql = "select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime < '".date('Y-m-d H:i:s')."' and id = '".$ID."' ORDER BY emaildatetime DESC";
+				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and emaildatetime < '".date('Y-m-d H:i:s')."' and id = '".$ID."'";
 				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
 				$smarty->assign('records', $records);
 				$totalRows = $records['totalRows'];
@@ -110,8 +110,8 @@ try {
 				$smarty->assign('maxRows', $maxRows);
 				$smarty->assign('pageNum', $pageNum);
 				$smarty->assign('page', ($pageNum+1));
-				$sql = "select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime >= '".date('Y-m-d H:i:s')."' ORDER BY emaildatetime ASC";
-				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and emaildatetime >= '".date('Y-m-d H:i:s')."'";
+				$sql = "select * from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND emaildatetime >= '".date('Y-m-d H:i:s')."' and id = '".$ID."' ORDER BY emaildatetime ASC";
+				$sqlCnt = "select count(*) as cnt from emailreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and emaildatetime >= '".date('Y-m-d H:i:s')."' and id = '".$ID."'";
 				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
 				$smarty->assign('records', $records);
 				$totalRows = $records['totalRows'];

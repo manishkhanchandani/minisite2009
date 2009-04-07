@@ -69,8 +69,8 @@ try {
 				$smarty->assign('maxRows', $maxRows);
 				$smarty->assign('pageNum', $pageNum);
 				$smarty->assign('page', ($pageNum+1));
-				$sql = "select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime < '".date('Y-m-d H:i:s')."' ORDER BY smsdatetime DESC";
-				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and smsdatetime < '".date('Y-m-d H:i:s')."'";
+				$sql = "select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime < '".date('Y-m-d H:i:s')."' and id = '".$ID."' ORDER BY smsdatetime DESC";
+				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and smsdatetime < '".date('Y-m-d H:i:s')."' and id = '".$ID."'";
 				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
 				$smarty->assign('records', $records);
 				$totalRows = $records['totalRows'];
@@ -109,8 +109,8 @@ try {
 				$smarty->assign('maxRows', $maxRows);
 				$smarty->assign('pageNum', $pageNum);
 				$smarty->assign('page', ($pageNum+1));
-				$sql = "(select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime >= '".date('Y-m-d H:i:s')."' ORDER BY smsdatetime ASC)";
-				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and smsdatetime >= '".date('Y-m-d H:i:s')."'";
+				$sql = "select * from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 AND smsdatetime >= '".date('Y-m-d H:i:s')."' and id = '".$ID."' ORDER BY smsdatetime ASC";
+				$sqlCnt = "select count(*) as cnt from smsreminders WHERE user_id = '".$_SESSION['user_id']."' and status = 1 and smsdatetime >= '".date('Y-m-d H:i:s')."' and id = '".$ID."'";
 				$records = $Common->selectCacheLimitRecordFull($sql, $sqlCnt, $maxRows, $startRow);
 				$smarty->assign('records', $records);
 				$totalRows = $records['totalRows'];
