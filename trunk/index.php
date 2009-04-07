@@ -70,6 +70,10 @@ $ID = $_GET['ID'];
 if(!$ID) {
 	$ID = $Common->getId();
 }
+//if(!$ID) {
+	//echo 'Site is not ready.';
+	//exit;
+//}
 define('ID', $ID);
 $smarty->assign('ID', $ID);
 
