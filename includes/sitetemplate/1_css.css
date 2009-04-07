@@ -1,6 +1,6 @@
 <!--
 body {
-	background-color: #990000;
+	background-color: #990099;
 	margin: 0px;
 	padding: 0px;
 	font-family: Verdana;
@@ -46,13 +46,13 @@ a {
 	padding: 5px;
 	border-bottom-width: thin;
 	border-bottom-style: dotted;
-	border-bottom-color: #990000;
+	border-bottom-color: #990099;
 }
 #mainBody #mainLower #mainContent {
 	padding: 10px;
 	min-height: 300px;
 	border-bottom-width: thin;
 	border-bottom-style: dotted;
-	border-bottom-color: #990000;
+	border-bottom-color: #990099;
 }
 -->

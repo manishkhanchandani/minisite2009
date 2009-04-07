@@ -1,1 +1,0 @@
-php_value include_path ".;C:\xampp\php\pear\;C:\xampp\htdocs\picdirectory2\Connections\;C:\xampp\htdocs\picdirectory2\includes\;C:\xampp\htdocs\picdirectory2\includes\pear\;C:\xampp\htdocs\picdirectory2\"
