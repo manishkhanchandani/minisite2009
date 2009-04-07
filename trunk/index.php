@@ -10,6 +10,14 @@ header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
 header("Cache-Control: no-cache, must-revalidate" );
 header("Pragma: no-cache" ); 
 
+// ini settings
+if ( ! defined( "PATH_SEPARATOR" ) ) {
+  if ( strpos( $_ENV[ "OS" ], "Win" ) !== false )
+    define( "PATH_SEPARATOR", ";" );
+  else define( "PATH_SEPARATOR", ":" );
+}
+ini_set("include_path", ini_get('include_path').PATH_SEPARATOR."Connections/".PATH_SEPARATOR."includes/pear/");
+
 // put full path to Smarty.class.php
 require('includes/smarty/Smarty.class.php');
 $smarty = new Smarty();
