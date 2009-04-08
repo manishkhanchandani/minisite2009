@@ -19,6 +19,15 @@ class mod_News {
 			$news = array();
 			foreach($settings as $k=>$v) {
 				$url = $v['comments'];	
+				$cid = $v['concept_id'];
+				$concept_value = $data['concepts'][$cid]['concept_value'];
+				if($concept_value) {
+					$tmp = explode(",", $concept_value);
+					$kw = $tmp[0];
+				} else {
+					$kw = $data['keyword'][$ID]['keyword'];
+				}
+				$url = str_replace("[[KEYWORD]]", urlencode($kw), $url);
 				$tmp = $this->getNewsMaxTitle($url, 3, $ID);
 				if($tmp) {
 					foreach($tmp as $val) {
@@ -61,8 +70,19 @@ class mod_News {
 		if($result['settings']) {
 			foreach($result['settings'] as $k => $v) {
 				$url = $v['comments'];
-				$url = str_replace("[[KEYWORD]]", urlencode($result['keyword'][0]['keyword']), $url);
-				$news .= $this->getNews($url);
+				$cid = $v['concept_id'];
+				$concept_value = $result['concepts'][$cid]['concept_value'];
+				if($concept_value) {
+					$tmp = explode(",", $concept_value);
+					foreach($tmp as $kw) {
+						$url1 = str_replace("[[KEYWORD]]", urlencode($kw), $url);
+						$news .= $this->getNews($url1);
+					}
+				} else {
+					$kw = $data['keyword'][$ID]['keyword'];
+					$url = str_replace("[[KEYWORD]]", urlencode($kw), $url);
+					$news .= $this->getNews($url);
+				}				
 			}
 		} 
 		return $news;

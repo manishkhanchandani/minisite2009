@@ -130,7 +130,7 @@ body,td,th,textarea,select,input,button {
 						switch($v['inputtype']) {
 							case 'radio':
 							?>
-								<li><input type="radio" name="settings[0]" value="<?php echo $k; ?>" <?php if(in_array($k,$ids)) echo ' checked'; ?> /> <?php echo $v['setting_label']; ?></li>
+								<li><input type="radio" name="settings[0]" value="<?php echo $k; ?>" <?php if(in_array($k,$ids)) echo ' checked'; ?> /> <?php echo $v['setting_label']; ?> </li>
 							<?php
 								break;
 							case 'checkbox':

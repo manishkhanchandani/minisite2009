@@ -18,6 +18,7 @@ if($totalRows_rsView) {
 		$homepage[$row_rsView['id']][$row_rsView['concept_id']] = $row_rsView['homepage'];
 		$home_text[$row_rsView['id']][$row_rsView['concept_id']] = $row_rsView['home_text'];
 		$displayname[$row_rsView['id']][$row_rsView['concept_id']] = $row_rsView['displayname'];
+		$concept_value[$row_rsView['id']][$row_rsView['concept_id']] = $row_rsView['concept_value'];
 	} while ($row_rsView = mysql_fetch_assoc($rsView));
 }
 if($_POST['MM_Insert']==1) {
@@ -46,7 +47,7 @@ if($_POST['MM_Insert']==1) {
 	
 	if($_POST['concept_id']) {
 		foreach($_POST['concept_id'] as $value) {
-			$sql = "update prebuilt_2_concepts set homepage = '".$_POST['homepage'][$value]."', displayname = '".addslashes(stripslashes(trim($_POST['displayname'][$value])))."', home_text = '".addslashes(stripslashes(trim($_POST['home_text'][$value])))."' WHERE `id` = '".$_GET['id']."' and `concept_id` = '".$value."'";
+			$sql = "update prebuilt_2_concepts set homepage = '".$_POST['homepage'][$value]."', displayname = '".addslashes(stripslashes(trim($_POST['displayname'][$value])))."', home_text = '".addslashes(stripslashes(trim($_POST['home_text'][$value])))."', concept_value = '".addslashes(stripslashes(trim($_POST['concept_value'][$value])))."' WHERE `id` = '".$_GET['id']."' and `concept_id` = '".$value."'";
 			mysql_query($sql) or die('error '.__LINE__.mysql_error());
 		}
 	}
@@ -101,6 +102,7 @@ body,td,th,textarea,select,input,button {
       <td valign="top">&nbsp;</td>
       <td valign="top"><strong>Concept</strong></td>
       <td valign="top"><strong>Homepage</strong></td>
+      <td valign="top"><strong>Concept Value </strong></td>
       <td valign="top"><strong>Display Name</strong> </td>
       <td valign="top"><strong>Link For Creating Templates </strong></td>
     </tr>
@@ -114,6 +116,7 @@ body,td,th,textarea,select,input,button {
           No<br />
           <strong>Text On Home Page </strong><br />
           <textarea name="home_text[<?php echo $row_rsConcepts['concept_id']; ?>]" cols="25" rows="4" id="home_text_<?php echo $row_rsConcepts['concept_id']; ?>"><?php echo $home_text[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?></textarea></td>
+        <td valign="top"><textarea name="concept_value[<?php echo $row_rsConcepts['concept_id']; ?>]" cols="25" rows="4" id="concept_value_<?php echo $row_rsConcepts['concept_id']; ?>"><?php echo $concept_value[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?></textarea></td>
         <td valign="top"><input name="displayname[<?php echo $row_rsConcepts['concept_id']; ?>]" type="text" id="displayname_<?php echo $row_rsConcepts['concept_id']; ?>" value="<?php echo $displayname[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?>" size="30" /></td>
         <td valign="top">&lt;?php echo HTTPPATH; ?&gt;/index.php?p=<?php echo $row_rsConcepts['concept']; ?>&amp;ID= <?php echo $row_rsConcepts['concept_id']; ?></td>
       </tr>
