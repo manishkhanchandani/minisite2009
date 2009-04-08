@@ -23,11 +23,11 @@ class mod_Youtube {
 				$reference[$setting['reference']] = 1;
 			}
 		}
-		$result['content']=$this->displayVideo($keyword, $reference);
+		$result['content']=$this->displayVideo($keyword, $reference, $data);
 		return $result;
 	}
 	
-	public function displayVideo($keyword, $reference) {
+	public function displayVideo($keyword, $reference, $data) {
 $string = '<!-- ++Begin Video Bar Wizard Generated Code++ -->
   <!--
   // Created with a Google AJAX Search Wizard

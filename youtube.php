@@ -20,7 +20,7 @@ try {
 	$smarty->assign('PAGEHEADING', $PAGEHEADING);
 	// if setting occurs then call news
 	$mod_Youtube = new mod_Youtube($dbFrameWork, $Common);	
-	$video = $mod_Youtube->displayVideo($keyword, $reference);
+	$video = $mod_Youtube->displayVideo($keyword, $reference, $result);
 	$smarty->assign('content', $video);
 	// calling body
 	$body = $smarty->fetch('content.html');

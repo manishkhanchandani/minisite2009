@@ -118,7 +118,7 @@ body,td,th,textarea,select,input,button {
           <textarea name="home_text[<?php echo $row_rsConcepts['concept_id']; ?>]" cols="25" rows="4" id="home_text_<?php echo $row_rsConcepts['concept_id']; ?>"><?php echo $home_text[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?></textarea></td>
         <td valign="top"><textarea name="concept_value[<?php echo $row_rsConcepts['concept_id']; ?>]" cols="25" rows="4" id="concept_value_<?php echo $row_rsConcepts['concept_id']; ?>"><?php echo $concept_value[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?></textarea></td>
         <td valign="top"><input name="displayname[<?php echo $row_rsConcepts['concept_id']; ?>]" type="text" id="displayname_<?php echo $row_rsConcepts['concept_id']; ?>" value="<?php echo $displayname[$row_rsKeyword['id']][$row_rsConcepts['concept_id']]; ?>" size="30" /></td>
-        <td valign="top">&lt;?php echo HTTPPATH; ?&gt;/index.php?p=<?php echo $row_rsConcepts['concept']; ?>&amp;ID= <?php echo $row_rsConcepts['concept_id']; ?></td>
+        <td valign="top">&lt;?php echo HTTPPATH; ?&gt;/index.php?p=<?php echo $row_rsConcepts['concept']; ?>&amp;ID=<?php echo $row_rsConcepts['concept_id']; ?></td>
       </tr>
       <?php } while ($row_rsConcepts = mysql_fetch_assoc($rsConcepts)); ?>
   </table>
