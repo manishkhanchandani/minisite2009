@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2009 at 06:59 PM
+-- Generation Time: Apr 08, 2009 at 04:39 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -634,6 +634,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
   `displayname` varchar(200) NOT NULL,
   `home_text` text,
   `priority` int(11) NOT NULL DEFAULT '0',
+  `concept_value` text,
   PRIMARY KEY (`id`,`concept_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -641,17 +642,17 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 -- Dumping data for table `prebuilt_2_concepts`
 --
 
-INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`, `priority`) VALUES
-(1, 1, 0, 'Mumbai Blogs', 'Join us to some exciting blog site.', 0),
-(1, 5, 1, 'News on Mumbai', 'Watch news live', 0),
-(1, 7, 0, 'SMS Reminder', 'Remind your important jobs using our sms service', 0),
-(1, 8, 0, 'Email Reminder', 'Remind your important jobs using our email service', 0),
-(1, 9, 0, '', 'File Hosted here.', 0),
-(1, 10, 0, 'Videos', 'You tube', 0),
-(1, 11, 0, '', '', 0),
-(1, 13, 0, '', '', 0),
-(1, 14, 0, 'Cricket Scores', 'ckt', 0),
-(1, 15, 0, 'Send SMS', '', 0);
+INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`, `priority`, `concept_value`) VALUES
+(1, 1, 0, 'Mumbai Blogs', 'Join us to some exciting blog site.', 0, ''),
+(1, 5, 1, 'News', 'Watch news live', 0, 'pune, hyderabad'),
+(1, 7, 0, 'SMS Reminder', 'Remind your important jobs using our sms service', 0, ''),
+(1, 8, 0, 'Email Reminder', 'Remind your important jobs using our email service', 0, ''),
+(1, 9, 0, '', 'File Hosted here.', 0, ''),
+(1, 10, 0, 'Videos', 'You tube', 0, ''),
+(1, 11, 0, '', '', 0, ''),
+(1, 13, 0, '', '', 0, ''),
+(1, 14, 0, 'Cricket Scores', 'ckt', 0, ''),
+(1, 15, 0, 'Send SMS', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -662,6 +663,7 @@ INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`
 CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
   `id` int(11) NOT NULL,
   `setting_id` int(11) NOT NULL,
+  `setting_value` text,
   PRIMARY KEY (`id`,`setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -669,12 +671,12 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 -- Dumping data for table `prebuilt_3_settings`
 --
 
-INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`) VALUES
-(1, 2),
-(1, 4),
-(1, 9),
-(1, 10),
-(1, 11);
+INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`, `setting_value`) VALUES
+(1, 4, NULL),
+(1, 11, NULL),
+(1, 9, NULL),
+(1, 2, NULL),
+(1, 10, NULL);
 
 -- --------------------------------------------------------
 
