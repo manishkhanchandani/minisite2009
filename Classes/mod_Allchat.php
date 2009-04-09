@@ -15,7 +15,7 @@ class mod_Allchat {
 	}
 	
 	public function viewHomePage($ID, $data, $settings) {
-		$keyword = $data['keyword'][0]['keyword'];
+		$keyword = $data['keyword'][$ID]['keyword'];
 		$result['content']=$this->displayChat($keyword);
 		return $result;
 	}

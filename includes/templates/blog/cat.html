@@ -56,7 +56,7 @@ function MM_validateForm() { //v4.0
 							  <input type="submit" name="submit" value="Add New Category" />
 							  <input name="id" type="hidden" id="id" value="{$ID}" />
 						      <input name="MM_Insert" type="hidden" id="MM_Insert" value="1" />
-							  {if $result.settings.0.reference == "multi"}
+							  {if $rSettings.reference == "multi"}
 							  	<input name="parent_id" type="hidden" id="parent_id" value="{$catId}" />
 							  {else}	
 							  	<input name="parent_id" type="hidden" id="parent_id" value="0" />						  
@@ -68,9 +68,9 @@ function MM_validateForm() { //v4.0
 				{if $records}
 					<div class="stitle">Category Under {if $current.category}{$current.category}{else}Root{/if}</div>
 					{foreach from=$records item=res}
-						{if $result.settings.0.reference == "multi"}
+						{if $rSettings.reference == "multi"}
 						<div><a href="{$HTTPPATH}/index.php?p=blog&action=catview&ID={$ID}&catId={$res.category_id}" class="alinks">{$res.category}</a></div>
-						{elseif $result.settings.0.reference == "single"}
+						{elseif $rSettings.reference == "single"}
 							<div>{$res.category}</div>
 						{/if}
 					{/foreach}

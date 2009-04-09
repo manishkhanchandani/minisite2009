@@ -15,7 +15,7 @@ class mod_Sendsms {
 	}
 	
 	public function viewHomePage($ID, $data, $settings) {
-		$keyword = $data['keyword'][0]['keyword'];
+		$keyword = $data['keyword'][$ID]['keyword'];
 		$result['content']=$this->showSMSForm();
 		return $result;
 	}
@@ -40,12 +40,13 @@ $string = '<div style="width:90%; margin-left:auto; margin-right:auto;">
 	}
 	
 	public function sendSMS($PhoneNumber, $text) {
+		global $conceptValue;
 		$url = "http://www.globalsms-mms.com/sendsmsv2.asp"; 
-		$user = "nkhanchandani";
-		$password = "password";
+		//$user = "nkhanchandani";
+		//$password = "password";
 		$sender = "mumbaionlin";
 		$sendercdma = "919860609000";
-		$post_fields = 'user='.$user.'&password='.$password.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
+		$post_fields = $conceptValue.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
 
 		$ch = curl_init(); // Initialize a CURL session.
 		curl_setopt($ch, CURLOPT_URL, $url); // Pass URL as parameter.

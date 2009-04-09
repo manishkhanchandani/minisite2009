@@ -6,7 +6,8 @@ try {
 		foreach($result['concepts'] as $key=>$value) {
 			$var = ucfirst($value['concept']);
 			$classVar = "mod_$var";
-			$class = new $classVar($dbFrameWork, $Common);	
+			$class = new $classVar($dbFrameWork, $Common);
+			$conceptId = $value['concept_id'];
 			$box[$value['concept_id']] = $class->viewHomePage($ID, $result, $result['settings'][$value['concept_id']]);
 		}
 	}	

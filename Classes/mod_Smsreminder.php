@@ -57,12 +57,13 @@ class mod_Smsreminder {
 	}
 	
 	public function sendSMS($PhoneNumber, $text) {
+		global $conceptValue;
 		$url = "http://www.globalsms-mms.com/sendsmsv2.asp"; 
-		$user = "nkhanchandani";
-		$password = "password";
+		//$user = "nkhanchandani";
+		//$password = "password";
 		$sender = "mumbaionlin";
 		$sendercdma = "919860609000";
-		$post_fields = 'user='.$user.'&password='.$password.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
+		$post_fields = $conceptValue.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
 
 		$ch = curl_init(); // Initialize a CURL session.
 		curl_setopt($ch, CURLOPT_URL, $url); // Pass URL as parameter.

@@ -1,9 +1,11 @@
 <?php
 try {
 	// fetching concepts and settings
-	$result = $Common->getConceptSettings('sendsms', $ID);	
+	$result = $Common->getConceptSettings('sendsms', $ID);
 	$smarty->assign('result', $result);
-	$keyword = $result['keyword'][0]['keyword'];
+	$conceptId = $result['conceptId'];
+	$conceptValue = $result['conceptValue'];
+	$keyword = $result['keyword'][$ID]['keyword'];
 	
 	if(!$result['concepts']) {	
 		throw new Exception("Send SMS Concept does not exist for this id. ");

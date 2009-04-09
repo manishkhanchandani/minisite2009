@@ -6,6 +6,8 @@ try {
 		$errorMessage = "Smsreminder Concept does not exist for this id. ";
 		throw new Exception($errorMessage);
 	} 
+	$conceptId = $result['conceptId'];
+	$conceptValue = $result['conceptValue'];
 	// user access
 	if(!$_SESSION['user_id']) {
 		throw new Exception('Please <a href="'.HTTPPATH.'/index.php?p=users&action=login&ID='.$ID.'&accesscheck='.urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']).'">login</a> first to continue. ');	
