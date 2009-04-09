@@ -256,6 +256,8 @@ class Common {
 		}
 		while ($arr = $rs->FetchRow()) { 
 			$result['concepts'][$arr['concept_id']] = $arr;
+			$result['conceptId'] = $arr['concept_id'];			
+			$result['conceptValue'] = $arr['concept_value'];
 		}
 		$conceptsId = 0;
 		if($result['concepts']){
@@ -314,7 +316,7 @@ class Common {
 		return $result;	
 	}
 	public function generateMenu($ID) {	
-		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."'";
+		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' ORDER BY a.priority";
 		$MENU = $this->selectCacheRecord($sql);
 		$menuString = "<a href=\"".HTTPPATH."/index.php?ID=".$ID."\">Home</a> ";
 		if($MENU){

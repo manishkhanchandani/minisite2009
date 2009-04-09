@@ -9,8 +9,13 @@ try {
 	
 	$mod_Blog = new mod_Blog($dbFrameWork, $Common);				
 	$smarty->assign('action', $_GET['action']);				
-	
-	if($result['settings'][0]['setting_id'] == 4 || $result['settings'][0]['setting_id']==5){
+	if($result['settings']) {
+		foreach($result['settings'] as $k => $v) {
+			$rSettings = $v;
+		}
+		$smarty->assign('rSettings', $rSettings);
+	}
+	if($rSettings['setting_id'] == 4 || $rSettings['setting_id']==5){
 		// getting category list
 		$mod_Blog->tree($ID, 0);
 		$category = $mod_Blog->tree;
@@ -21,7 +26,7 @@ try {
 			// defining page heading and page title
 			$PAGEHEADING = "Add New Blog";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
-			if($result['settings'][0]['setting_id'] == 4 || $result['settings'][0]['setting_id']==5){
+			if($rSettings['setting_id'] == 4 || $rSettings['setting_id']==5){
 				// get Categories
 				$mod_Blog->treeSelectBox($ID, 0);
 				$categorySelBox = "<option value='0' selected>Select Category</option>";
@@ -34,15 +39,15 @@ try {
 					throw new Exception('Please <a href="'.HTTPPATH.'/index.php?p=users&action=login&ID='.$ID.'&accesscheck='.urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']).'">login</a> first to continue. ');	
 				}
 				// validate the fields
-				$mod_Blog->validateNewBlog($_POST, $result['settings'][0]['setting_id']);
+				$mod_Blog->validateNewBlog($_POST, $rSettings['setting_id']);
 				// insert in db
 				$uid = $Common->phpinsert('blog', 'blog_id', $_POST);							
 				// inserting categories
-				if($result['settings'][0]['setting_id'] == 4){
+				if($rSettings['setting_id'] == 4){
 					$sql = "insert into blog_cat_rel (blog_id, id, category_id) VALUES ('".$uid."', '".$ID."', '".$_POST['category_id']."')";
 					$mod_Blog->insertCategory($sql);	
 				}
-				if($result['settings'][0]['setting_id']==5){
+				if($rSettings['setting_id']==5){
 					$sql = "insert into blog_cat_rel (blog_id, id, category_id) VALUES ";
 					foreach($_POST['category_id'] as $catId) {
 						if($catId==0) continue;
@@ -67,14 +72,14 @@ try {
 			$PAGEHEADING = "Manage Category";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			
-			if($result['settings'][0]['reference']=='nocat'){
+			if($rSettings['reference']=='nocat'){
 				throw new Exception("Category is not allowed in this concept.");
 			}
 			$catId = $_GET['catId'];
 			if(!$catId) $catId = 0;			
 			$smarty->assign('catId', $catId);
 			
-			if($result['settings'][0]['reference']=='multi'){
+			if($rSettings['reference']=='multi'){
 				$breadCrumb = $mod_Blog->categoryParentLink($ID, $catId);
 				$smarty->assign('breadCrumb', $mod_Blog->catLinkDisplay);		
 			}
@@ -160,17 +165,17 @@ try {
 		case 'view':
 		default:
 			// defining page heading and page title
-			$PAGEHEADING = $result['keyword'][0]['keyword']." Blog";
+			$PAGEHEADING = $result['keyword'][$ID]['keyword']." Blog";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			if(is_numeric($_GET['catId']) && $_GET['catId']>0) {
 				$sql = "select * from blog_categories WHERE category_id = '".$_GET['catId']."'";
 				$catDetail = $Common->selectCacheRecord($sql);
-				$PAGEHEADING = $result['keyword'][0]['keyword']." Blog :: ".$catDetail[0]['category'];
+				$PAGEHEADING = $result['keyword'][$ID]['keyword']." Blog :: ".$catDetail[0]['category'];
 				$smarty->assign('PAGEHEADING', $PAGEHEADING);
 				$sql = "select * from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."' ORDER BY a.blog_id DESC";
 				$sqlCnt = "select count(*) as cnt from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."'";
 				
-				if($result['settings'][0]['setting_id']==5){
+				if($rSettings['setting_id']==5){
 					$breadCrumb = $mod_Blog->categoryParentLink($ID, $_GET['catId']);
 					$smarty->assign('breadCrumb', $mod_Blog->catLinkDisplay);		
 				}			
@@ -184,7 +189,7 @@ try {
 					$tags = implode(",", $tagId);
 				}
 				if(!$tags) $tags = 0;
-				$PAGEHEADING = $result['keyword'][0]['keyword']." Blog :: ".$_GET['kw'];
+				$PAGEHEADING = $result['keyword'][$ID]['keyword']." Blog :: ".$_GET['kw'];
 				$smarty->assign('PAGEHEADING', $PAGEHEADING);
 				
 				$sql = "select * from blog as a INNER JOIN blog_tags as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.tag_id IN (".$tags.") ORDER BY a.blog_id DESC";

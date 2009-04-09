@@ -7,7 +7,7 @@ try {
 		throw new Exception("News Concept does not exist for this id. ");
 	}
 	// defining page heading and page title
-	$PAGEHEADING = $result['keyword'][0]['keyword']." News";
+	$PAGEHEADING = $result['keyword'][$ID]['keyword']." News";
 	$smarty->assign('PAGEHEADING', $PAGEHEADING);
 	// if setting occurs then call news
 	$news = '';

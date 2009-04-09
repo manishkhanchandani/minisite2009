@@ -15,7 +15,7 @@ class mod_Cricketscore {
 	}
 	
 	public function viewHomePage($ID, $data, $settings) {
-		$keyword = $data['keyword'][0]['keyword'];
+		$keyword = $data['keyword'][$ID]['keyword'];
 		$result['content']=$this->displayScore($keyword);
 		return $result;
 	}

@@ -15,7 +15,7 @@ class mod_Youtube {
 	}
 	
 	public function viewHomePage($ID, $data, $settings) {
-		$keyword = $data['keyword'][0]['keyword'];
+		$keyword = $data['keyword'][$ID]['keyword'];
 		// creating reference
 		$reference = array();
 		if($settings) {
@@ -28,6 +28,17 @@ class mod_Youtube {
 	}
 	
 	public function displayVideo($keyword, $reference, $data) {
+		global $conceptId;
+		$concept_value = $data['concepts'][$conceptId]['concept_value'];
+		if($concept_value) {
+			$tmp = explode(",", $concept_value);
+			foreach($tmp as $v) {
+				$kw .= '"'.trim($v).'",';
+			}
+			$kw = substr($kw, 0, -1);
+		} else {
+			$kw = '"'.$keyword.'"';
+		}
 $string = '<!-- ++Begin Video Bar Wizard Generated Code++ -->
   <!--
   // Created with a Google AJAX Search Wizard
@@ -84,7 +95,10 @@ $string .= ',
         autoExecuteList : {
           cycleTime : GSvideoBar.CYCLE_TIME_MEDIUM,
           cycleMode : GSvideoBar.CYCLE_MODE_LINEAR,
-          executeList : ["'.$keyword.'"';
+          executeList : [';
+		    if($kw) {
+				$string .= $kw;
+			}
 		  	if($reference['mostviewed']) { 
 $string .= ',"ytfeed:most_viewed.this_week"';
 			} 
