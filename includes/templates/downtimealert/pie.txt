@@ -1,0 +1,1 @@
+http://chart.apis.google.com/chart?cht=p3&chd=t:60,40&chs=400x150&chl=Down%20[65%]|Up%20[45%]

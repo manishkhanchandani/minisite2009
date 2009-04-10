@@ -1,0 +1,61 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">View My Alerts</div>
+			<div id="contentBody5" class="contentBody">
+				{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+				{if $view}
+					{foreach from=$view item=record}						
+						<h2>URL: <a href="{$record.url}" target="_blank">{$record.url}</a></h2>	
+						<div class="tr">
+							<div class="th">
+								Text To Check:
+							</div>
+							<div class="td">
+							  {$record.texttocheck}
+							</div>
+						</div>						
+						<div class="tr">
+							<div class="th">
+								Email:
+							</div>
+							<div class="td">
+							  {$record.email}
+							</div>
+						</div>						
+						<div class="tr">
+							<div class="th">
+								US Phone:
+							</div>
+							<div class="td">
+							  {$record.usphone}
+							</div>
+						</div>						
+						<div class="tr">
+							<div class="th">
+								SMS Phone:
+							</div>
+							<div class="td">
+							  {$record.smsphone}
+							</div>
+						</div>						
+						<div class="tr bottomline">
+							<div class="th">
+								
+							</div>
+							<div class="td">
+							  <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=edit&downtime_id={$record.downtime_id}">Edit This Alert</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=detail&downtime_id={$record.downtime_id}">Downtime Report</a>
+							</div>
+						</div>
+					{/foreach}
+					<div class="pagination">{$pagination}</div>
+				{else}
+					<div>No Alert Found.</div>
+				{/if}
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	{include file="downtimealert/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>

@@ -1,0 +1,22 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">Downtime Alert Report</div>
+			<div id="contentBody5" class="contentBody">
+				{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+				<form method="get" name="frmSearch">
+					From Date: 
+					  <input name="fdate" type="text" id="fdate" />
+				To Date: 
+				<input name="tdate" type="text" id="tdate" />
+				<input type="submit" name="Submit" value="Go" />
+				</form>
+				<iframe frameborder="0" height="170" width="500" scrolling="no" name="chartFrm" src="http://chart.apis.google.com/chart?cht=p3&chd=t:60,40&chs=400x150&chl=Down%20[65%]|Up%20[45%]"></iframe>
+				<div><br /><br /><br /><br /></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	{include file="downtimealert/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>
