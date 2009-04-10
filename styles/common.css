@@ -161,3 +161,6 @@ button, select, input, textarea {
 	border-bottom-style: dotted;
 	border-bottom-color: #999999;
 }
+.bottomline {
+	padding-bottom: 10px;
+}
