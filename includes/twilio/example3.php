@@ -31,7 +31,7 @@
 	$response = $client->request("/$ApiVersion/Accounts/$AccountSid/Calls", "POST", array(
 		"Caller" => $CallerID, 	// Outgoing Caller ID you have previously validated with Twilio
 		"Called" => "919-386-1678",		// The phone number you wish to dial
-		"Url" => "http://10000projects.info/call.php?msg=Mummy+Neeraj+Manish+Nikhil+Kanayo" 		// the URL of the web application on your server that will handle the call when it connects
+		"Url" => "http://10000projects.info/call.php?msg=Mummy+Mummy+i+want+a+game+and+my+name+is+manish+khanchandani." 		// the URL of the web application on your server that will handle the call when it connects
 	));
 	
 	// check response for success or error
