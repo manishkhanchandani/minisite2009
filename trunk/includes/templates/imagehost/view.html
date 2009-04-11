@@ -1,0 +1,21 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		<div id="content6" class="contentBox">
+			<div id="contentHead6" class="contentHead">View Files</div>
+			<div id="contentBody6" class="contentBody">
+				{if $fileResult.record}
+					<p>Here are the links to use your files: </p>
+					{foreach from=$fileResult.record item=files}
+						File Location: <a href='{$HTTPPATH}/filehost/download.php?fid={$files.file_id}'>{$files.filerealname}</a>, or Copy the following link:<br>
+				{$HTTPPATH}/filehost/download.php?fid={$files.file_id}<br><br>
+					{/foreach}
+					<div class="pagination">{$pagination}</div>
+				{else}
+					No File Found.
+				{/if}				
+			</div>
+		</div>
+	</div>
+	{include file="filehost/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>

@@ -1,0 +1,54 @@
+<div id="bodyContent">
+	<div id="contentLeftCol">
+		{if $success == 1}
+			<div id="content6" class="contentBox">
+				<div id="contentHead6" class="contentHead">Confirmation</div>
+				<div id="contentBody6" class="contentBody">
+					<p>File uploaded successfully. Here are the links to use them: </p>
+					<p>{$filehostlinks}</p>
+				</div>
+			</div>
+		{/if}
+		<div id="content5" class="contentBox">
+			<div id="contentHead5" class="contentHead">Upload New File</div>
+			<div id="contentBody5" class="contentBody">
+				<form action="" method="post" enctype="multipart/form-data" name="frmNew">
+					{if $errorMessage}
+						<div class="error">{$errorMessage}</div>
+					{/if}
+					<div class="tr">
+						<div class="th">
+						File 
+						</div>
+						<div class="td">
+						  <input type="file" name="userfile[]" size="35" />
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+						
+						</div>
+						<div class="td">
+						  You cannot upload files with extension .php, .html, .pl, .cgi. If you want to upload those files then please zip it and then upload.
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+						
+						</div>
+						<div class="td">
+						  <input type="submit" name="submit" value="Upload File">
+						</div>
+					</div>
+					<input type="hidden" name="MM_Insert" value="1">
+					<input type="hidden" name="id" value="{$ID}">
+					<input type="hidden" name="user_id" value="{$smarty.session.user_id}">
+					<input name="checksum" type="hidden" id="checksum" value="{$smarty.session.checksum}">
+			  </form>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	{include file="filehost/rightcol.html"}
+	<div style="clear:both;"></div>
+</div>
