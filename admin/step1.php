@@ -62,6 +62,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $Result1 = mysql_query($insertSQL, $conn) or die(mysql_error());
 }
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
+	mysql_query("insert into settings set id = '".mysql_insert_id()."'");
+}
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $id = mysql_insert_id();
   header("Location: step2.php?id=".$id);
   exit;
@@ -183,6 +186,7 @@ body,td,th,textarea,select,input,button {
       <td><strong>ID</strong></td>
       <td><strong>Keyword</strong></td>
       <td><strong>Go To Step 2 </strong></td>
+      <td><strong>Settings</strong></td>
       <td><strong>Delete</strong></td>
     </tr>
     <?php do { ?>
@@ -190,6 +194,7 @@ body,td,th,textarea,select,input,button {
         <td><?php echo $row_rsView['id']; ?></td>
         <td><?php echo $row_rsView['keyword']; ?></td>
         <td><a href="step2.php?id=<?php echo $row_rsView['id']; ?>">Go To Step 2</a> </td>
+        <td><a href="settings.php?id=<?php echo $row_rsView['id']; ?>">Settings</a></td>
         <td>Delete</td>
       </tr>
       <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>

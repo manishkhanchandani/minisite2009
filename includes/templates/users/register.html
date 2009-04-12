@@ -92,6 +92,7 @@ function YY_checkform() { //v4.66
 		  <input name="created" type="hidden" id="created" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}" />
 		  <input name="status" type="hidden" id="status" value="1" />
 		  <input name="code" type="hidden" id="code" value="{$code}" />
+		  <input type="hidden" name="rn" value="{$smarty.cookies.rn}" />
 		</p>
 		<p><a href="{$HTTPPATH}/index.php?p=users&action=login&ID={$ID}">Login To Site </a></p>
 	</fieldset>

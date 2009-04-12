@@ -1,0 +1,122 @@
+<div class="mainContentDv">
+	<h1 align="center"><b>Highest Unique Bid Auctions: Bid on Brand New, 
+              Name Brand Products at 80-90% Off </b> Retail </h1>
+			{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+	<div class="explanation" style="float:left; width:460px;">
+		<ul>
+			<li> <span class="bodytext">This is one of the first and biggest 
+			<b>Highest Unique Bid Blind Auction</b> web sites, providing 
+			you with great bargains since 2003</span></li>
+			
+			<li class="bodytext">Your <b>bid can be no higher</b> than 
+			the <a href="#" onClick="MM_openBrWindow('explanation.asp#Get4','explanationget4','scrollbars=yes,resizable=yes,width=300,height=200')">&quot;Get4&quot; 
+			Price</a></li>
+			<li class="bodytext">T<span class="bodytext">he <b>highest 
+			<a href="#" onClick="MM_openBrWindow('explanation.asp#uniquebid','explanationunique','scrollbars=yes,resizable=yes,width=300,height=200')">unique 
+			(= unduplicated) bid</a></b> wins</span></li>
+			
+			<li class="bodytext">No more than the<b> Max # of bids are 
+			accepted</b></li>
+			<li class="bodytext">Bid for a nominal fee and 25% of net 
+			proceeds goes to charities you select</li>
+			<li class="bodytext">Earn 1 loyalty credit for each paid bid 
+			to use in bonus auctions</li>
+		</ul>
+	</div>
+	<div class="bannerDv" style="float:right;">
+		<a href="{$HTTPPATH}/index.php?ID={$ID}&p=auction4cause/pages&action=different" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('different','','{$HTTPPATH}/auction4cause/images/diffbutton_on.gif',1)"> <img src="{$HTTPPATH}/auction4cause/images/diffbutton_off.gif" border="0" name="different" alt="Unique bid auctions: See how this online auction site is different from typical auctions" width="156" height="80"></a>
+	</div>
+	<div class="clear"></div>
+	{if $records.totalRows gt 0}
+		<div class="clear"></div>
+		<div class="pagination">{$pagination}</div>
+		<div class="clear"></div>
+		{foreach from=$records.record item=res}
+			<div class="smtable" style="float:left; width:295px; height:185px;">
+				<!--Auction Item Table BEGINS here -->
+				<table background="{$HTTPPATH}/auction4cause/images/productboxget4.gif" border="0" bordercolor="#ffff00" cellpadding="0" cellspacing="0" width="295" height="185">
+				  <tbody><tr> 
+					<td align="center" valign="top"> 
+					  <table border="0" bordercolor="#00ff00" cellpadding="0" cellspacing="0" width="278" height="173">
+						<tbody><tr valign="bottom"> 
+						  <td align="center"> 
+							<div align="center"></div>
+						  </td>
+				
+						  <td class="price" align="center">&nbsp;&nbsp;&nbsp;
+								<b><font color="#ffffff">
+								  ${$res.get4price}
+								  </font>
+								</b>
+							</td>
+						</tr>
+				
+						<tr> 
+						 <td align="center" valign="bottom" width="112" height="105"><a href="{$HTTPPATH}/index.php?ID={$ID}&p=auction4cause/detail&product_id={$res.product_id}&page={$page}">
+				
+						 
+						  <img src="{$HTTPPATH}/auction4cause/uploadDir/small/{$res.comments}" alt="Click for Details!" border="0" width="100" height="100"></a></td>
+						   <td align="left" valign="middle"> 
+							<p><b><span class="bodytext">{$res.product_name}</span></b><span class="smalltext"><br>
+							  <br>
+							  </span><span class="smallbody"><a href="#" onclick="MM_openBrWindow('explanation.asp#Retail','explanation','scrollbars=yes,resizable=yes,width=300,height=200')">Retail 
+							  Price</a></span><span class="smallbody">:</span><span class="smalltext"> 
+							  ${$res.product_price}<br>
+							  </span><span class="smallbody"><a href="#" onclick="MM_openBrWindow('explanation.asp#maxbid','explanation','scrollbars=yes,resizable=yes,width=300,height=200')">Max. 
+							  Bid</a>: </span><span class="smalltext">${$res.maxbidprice}<a href="#" onclick="MM_openBrWindow('explanation.asp#Bidfee','explanation2','scrollbars=yes,resizable=yes,width=300,height=200')"></a></span><span class="smallbody"><a href="#" onclick="MM_openBrWindow('explanation.asp#Bidfee','explanation2','scrollbars=yes,resizable=yes,width=300,height=200')"></a></span><span class="smallbody"><a href="#" onclick="MM_openBrWindow('explanation.asp#Bidfee','explanation2','scrollbars=yes,resizable=yes,width=300,height=200')"><br>
+				
+							  Bid Fee</a>:</span><span class="smalltext">${$res.bidfee}</span><br><span class="smallbody">
+							  
+							  
+								<span class="smallbody"><a href="#" onclick="MM_openBrWindow('explanation.asp#max','explanation3','scrollbars=yes,resizable=yes,width=300,height=200')">Max.# 
+							  of bids</a>:</span>
+							  
+							  <span class="smalltext">
+							   {$res.maxnumofbids}
+								 
+								<br>
+							  Auction# {$res.product_id} </span></span></p>
+				
+						  </td>
+						</tr>
+						<tr> 
+						  <td class="smalltext" valign="top" width="110" height="25"> 
+							<div align="center"><span class="smalltext">
+							<a href="{$HTTPPATH}/index.php?ID={$ID}&p=auction4cause/detail&product_id={$res.product_id}&page={$page}"><img src="auction4cause/images/productinfo.gif" border="0" width="75" height="20"></a></span></div>
+						  </td>
+						  <td height="25"><span class="smalltext"><font size="2"> 
+							<a href="{$HTTPPATH}/index.php?ID={$ID}&p=auction4cause/detail&product_id={$res.product_id}&page={$page}">
+							
+								<img src="auction4cause/images/bidnow-gif.gif" border="0" width="75" height="20"></a>
+				
+							
+								</font></span></td>
+						</tr>
+						<tr> 
+						  <td colspan="2" class="smalltext"> 
+							<div align="center">
+							
+							<a href="{$HTTPPATH}/index.php?ID={$ID}&p=auction4cause/mailtofriend&product_id={$res.product_id}&page={$page}" title="Click to tell a friend about this auction!">Tell 
+							  a friend about this auction</a>
+							  
+							  </div>
+						  </td>
+						</tr>
+				
+					  </tbody></table>
+					</td>
+				  </tr>
+				</tbody></table>
+				<!--Auction Item Table ENDS  here -->
+			</div>
+		{/foreach}
+		<div class="clear"></div>
+		<div class="pagination">{$pagination}</div>
+	{else}
+		<div>No Records</div>
+	{/if}
+	<div class="clear"></div>
+	
+	
+	
+</div>

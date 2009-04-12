@@ -376,5 +376,107 @@ class Common {
 		}
 		return $ID;
 	}
+	// thumbnail
+	public function getThumbnailSize($ex_width, $ex_height, $maxheight=80, $maxwidth=80) {
+		if($ex_width >= $ex_height){  
+			if($ex_width > $maxwidth){   
+				$ds_width_ex  = $maxwidth;   
+				$ratio_ex     = $ex_width / $ds_width_ex;  
+				$ds_height_ex = $ex_height / $ratio_ex;
+				$ds_height_ex = round($ds_height_ex);  
+				if($ds_height_ex > $maxheight)
+					$ds_height_ex = $maxheight;    
+			} else {   
+				$ds_width_ex  = $ex_width;
+				$ds_height_ex = $ex_height;   
+				if($ds_height_ex > $maxheight)
+					$ds_height_ex = $maxheight;    
+			}  
+		} else if($ex_width < $ex_height){  
+			if($ex_height > $maxheight){  
+				$ds_height_ex = $maxheight;
+				$ratio_ex     = $ex_height / $ds_height_ex;
+				$ds_width_ex  = $ex_width / $ratio_ex;
+				$ds_width_ex  = round($ds_width_ex);  
+				if($ds_width_ex > $maxwidth)
+					$ds_width_ex = $maxwidth;   
+			} else {   
+				$ds_width_ex  = $ex_width;
+				$ds_height_ex = $ex_height; 
+				if($ds_width_ex > $maxwidth)
+					$ds_width_ex = $maxwidth;   
+			}  
+		}  
+		$size['width'] = $ds_width_ex;
+		$size['height'] = $ds_height_ex;
+		return $size;
+	}
+	public function buildThumbnail($url, $maxheight, $maxwidth, $format, $dest) {
+		$format = strtolower($format);
+		list($ex_width, $ex_height) = getimagesize($url);
+		$size = $this->getThumbnailSize($ex_width, $ex_height, $maxheight, $maxwidth);
+	
+		// create a black image
+		$image_p = @imagecreatetruecolor($size['width'], $size['height']);
+		// create white background
+		$background = @imagecolorallocate($image_p, 255, 255, 255);
+		// create rectangle with backgournd white
+		@imagefilledrectangle($image_p, 0, 0, $size['width'], $size['height'], $background);
+	
+		if($format=="png") {
+			$image = @imagecreatefrompng($url);
+		} else if($format=="jpg") {
+			$image = @imagecreatefromjpeg($url);	
+		} else if($format=="gif") {
+			$image = @imagecreatefromgif($url);	
+		}
+	
+		@imagecopyresampled($image_p, $image, 0, 0, 0, 0, $size['width'], $size['height'], $ex_width, $ex_height);
+		if($format=="png") {
+			//header('Content-Type: image/png');
+			@imagepng($image_p, $dest);
+		} else if($format=="jpg") {
+			//header('Content-Type: image/jpeg');
+			@imagejpeg($image_p, $dest);
+		} else if($format=="gif") {
+			//header('Content-Type: image/gif');
+			@imagegif($image_p, $dest);
+		}
+		@imagedestroy($image_p);
+	}
+	public function buildThumbnailWithoutResize($url, $maxheight, $maxwidth, $format, $dest) {
+		$format = strtolower($format);
+		list($ex_width, $ex_height) = getimagesize($url);
+		//$size = $this->getThumbnailSize($ex_width, $ex_height, $maxheight, $maxwidth);
+		$size['width'] = $maxwidth;
+		$size['height'] = $maxheight;
+		// create a black image
+		$image_p = @imagecreatetruecolor($size['width'], $size['height']);
+		// create white background
+		$background = @imagecolorallocate($image_p, 255, 255, 255);
+		// create rectangle with backgournd white
+		imagefilledrectangle($image_p, 0, 0, $size['width'], $size['height'], $background);
+	
+		if($format=="png") {
+			$image = @imagecreatefrompng($url);
+		} else if($format=="jpg") {
+			$image = @imagecreatefromjpeg($url);	
+		} else if($format=="gif") {
+			$image = @imagecreatefromgif($url);	
+		}
+	
+		@imagecopyresampled($image_p, $image, 0, 0, 0, 0, $size['width'], $size['height'], $ex_width, $ex_height);
+		if($format=="png") {
+			//header('Content-Type: image/png');
+			@imagepng($image_p, $dest);
+		} else if($format=="jpg") {
+			//header('Content-Type: image/jpeg');
+			@imagejpeg($image_p, $dest);
+		} else if($format=="gif") {
+			//header('Content-Type: image/gif');
+			@imagegif($image_p, $dest);
+		}
+		@imagedestroy($image_p);
+	}
 }
 ?>

@@ -79,6 +79,7 @@ try {
 			$body = $smarty->fetch('downtimealert/view.html');
 			break;
 	}
+	$mod_Downtimealert->cronDowntime();
 } catch (exception $e) { 
 	$errorMessage = $e->getMessage();
 	$smarty->assign('errorMessage', $errorMessage);

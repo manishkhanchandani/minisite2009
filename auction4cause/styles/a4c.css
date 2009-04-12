@@ -1,0 +1,166 @@
+/*''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Auctions4aCause.com (a4ac)
+'
+'   Copyright © 2006 Auctions4aCause.com
+'   
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+.bodywhite {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #FFFFFF; }
+
+.bodytext {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px}
+
+.bodytextbold {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold;}
+
+.bidfeetotal {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+	font-weight: bold; 
+}
+
+.bigbodytext {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 15px}
+
+.tallbodytext {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; line-height:17px;}
+
+.smallbody { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px }
+.smallbodyred { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; color: red; }
+
+.smalltext {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; letter-spacing: normal}
+.smalltextred {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; letter-spacing: normal; color: red;}
+.smalltextredbold {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; letter-spacing: normal; color: red; font-weight: bold;}
+
+.orangebody { color: #FF6633;  font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold}
+.orangebodycap { color: #FF6633;  font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; text-decoration: capitalize;}
+.orangebodysmalltext { color: #FF6633;  font-family: Arial, Helvetica, sans-serif; font-size: 9px; font-weight: bold}
+
+.highestuniquebreakdown  {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-weight: bold; font-size: 12px; letter-spacing: normal; }
+
+h1 {  font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: normal; font-weight: bold}
+h1.product { font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: normal; font-weight: bold;  color: #660099;}
+h2 {  font-family: Arial, Helvetica, sans-serif; font-size: 15px; font-weight: bold}
+h3 {  font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold}
+
+.price {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF;}
+
+
+.bulletbig {  font-family: Arial, Helvetica, sans-serif; font-size: 16px; list-style-image: url(../images/sun-sm.gif); list-style-position: inside}
+
+.button { font: bold  Arial, Helvetica, Geneva, sans-serif;
+				color: #ffffff;
+				background-color: #660099;
+				 font-size: 12px}
+
+input.btn{
+   color:#ffffff;
+   font-family:'trebuchet ms',helvetica,sans-serif;
+   font-size: 12px ;
+   font-weight:bold;
+   background-color:#660099;
+   border:1px solid;
+   border-top-color:#660099;
+   border-left-color:#660099;
+   border-right-color:#000000;
+   border-bottom-color:#000000;
+   filter:progid:DXImageTransform.Microsoft.Gradient
+      (GradientType=0,StartColorStr='#ffffffff',EndColorStr='#660099'); 	  }
+
+input.btnhov{
+   border-top-color:#c63;
+   border-left-color:#c63;
+   border-right-color:#930;
+   border-bottom-color:#930;}
+
+
+a.menubox:link { font-size: 9px; color: #660099; text-decoration: none; }
+a.menubox:active { font-size: 9px; color: #FF0000; text-decoration: none; }
+a.menubox:visited { font-size: 9px; color: #660099; text-decoration: none; }
+a.menubox:visited:hover { font-size: 9px; color: #FF6633;  text-decoration: none; }
+a.menubox:hover { font-size: 9px; color: #FF6633;  text-decoration: underline; }
+
+a.undermenubox:link { font-size: 9px; color: #FF6633; text-decoration: underline; }
+a.undermenubox:active { font-size: 9px; color: #FF0000; text-decoration: none; }
+a.undermenubox:visited { font-size: 9px; color: #FF6633; text-decoration: underline; }
+a.undermenubox:visited:hover { font-size: 9px; color: #0000FF;  text-decoration: none; }
+a.undermenubox:hover { font-size: 9px; color: #0000FF;  text-decoration: none; }
+
+a.botnav:link { font-size: 11px; color: #FFFFFF; text-decoration: underline; font-weight: normal;}
+a.botnav:active { font-size: 11px; color: #FF6633; text-decoration: none; font-weight: normal;}
+a.botnav:visited { font-size: 11px; color: #FFFFFF; text-decoration: underline; font-weight: normal; }
+a.botnav:visited:hover { font-size: 11px; color: #FF6633;  text-decoration: none; font-weight: normal; }
+a.botnav:hover { font-size: 11px; color: #FF6633;  text-decoration: none; font-weight: normal; }
+
+a.pagenav:link { font-size: 12px; color: #FF6633; text-decoration: underline; }
+a.pagenav:active { font-size: 12px; color: #FF0000; text-decoration: none; }
+a.pagenav:visited { font-size: 12px; color: #FF6633; text-decoration: underline; }
+a.pagenav:visited:hover { font-size: 12px; color: #0000FF;  text-decoration: none; }
+a.pagenav:hover { font-size: 12px; color: #0000FF;  text-decoration: none; }
+
+
+a.auctionnav:link { font-size: 12px; color: #FF6633; text-decoration: underline; }
+a.auctionnav:active { font-size: 12px; color: #FF0000; text-decoration: none; }
+a.auctionnav:visited { font-size: 12px; color: #FF6633; text-decoration: underline; }
+a.auctionnav:visited:hover { font-size: 12px; color: #0000FF;  text-decoration: none; }
+a.auctionnav:hover { font-size: 12px; color: #0000FF;  text-decoration: none; }
+
+
+a:active {  color: #FF0000}
+a:link {  color: #0000FF; text-decoration: underline}
+a:visited {  color: #6600FF; text-decoration: underline}
+a:hover {  color: #FF6633}
+a:visited:hover {  color: #FF6633; text-decoration: underline}
+
+.friend td { font-family: Arial, Helvetica, sans-serif; 
+				font-size:9pt;
+				color: #ffffff;
+				}
+
+.menu td {  font-family: Verdana, Arial, Helvetica, sans-serif; 
+				font-size:9pt;				
+				}
+
+.orangeH3 { color: #FF6633;  font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold}
+.purpleH3  { color: #660099;  font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold}
+.largepurpletext  { color: #660099;  font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: bold}
+
+.required {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #FF6600; font-size: 10px; letter-spacing: normal; }
+
+.formTableTitle { font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-size: 11px; letter-spacing: normal;	}
+
+.formHead { font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 11px; letter-spacing: normal;	}
+
+.formTableDataR1 { font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-size: 10px; letter-spacing: normal;
+							border:1px black solid; border-bottom:3px #660099 double}
+
+.formTableDataR { font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-size: 11px; letter-spacing: normal;
+							border:1px black solid;}
+
+.formTableData { font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-size: 11px; letter-spacing: normal;	}
+
+.formTableRowhighlight { font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-size: 11px; letter-spacing: normal; background-color: #FFFF99;}
+
+
+.errclassemail { font-family: Verdana, Arial, Helvetica, sans-serif; color: #FF0000; font-size: 10px; letter-spacing: normal;	
+								background-color: #FFFF99;	}
+
+.errclasspw { font-family: Verdana, Arial, Helvetica, sans-serif; color: #FF0000; font-size: 10px; letter-spacing: normal;	
+								background-color: #FFFF99;	}
+.errclassform { font-family: Verdana, Arial, Helvetica, sans-serif; color: #FF0000; font-size: 14px; letter-spacing: normal;	
+								background-color: #FFFF99;	}
+
+.difftable { border-color: #660099; border-collapse: collapse; }
+
+.strike  { text-decoration: line-through; }
+
+.capthis { text-decoration: capitalize; }
+
+
+/*MyBids page*/
+.uniqueclass  {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #FF6600; font-size: 9px; letter-spacing: normal; }
+.normclass  {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; font-size: 9px; letter-spacing: normal; }
+.highestuniqueclass  {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #660099; font-weight: bold; font-size: 10px; letter-spacing: normal; }
+
+/*MyBids page*/

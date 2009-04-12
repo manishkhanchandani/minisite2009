@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2009 at 04:39 AM
+-- Generation Time: Apr 11, 2009 at 04:00 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -67,6 +67,27 @@ CREATE TABLE IF NOT EXISTS `ask_expert` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `auction_settings`
+--
+
+CREATE TABLE IF NOT EXISTS `auction_settings` (
+  `auction_setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `biddingfee` float DEFAULT NULL,
+  `maximumbidpriceperbid` float DEFAULT NULL,
+  `bidtype` enum('Maxbid','Minbid','Normal','Penny') DEFAULT NULL,
+  `charity` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`auction_setting_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `auction_settings`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `blog`
 --
 
@@ -105,14 +126,12 @@ CREATE TABLE IF NOT EXISTS `blog_categories` (
   `category` varchar(200) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `blog_categories`
 --
 
-INSERT INTO `blog_categories` (`category_id`, `id`, `category`, `parent_id`) VALUES
-(1, 1, 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -131,8 +150,6 @@ CREATE TABLE IF NOT EXISTS `blog_cat_rel` (
 -- Dumping data for table `blog_cat_rel`
 --
 
-INSERT INTO `blog_cat_rel` (`blog_id`, `id`, `category_id`) VALUES
-(6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -173,10 +190,6 @@ CREATE TABLE IF NOT EXISTS `blog_tags` (
 -- Dumping data for table `blog_tags`
 --
 
-INSERT INTO `blog_tags` (`blog_id`, `id`, `tag_id`) VALUES
-(4, 1, 1),
-(5, 1, 1),
-(6, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -318,18 +331,12 @@ CREATE TABLE IF NOT EXISTS `emailreminders` (
   `status` int(2) DEFAULT NULL,
   `lastsenddate` datetime DEFAULT NULL,
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `emailreminders`
 --
 
-INSERT INTO `emailreminders` (`rid`, `id`, `user_id`, `title`, `message`, `toemail`, `senddate`, `emailtype`, `emaildatetime`, `recurringtype`, `recurringfixedtypedates`, `created`, `modified`, `status`, `lastsenddate`) VALUES
-(6, 1, 1, 'a', 'aa', 'aaa', NULL, 'Recurring', '2009-04-14 02:00:00', 'Every Half Hourly', NULL, '2009-04-05 08:19:46', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
-(5, 1, 1, 'a', 'aa', 'aaa', NULL, 'Recurring', '2009-04-14 02:00:00', 'Every Half Hourly', NULL, '2009-04-05 08:19:46', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
-(7, 1, 1, 'dd', 'ddd', 'na', NULL, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 15:32:57', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
-(8, 1, 1, 'dd', 'ddd', 'na', 1238805000, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 15:32:57', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03'),
-(9, 1, 1, 'dd', 'ddd', 'na', 1238805000, 'Fixed', '2009-04-04 00:30:00', '', NULL, '2009-04-05 15:32:57', '2009-04-05 16:09:03', 1, '2009-04-05 16:09:03');
 
 -- --------------------------------------------------------
 
@@ -611,15 +618,18 @@ CREATE TABLE IF NOT EXISTS `prebuilt_1` (
   `dbuser` varchar(255) DEFAULT NULL,
   `dbpassword` varchar(255) DEFAULT NULL,
   `login_site` int(1) NOT NULL DEFAULT '1',
+  `smsusername` varchar(200) DEFAULT NULL,
+  `smspassword` varchar(200) DEFAULT NULL,
+  `twilio_account_sid` varchar(200) DEFAULT NULL,
+  `twilio_auth_token` varchar(200) DEFAULT NULL,
+  `twilio_caller_id` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `prebuilt_1`
 --
 
-INSERT INTO `prebuilt_1` (`id`, `keyword`, `default_id`, `home_text`, `template`, `css`, `js`, `siteurl`, `sitename`, `siteemail`, `ftphost`, `ftpuser`, `ftppassword`, `ftpdir`, `dbhost`, `db`, `dbuser`, `dbpassword`, `login_site`) VALUES
-(1, 'Mumbai', 1, NULL, '<div id="mainBody">\r\n	<div id="mainHeader">\r\n		<h1><?php echo ucwords($SITE[0][''sitename'']); ?></h1>\r\n		<p><?php echo $SITE[0][''home_text'']; ?></p>\r\n	</div>\r\n	<div id="mainLower">\r\n		<div id="mainNavigation">\r\n			<?php echo $MENU; ?>		\r\n		</div>\r\n		<div id="mainContent">\r\n			[[BODY]]\r\n		</div>\r\n		<div id="mainFooter">\r\n			<p>Copyright 2009</p>\r\n		</div>\r\n	</div>\r\n</div>', '<!--\r\nbody {\r\n	background-color: #990099;\r\n	margin: 0px;\r\n	padding: 0px;\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\ntd, th, table, p, select, input, textarea {\r\n	font-family: Verdana;\r\n	font-size: 11px;\r\n}\r\na {\r\n	text-decoration: none;\r\n}\r\n#mainBody {\r\n	width: 800px;\r\n	border: 1px solid #000000;\r\n	margin-right: auto;\r\n	margin-left: auto;\r\n	margin-top:-25px;\r\n}\r\n#mainBody #mainHeader {\r\n	background-color: #000000;\r\n	text-align:center;\r\n	padding-top:25px;\r\n}\r\n#mainBody #mainHeader h1 {\r\n	font-size: 36px;\r\n	font-weight: bold;\r\n	color: #FFFFFF;\r\n}\r\n#mainBody #mainHeader p {\r\n	font-size: 10px;\r\n	color: #FFFFFF;\r\n	text-align:center;\r\n	margin-top: -20px;\r\n	padding-bottom: 25px;\r\n}\r\n#mainBody #mainLower {\r\n	background-color: #FFFFFF;\r\n	margin-top: -20px;\r\n	padding-bottom: 15px;\r\n}\r\n#mainBody #mainLower #mainNavigation {\r\n	padding: 5px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n#mainBody #mainLower #mainContent {\r\n	padding: 10px;\r\n	min-height: 300px;\r\n	border-bottom-width: thin;\r\n	border-bottom-style: dotted;\r\n	border-bottom-color: #990099;\r\n}\r\n-->', NULL, 'http://10000projects.info/minisite/project2', 'Mumbai', 'admin@mumbaionline.org.in', 'ftp.servage.net', 'manishkk', 'mAnIsH74', '/www/minisite/project2', 'mysql1076.servage.net', 'minisite09', 'minisite09', 'password123', 1);
 
 -- --------------------------------------------------------
 
@@ -633,7 +643,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
   `homepage` int(1) NOT NULL DEFAULT '1',
   `displayname` varchar(200) NOT NULL,
   `home_text` text,
-  `priority` int(11) NOT NULL DEFAULT '0',
+  `priority` int(11) NOT NULL DEFAULT '999',
   `concept_value` text,
   PRIMARY KEY (`id`,`concept_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -642,17 +652,6 @@ CREATE TABLE IF NOT EXISTS `prebuilt_2_concepts` (
 -- Dumping data for table `prebuilt_2_concepts`
 --
 
-INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`, `home_text`, `priority`, `concept_value`) VALUES
-(1, 1, 0, 'Mumbai Blogs', 'Join us to some exciting blog site.', 0, ''),
-(1, 5, 1, 'News', 'Watch news live', 0, 'pune, hyderabad'),
-(1, 7, 0, 'SMS Reminder', 'Remind your important jobs using our sms service', 0, ''),
-(1, 8, 0, 'Email Reminder', 'Remind your important jobs using our email service', 0, ''),
-(1, 9, 0, '', 'File Hosted here.', 0, ''),
-(1, 10, 0, 'Videos', 'You tube', 0, ''),
-(1, 11, 0, '', '', 0, ''),
-(1, 13, 0, '', '', 0, ''),
-(1, 14, 0, 'Cricket Scores', 'ckt', 0, ''),
-(1, 15, 0, 'Send SMS', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -671,12 +670,6 @@ CREATE TABLE IF NOT EXISTS `prebuilt_3_settings` (
 -- Dumping data for table `prebuilt_3_settings`
 --
 
-INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`, `setting_value`) VALUES
-(1, 4, NULL),
-(1, 11, NULL),
-(1, 9, NULL),
-(1, 2, NULL),
-(1, 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -687,24 +680,27 @@ INSERT INTO `prebuilt_3_settings` (`id`, `setting_id`, `setting_value`) VALUES
 CREATE TABLE IF NOT EXISTS `prebuilt_concepts` (
   `concept_id` int(11) NOT NULL AUTO_INCREMENT,
   `concept` varchar(200) DEFAULT NULL,
+  `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`concept_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `prebuilt_concepts`
 --
 
-INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`) VALUES
-(1, 'blog'),
-(5, 'news'),
-(7, 'smsreminder'),
-(8, 'emailreminder'),
-(9, 'filehost'),
-(10, 'youtube'),
-(11, 'gtalk'),
-(13, 'allchat'),
-(14, 'cricketscore'),
-(15, 'sendsms');
+INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`, `active`) VALUES
+(1, 'blog', 1),
+(5, 'news', 1),
+(7, 'smsreminder', 1),
+(8, 'emailreminder', 1),
+(9, 'filehost', 1),
+(10, 'youtube', 1),
+(11, 'gtalk', 0),
+(13, 'allchat', 0),
+(14, 'cricketscore', 0),
+(15, 'sendsms', 1),
+(16, 'downtimealert', 1),
+(17, 'imagehost', 1);
 
 -- --------------------------------------------------------
 
@@ -977,7 +973,7 @@ CREATE TABLE IF NOT EXISTS `smsreminders` (
   `status` int(2) DEFAULT NULL,
   `lastsenddate` datetime DEFAULT NULL,
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `smsreminders`
@@ -994,15 +990,12 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tagname` varchar(100) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `tags`
 --
 
-INSERT INTO `tags` (`tag_id`, `tagname`) VALUES
-(1, 'dd'),
-(2, 'test');
 
 -- --------------------------------------------------------
 
