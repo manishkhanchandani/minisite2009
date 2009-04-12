@@ -10,6 +10,11 @@ header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
 header("Cache-Control: no-cache, must-revalidate" );
 header("Pragma: no-cache" ); 
 
+// set cookie
+if($_GET['rn']) {
+	setcookie('rn', $_GET['rn'], time()+(60*60*24*365), "/");
+}
+
 // ini settings
 if ( ! defined( "PATH_SEPARATOR" ) ) {
   if ( strpos( $_ENV[ "OS" ], "Win" ) !== false )

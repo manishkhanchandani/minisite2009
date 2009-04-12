@@ -1,0 +1,101 @@
+<div class="mainContentDv">
+	<!-- Product information table  -->	  
+	  
+	  <table width="100%" border="0" cellspacing="2" cellpadding="2">
+        <tr> 
+          <td align="center" valign="top"> 
+          <p class="bodytext">You are in the process of bidding for:<br>
+
+			  <font class="orangeH3"><b>Auction# {$records.product_id}:&nbsp;&nbsp;{$records.product_name}</b></font></p>
+
+          </td>
+          <td align="right" valign="top">
+<a href="{$HTTPPATH}/index.php?ID={$ID}&p=auction4cause/index&page={$smarty.get.page}" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('back','','{$HTTPPATH}/auction4cause/images/backto-fly.gif',0)"><img src="{$HTTPPATH}/auction4cause/images/backto.gif" width="90" height="25" name="back" border="0" alt="Click to go back"></a> 
+
+		</td>
+        </tr>
+        <tr> 
+          <td colspan="2" valign="top"> 
+            <table width="100%" border="0" cellspacing="3" cellpadding="3">
+
+              <tr> 
+                <td align="center" valign="top" width="350">
+			<form action="{$HTTPPATH}/index.php?product_id={$productId}&ID={$ID}&p=auction4cause/bid&page={$page}" name="form_{$productId}" method="post"> 
+                  <table width="75%" border="1" cellspacing="3" cellpadding="3" bordercolor="#660099" class="bodytext">
+                    <tr> 
+                      <td width="62%" align="right" class="orangebody"><b>Get4 Price:</b></td>
+                      <td width="38%" class="orangebody"><b>${$records.get4price}</b></td>
+                    </tr>
+                    <tr> 
+                      <td  width="62%" align="right"><b>Retail Price:</b></td>
+
+                      <td  width="38%"><b> ${$records.product_price}</b></td>
+                    </tr>
+                    <tr > 
+                      <td  width="62%" align="right" class="orangebody"><b>Maximum Bid:</b></td>
+                      <td  width="38%" class="orangebody"><b>${$records.maxbidprice}</b></td>
+                    </tr>
+                    
+                    <tr> 
+                      <td  width="62%" align="right"><b>Bid Fee:</b></td>
+
+                      <td  width="38%"><b>${$records.bidfee}</b></td>
+                    </tr>
+                    
+                    <tr> 
+                      <td  width="62%" align="right"><b>Max. # of Bids:</b></td>
+                      <td  width="38%"><b> 
+                        {$records.maxnumofbids}
+                        </b></td>
+                    </tr>
+                    
+                    <tr> 
+                      <td  width="62%" align="right"><b>Auction Started:</b></td>
+
+                      <td  width="38%" nowrap><b> 
+                        {$records.product_start_date}
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="right"><strong>Charity:</strong></td>
+                      <td nowrap><select name="charity_id"><option value="1">Tasty</option><option value="2">Nontasty</option></select>&nbsp;</td>
+                    </tr>
+                    <tr align="center"> 
+					    
+						<td width="62%" align="right" bgcolor="gold" class="bodytext"><b>Your Bid</b>						</td>
+					    <td class="bodytext" width="38%" bgcolor="gold">
+						
+						 <b>${$smarty.post.bid}</b>
+							<input type="hidden" name="product_id" value="{$records.product_id}"> 
+							<input type="hidden" name="bid" value="{$smarty.post.bid}"> 	
+							<input type="hidden" name="MM_Insert" value="bid">						</td>
+                    </tr>	
+                    <tr align="center"> 
+					    
+						<td width="62%" align="right" bgcolor="gold" class="bodytext"><select name="payment">
+							<option value="PAYPAL">Paypal</option>
+						</select>						</td>
+					    <td class="bodytext" width="38%" bgcolor="gold">
+						
+						 <input type="submit" name="submit" value="Submit My Bid" />						</td>
+                    </tr>			
+                  </table>
+				  </form>
+                </td>
+                <td width="200" height="200" align="center" valign="top"  colspan="2"> 
+                  <img src="{$HTTPPATH}/auction4cause/uploadDir/medium/{$records.comments}" alt="Sony - VAIO Laptop"><br>
+
+                </td>
+              </tr>
+        
+            </table>
+          </td>
+        </tr>
+      </table>
+<!-- Product information table  end -->	  
+
+	<div class="clear"></div>
+	
+	
+	
+</div>

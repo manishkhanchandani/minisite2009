@@ -168,7 +168,7 @@ function GP_popupConfirmMsg(msg) { //v1.0
   <?php } // Show if recordset not empty ?>
 <?php if ($totalRows_rsEdit > 0) { // Show if recordset not empty ?>
   <h3>Edit Template <a name="edit" id="edit"></a></h3>
-  <form action="<?php echo $editFormAction; ?>" method="post" name="form2" onsubmit="MM_validateForm('name','','R');return document.MM_returnValue">
+  <form action="<?php echo $editFormAction; ?>" method="post" name="form2">
     <table>
       <tr valign="baseline">
         <td nowrap align="right">Name:</td>
@@ -193,7 +193,7 @@ function GP_popupConfirmMsg(msg) { //v1.0
     </table>
     <input type="hidden" name="MM_update" value="form2">
     <input type="hidden" name="tid" value="<?php echo $row_rsEdit['tid']; ?>">
-      </form>
+  </form>
   <?php } // Show if recordset not empty ?><p>&nbsp;</p>
 </body>
 </html>

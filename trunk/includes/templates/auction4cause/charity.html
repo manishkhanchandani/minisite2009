@@ -1,0 +1,123 @@
+{literal}
+<style type="text/css">
+.imgresize {
+	max-width: 150px;
+    width: expression(this.width > 240 ? 240: true); 
+}
+</style>
+{/literal}
+<div class="mainContentDv">
+	<table width="100%" border="0" cellspacing="2" cellpadding="2">
+        <tr> 
+          <td align="left" valign="top" colspan="2"> 
+            <h1><b>Supported Charities</b></h1>
+
+            
+          </td>
+        </tr>
+        <tr> 
+          <td colspan="2" valign="top" align="left"> 
+            <p><b><span class="bodytext">Auctions 4 a Cause is on a mission. </span></b> 
+              <span class="bodytext">&nbsp;Our company's goal is to make a positive 
+              and significant difference throughout our communities.&nbsp; To 
+              accomplish this, Auctions 4 a Cause has developed a new and innovative 
+              method to raise money for charities and fundraisers called the Auction 
+              4 Charity.&nbsp; </span>
+            <p class="bodytext">Our members are given the chance to purchase great 
+              products such as iPods, PS3’s, digital cameras or laptops at 80-90% 
+              off retail prices while raising money for the charities we support.&nbsp; 
+              Every quarter Auctions 4 a Cause donates a minimum of 25% of the 
+              net proceeds raised through the bidding fees paid to participate 
+              in our auctions.&nbsp; Listed below are the worthy charities and 
+              causes we are currently supporting.&nbsp; As a member you can choose 
+              one of these causes for your bid proceeds to benefit.&nbsp; In addition, 
+              you can <a href="mailto:{$SITEEMAIL}">tell 
+              us about your favorite charity</a> and every quarter we will select 
+              a user submitted causes to receive a portion of that quarter’s donations.</p>
+
+            <p class="bodytext"><span class="bodytext"><b>Auctions 4 a Cause donates 
+              to charities every quarter. We want to thank our members for generating, 
+              on average, over $10,000 for our charities every quarter! And this 
+              quarter is no different with $13,271 donated in July 2008!</b></span></p>
+			{if $records}
+            <table width="100%" border="1" cellspacing="2" cellpadding="3">
+			{foreach from=$records item=res}
+              <tr> 
+                <td width="21%" class="bodytext" align="center" height="62">
+                <a href="{$res.charity_site}" target="_blank" title="{$res.charity_name}"><img src="{$res.charity_url}" border="0" class="imgresize"></a><p></td>
+                <td width="79%" class="bodytext" height="62">{$res.charity_description}</td>
+              </tr>
+			 {/foreach}
+            </table>
+			{/if}
+            <table width="100%" border="0" cellspacing="1" cellpadding="1">
+              <tr> 
+                <td> 
+                  <p><span class="bodytext">Auctions 4 a Cause was one of the 
+                    first unique bid auction sites on the Internet in 2003 and 
+                    pioneered the Auction 4 Charity. &nbsp;Others have tried to 
+                    imitate our concept, but none have our proven track record 
+                    and the $10’s of thousands of dollars we have raised for worthy 
+                    causes. &nbsp;We are proud to be official partners with some 
+                    of our charities while others are waiting for us to reach 
+                    specific donation milestones before forming official partnerships 
+                    with us.&nbsp; We wouldn't want it any other way.&nbsp; Auctions 
+                    4 a Cause is committed to proving our worth and we will continually 
+                    list our donations on this page.&nbsp;</span></p>
+
+                  <p><span class="bodytext">You can bid with confidence knowing 
+                    that not only can you win a Nintendo 
+                    Wii, iPod, digital 
+                    camera, LCD TV, PlayStation 
+                    3, laptop or Xbox 
+                    360 for 80-90% off retail prices, but that you are also 
+                    supporting some great causes in the process.&nbsp; Thank you 
+                    for your support and remember to tell your friends about Auctions 
+                    4 a Cause.</span></p>
+
+                  <p>&nbsp;</p>
+                </td>
+                <td> 
+                  <p><font size="1" face="Arial, Helvetica, sans-serif">&quot;I 
+                    want to take a moment to thank you all from the bottom of 
+                    my heart for your generosity to Big Brothers Big Sisters over 
+                    the past few years. This year alone, along with the United 
+                    Way donation, you (Auctions) have donated over $5,000 to BBBS. 
+                    In all, your support totals over $12,000!!!</font></p>
+                  <p><font size="1" face="Arial, Helvetica, sans-serif">You have 
+                    made such a BIG difference to this program &#150; therefore 
+                    to the youth we serve &#150; and to our community! Right now, 
+                    we are trying to help youth dealing with the absence of a 
+                    parent &#150; be it from divorce, death, incarceration or 
+                    deployment. You have helped us do just that for over 500 youth 
+                    this year! &quot; </font></p>
+
+                  <p><font size="1" face="Arial, Helvetica, sans-serif">April 
+                    Speake, Executive Director<br>
+                    Dec. 8, 2008<br>
+                    </font></p>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="2"> 
+                  <p><span class="bodytext">If partnering with Auctions 4 a Cause 
+                    is something your charitable organization is interested in 
+                    or if your organization or group is looking for a new and 
+                    exciting fundraising activity, <a href="mailto:{$SITEEMAIL}">please 
+                    e-mail us</a> to learn about our auctions and how they can 
+                    be used for your cause.</span></p>
+
+                  <p class="bodytext"> </p>
+                </td>
+              </tr>
+            </table>
+            <p class="bodytext1">&nbsp;</p>
+            <p class="orangeH3">The highest unduplicated bid wins...your bid can 
+              be no higher than the &quot;Get4&quot; price.</p>
+
+            </td>
+
+        </tr>
+      </table>
+	
+</div>

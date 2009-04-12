@@ -63,7 +63,7 @@ class mod_Users {
 	}
 	
 	public function register($post) {
-		$insertSQL = sprintf("INSERT INTO users (email, password, code, status, created, name, squestion, sanswer) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+		$insertSQL = sprintf("INSERT INTO users (email, password, code, status, created, name, squestion, sanswer, rn) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
 					   $this->Common->GetSQLValueString($post['email'], "text"),
 					   $this->Common->GetSQLValueString($post['password'], "text"),
 					   $this->Common->GetSQLValueString($post['code'], "text"),
@@ -71,7 +71,8 @@ class mod_Users {
 					   $this->Common->GetSQLValueString($post['created'], "date"),
 					   $this->Common->GetSQLValueString($post['name'], "text"),
 					   $this->Common->GetSQLValueString($post['squestion'], "text"),
-					   $this->Common->GetSQLValueString($post['sanswer'], "text"));
+					   $this->Common->GetSQLValueString($post['sanswer'], "text"),
+					   $this->Common->GetSQLValueString($post['rn'], "int"));
 		$this->dbFrameWork->Execute($insertSQL);
 		if($this->dbFrameWork->ErrorMsg()) {
 			throw new Exception($this->dbFrameWork->ErrorMsg());

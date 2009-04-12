@@ -117,7 +117,7 @@ function MM_goToURL() { //v3.0
     </tr>
     <tr>
       <th align="right">Sitename:</th>
-      <td><input name="sitename" type="text" id="sitename" value="<?php echo $row_rsKeyword['sitename']; ?>" maxlength="200" /></td>
+      <td><input name="sitename" type="text" id="sitename" value="<?php echo $row_rsKeyword['keyword']; ?>" readonly="true" maxlength="200" /></td>
     </tr>
     <tr>
       <th align="right">Site Email: </th>

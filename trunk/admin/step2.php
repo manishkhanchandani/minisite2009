@@ -67,7 +67,7 @@ $row_rsKeyword = mysql_fetch_assoc($rsKeyword);
 $totalRows_rsKeyword = mysql_num_rows($rsKeyword);
 
 mysql_select_db($database_conn, $conn);
-$query_rsConcepts = "SELECT * FROM prebuilt_concepts ORDER BY concept ASC";
+$query_rsConcepts = "SELECT * FROM prebuilt_concepts WHERE `active` = 1 ORDER BY cpriority ASC";
 $rsConcepts = mysql_query($query_rsConcepts, $conn) or die(mysql_error());
 $row_rsConcepts = mysql_fetch_assoc($rsConcepts);
 $totalRows_rsConcepts = mysql_num_rows($rsConcepts);

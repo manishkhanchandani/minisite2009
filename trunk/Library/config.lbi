@@ -1,0 +1,23 @@
+<?php
+// adodb connection
+include('../includes/adodb/adodb-exceptions.inc.php'); # load code common to ADOdb
+include('../includes/adodb/adodb.inc.php'); # load code common to ADOdb 
+try { 
+	include_once('../Connections/connection.php');
+	$dbFrameWork = &ADONewConnection('mysql');  # create a connection 
+	$dbFrameWork->Connect($hostname_conn,$username_conn,$password_conn,$database_conn);# connect to MySQL, framework db
+} catch (exception $e) { 
+	ob_end_clean();
+	echo 'Loading in 15 seconds. If page does not refresh in 5 seconds, please refresh manually.<meta http-equiv="refresh" content="15">';
+	exit;
+} 
+
+function __autoload($classname) {
+	include("../Classes/{$classname}.php");
+}
+spl_autoload_register('spl_autoload');
+if (function_exists('__autoload')) {
+	spl_autoload_register('__autoload');
+}
+$Common = new Common($dbFrameWork);
+?>
