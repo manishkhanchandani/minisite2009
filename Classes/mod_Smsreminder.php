@@ -27,7 +27,7 @@ class mod_Smsreminder {
 		if($msg) throw new Exception($msg);
 	}
 	
-	public function cronSMS() {
+	public function cronSMS($data) {
 		global $common;
 		$currentTime = time();
 		$sql = "select id, tophone, message, smstype, senddate, recurringtype, recurringfixedtypedates from smsreminders WHERE status = 1 AND senddate != '' AND senddate IS NOT NULL AND senddate < ".$currentTime;
@@ -38,7 +38,7 @@ class mod_Smsreminder {
 				$PhoneNumber = $rec['tophone'];
 				$text = substr(strip_tags($rec['message']),0,160);
 				// send sms and get the result
-				$smsResult = $this->sendSMS($PhoneNumber, $text);
+				$smsResult = $this->sendSMS($PhoneNumber, $text, $data);
 				// extract the first line of result
 				$smsResultArr = explode("<br>",$smsResult);
 				// if it is Message Submitted then update the database
@@ -56,14 +56,13 @@ class mod_Smsreminder {
 		}
 	}
 	
-	public function sendSMS($PhoneNumber, $text) {
-		global $conceptValue;
-		$url = "http://www.globalsms-mms.com/sendsmsv2.asp"; 
-		//$user = "nkhanchandani";
-		//$password = "password";
+	public function sendSMS($PhoneNumber, $text, $data) {
+		$url = "http://www.globalsms-mms.com/sendsmsv2.asp"; 		
+		$user = $data['keyword'][ID]['smsusername'];//"nkhanchandani";
+		$password = $data['keyword'][ID]['smspassword']; //"password";
 		$sender = "mumbaionlin";
 		$sendercdma = "919860609000";
-		$post_fields = $conceptValue.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
+		$post_fields = 'user='.$user.'&password='.$password.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
 
 		$ch = curl_init(); // Initialize a CURL session.
 		curl_setopt($ch, CURLOPT_URL, $url); // Pass URL as parameter.

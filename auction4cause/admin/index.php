@@ -33,7 +33,7 @@ body, td, th, p, div, select, input, button, submit {
     <p><strong>Site Keyword:</strong> <?php echo $row_rsSites['keyword']; ?></p>
     <p><strong>Site Url: </strong><?php echo $row_rsSites['siteurl']; ?></p>
     <p><strong>Site Email:</strong> <?php echo $row_rsSites['siteemail']; ?></p>
-    <p><a href="#">Edit</a> | <a href="settings.php?id=<?php echo $row_rsSites['id']; ?>">Settings</a> | <a href="charity.php?id=<?php echo $row_rsSites['id']; ?>">Manage Charity</a> | <a href="products.php?id=<?php echo $row_rsSites['id']; ?>">Add Products</a> | </p>
+    <p><a href="#">Edit</a> | <a href="settings.php?id=<?php echo $row_rsSites['id']; ?>">Settings</a> | <a href="charity.php?id=<?php echo $row_rsSites['id']; ?>">Manage Charity</a> | <a href="products.php?id=<?php echo $row_rsSites['id']; ?>">Add Products</a> | <a href="products_view.php?id=<?php echo $row_rsSites['id']; ?>">View Products</a> | </p>
     <p>&nbsp;</p>
     <?php } while ($row_rsSites = mysql_fetch_assoc($rsSites)); ?>
       </fieldset>

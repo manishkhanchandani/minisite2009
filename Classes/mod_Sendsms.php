@@ -39,14 +39,13 @@ $string = '<div style="width:90%; margin-left:auto; margin-right:auto;">
 		return $string;
 	}
 	
-	public function sendSMS($PhoneNumber, $text) {
-		global $conceptValue;
+	public function sendSMS($PhoneNumber, $text, $data) {
 		$url = "http://www.globalsms-mms.com/sendsmsv2.asp"; 
-		//$user = "nkhanchandani";
-		//$password = "password";
+		$user = $data['keyword'][ID]['smsusername'];//"nkhanchandani";
+		$password = $data['keyword'][ID]['smspassword']; //"password";
 		$sender = "mumbaionlin";
 		$sendercdma = "919860609000";
-		$post_fields = $conceptValue.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
+		$post_fields = 'user='.$user.'&password='.$password.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
 
 		$ch = curl_init(); // Initialize a CURL session.
 		curl_setopt($ch, CURLOPT_URL, $url); // Pass URL as parameter.

@@ -15,7 +15,7 @@ try {
 		}
 		$smarty->assign('rSettings', $rSettings);
 	}
-	if($rSettings['setting_id'] == 4 || $rSettings['setting_id']==5){
+	if($rSettings['setting_value'] == 'single' || $rSettings['setting_value'] == 'multi'){
 		// getting category list
 		$mod_Blog->tree($ID, 0);
 		$category = $mod_Blog->tree;
@@ -26,7 +26,7 @@ try {
 			// defining page heading and page title
 			$PAGEHEADING = "Add New Blog";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
-			if($rSettings['setting_id'] == 4 || $rSettings['setting_id']==5){
+			if($rSettings['setting_value'] == 'single' || $rSettings['setting_value'] == 'multi'){
 				// get Categories
 				$mod_Blog->treeSelectBox($ID, 0);
 				$categorySelBox = "<option value='0' selected>Select Category</option>";
@@ -43,11 +43,11 @@ try {
 				// insert in db
 				$uid = $Common->phpinsert('blog', 'blog_id', $_POST);							
 				// inserting categories
-				if($rSettings['setting_id'] == 4){
+				if($rSettings['setting_value'] == 'single'){
 					$sql = "insert into blog_cat_rel (blog_id, id, category_id) VALUES ('".$uid."', '".$ID."', '".$_POST['category_id']."')";
 					$mod_Blog->insertCategory($sql);	
 				}
-				if($rSettings['setting_id']==5){
+				if($rSettings['setting_value']=='multi'){
 					$sql = "insert into blog_cat_rel (blog_id, id, category_id) VALUES ";
 					foreach($_POST['category_id'] as $catId) {
 						if($catId==0) continue;
@@ -79,7 +79,7 @@ try {
 			if(!$catId) $catId = 0;			
 			$smarty->assign('catId', $catId);
 			
-			if($rSettings['reference']=='multi'){
+			if($rSettings['setting_value']=='multi'){
 				$breadCrumb = $mod_Blog->categoryParentLink($ID, $catId);
 				$smarty->assign('breadCrumb', $mod_Blog->catLinkDisplay);		
 			}
@@ -175,7 +175,7 @@ try {
 				$sql = "select * from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."' ORDER BY a.blog_id DESC";
 				$sqlCnt = "select count(*) as cnt from blog as a INNER JOIN blog_cat_rel as b ON a.blog_id = b.blog_id WHERE a.id = '".$ID."' AND b.category_id = '".$_GET['catId']."'";
 				
-				if($rSettings['setting_id']==5){
+				if($rSettings['setting_value']=='multi'){
 					$breadCrumb = $mod_Blog->categoryParentLink($ID, $_GET['catId']);
 					$smarty->assign('breadCrumb', $mod_Blog->catLinkDisplay);		
 				}			

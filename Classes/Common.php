@@ -258,6 +258,7 @@ class Common {
 			$result['concepts'][$arr['concept_id']] = $arr;
 			$result['conceptId'] = $arr['concept_id'];			
 			$result['conceptValue'] = $arr['concept_value'];
+			$result['concept'] = $arr['concept'];		
 		}
 		$conceptsId = 0;
 		if($result['concepts']){

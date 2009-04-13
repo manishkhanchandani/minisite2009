@@ -1,0 +1,72 @@
+<div class="mainContentDv">
+<h2 align="center">Tell Your Friends and Family About {$SITENAME}</h2> 
+{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+<table width="80%" border="1" bgcolor="#660099" bordercolor="#FF6633" cellspacing="1" cellpadding="0" align="center" class="friend"> 
+	<tr> 
+		<td align="center"> 
+ 
+<div class="bodytext">If you prefer to send a message yourself, click on or copy and paste the following link in your own email message. <br><b>{$HTTPPATH}/index.php?ID={$ID}&amp;rn={$smarty.session.user_id}{if $smarty.get.product_id}&amp;p=auction4cause/detail&amp;product_id={$smarty.get.product_id}{/if}</b><p>  
+	<form action="" method="POST" name="webform"> 
+	<input type="hidden" name="MM_Insert" value="1" />
+		<table width="75%" align="center" border="0" bordercolor="#FF6633" cellspacing="1" cellpadding="0" > 
+			<tr> 
+				<td> 
+				
+				<table width="100%" align="center" cellpadding="2" cellspacing="0" bgcolor="#660099" class="friend"> 
+					<tr> 
+						<td align="center" colspan="2"><b>Your Name</b>: 
+							<input name="Name" type="text" id="Name" size="35" value="{$smarty.session.name}" > 
+						</td> 
+					</tr> 
+					<tr> 
+						<td align="center" colspan="2"><b>Your Email</b>: 
+			
+							<input type="text" name="Email" size="35" value="{$smarty.session.MM_Username}" readonly="readonly"> 
+			
+						</td> 
+					</tr> 
+					<tr valign="bottom"> 
+						<td align="center" height="31" colspan="2"><b>Please enter in your friend's Name(s) and Email address(es)</b> 
+						</td> 
+					</tr> 
+					<tr> 
+						<td colspan="2"> 
+						</td> 
+					</tr> 
+					<tr> 
+						<td  align="center"  colspan="2" nowrap><b>Friend's Name</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <b>Friend's Email</b> 
+						</td>						
+					</tr> 
+					<tr> 
+						<td align="center" colspan="2" nowrap><input type="text" name="n" size = "25">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" name="f" size="35"><br> 
+ 
+								<span id="cust" style="position:relative;"></span> 
+						</td> 
+					</tr> 
+					<!--tr>
+						<td align="center" colspan="2"><br><b>Enter your message to your friend</b>:<br><textarea name="Message" cols="35" rows="5">Found a great site that you need to check out!</textarea>
+						</td>
+					</tr--> 
+					<tr align="center"> 
+						<td colspan="2"> <input type="submit" name="sub" value="Send" class="btn" onmouseover="this.className='btn btnhov'" onmouseout="this.className='btn'"/> 
+						</td> 
+					</tr> 
+					<tr align="center"> <br> 
+						
+                  <td colspan="2"> 
+					Or, if you prefer, click on or copy and paste the following link in your own message. <br><b>{$HTTPPATH}/index.php?ID={$ID}&amp;rn={$smarty.session.user_id}{if $smarty.get.product_id}&amp;p=auction4cause/detail&amp;product_id={$smarty.get.product_id}{/if}</b> 
+					
+					</td> 
+					</tr> 
+			</table> 
+ 
+			</td> 
+		</tr> 
+	</table> 
+</form> 
+</td> 
+</tr> 
+</table>
+	
+</div>

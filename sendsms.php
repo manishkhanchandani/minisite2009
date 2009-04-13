@@ -21,7 +21,7 @@ try {
 				echo '<p class="error">Please enter message.</p>';
 				exit;
 			}
-			$smsResult = $mod_Sendsms->sendSMS($_POST['phone'], substr($_POST['message'],0,160));
+			$smsResult = $mod_Sendsms->sendSMS($_POST['phone'], substr($_POST['message'],0,160), $result);
 			$smsResultArr = explode("<br>",$smsResult);
 			if($smsResultArr[0]=="Message Submitted") {
 				echo '<p class="error">SMS sent successfully.</p>';

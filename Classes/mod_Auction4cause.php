@@ -18,9 +18,9 @@ class mod_Auction4cause {
 		return true;
 	}
 	
-	public function getListing($ID, $conceptId, $max, $page) {
-		$sql = "select a.product_id, a.id, a.concept_id, a.product_name, a.product_price, a.comments, a.product_end_date, b.get4price, b.maxbidprice, b.bidfee, b.maxnumofbids from product as a LEFT JOIN auction_item_settings as b ON a.product_id = b.product_id WHERE a.product_start_date < '".date('Y-m-d H:i:s')."' AND a.product_end_date > '".date('Y-m-d H:i:s')."' AND a.id = '".$ID."' AND a.concept_id = '".$conceptId."' ORDER BY product_end_date ASC";
-		$sqlCnt = "select count(a.product_id) as cnt from product as a LEFT JOIN auction_item_settings as b ON a.product_id = b.product_id WHERE a.product_start_date < '".date('Y-m-d H:i:s')."' AND a.product_end_date > '".date('Y-m-d H:i:s')."' AND a.id = '".$ID."' AND a.concept_id = '".$conceptId."'";	
+	public function getListing($ID, $conceptId, $max, $page, $bonus=0, $freebid=0) {
+		$sql = "select a.product_id, a.id, a.concept_id, a.product_name, a.product_price, a.comments, a.product_end_date, b.get4price, b.maxbidprice, b.bidfee, b.maxnumofbids, b.charityamtperc, b.bonus, b.freebid from product as a LEFT JOIN auction_item_settings as b ON a.product_id = b.product_id WHERE b.bonus = '".$bonus."' AND b.freebid = '".$bonus."' AND a.product_start_date < '".date('Y-m-d H:i:s')."' AND a.product_end_date > '".date('Y-m-d H:i:s')."' AND a.id = '".$ID."' AND a.concept_id = '".$conceptId."' AND a.status = 1 ORDER BY product_end_date ASC";
+		$sqlCnt = "select count(a.product_id) as cnt from product as a LEFT JOIN auction_item_settings as b ON a.product_id = b.product_id WHERE b.bonus = '".$bonus."' AND b.freebid = '".$bonus."' AND a.product_start_date < '".date('Y-m-d H:i:s')."' AND a.product_end_date > '".date('Y-m-d H:i:s')."' AND a.id = '".$ID."' AND a.concept_id = '".$conceptId."' AND a.status = 1";	
 		$pageNum = $page-1;	
 		$start = $pageNum * $max;
 		$records = $this->Common->selectCacheLimitRecordFull($sql, $sqlCnt, $max, $start);
@@ -62,6 +62,26 @@ class mod_Auction4cause {
 		$sql = "select * from auction_charities WHERE id = '".$ID."' AND concept_id = '".$conceptId."' and deleted = 0";
 		$records = $this->Common->selectCacheRecord($sql);
 		return $records;		
+	}
+	
+	public function isCharity($ID, $conceptId) {		
+		$sql = "select * from auction_settings WHERE id = '".$ID."' AND concept_id = '".$conceptId."'";
+		$records = $this->Common->selectCacheRecord($sql);
+		return $records[0]['charity'];		
+	}
+	public function charitySelBox($ID, $conceptId, $sel='') {		
+		$sql = "select * from auction_charities WHERE id = '".$ID."' AND concept_id = '".$conceptId."'";
+		$records = $this->Common->selectCacheRecord($sql);
+		if($records) {
+			foreach($records as $k => $v) {
+				$selbox .= '<option value="'.$v['charity_id'].'"';
+				if($sel==$v) {
+					$selbox .= ' selected';
+				}
+				$selbox .= '>'.$v['charity_name'].'</option>';	
+			}
+		}
+		return $selbox;		
 	}
 }
 ?>

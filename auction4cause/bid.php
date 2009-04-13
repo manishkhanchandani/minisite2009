@@ -18,9 +18,19 @@ try {
 	}
 	$records = $mod_Auction4cause->getDetail($ID, $conceptId, $productId);
 	$smarty->assign('records', $records);
-		
+	$charity = $mod_Auction4cause->isCharity($ID, $conceptId);
+	if($charity) {
+		$smarty->assign('charity', $charity);
+		$charitySelBox = $mod_Auction4cause->charitySelBox($ID, $conceptId);
+		$smarty->assign('charitySelBox', $charitySelBox);		
+	}
+	
 	if($_POST['MM_Insert']=="bid") {
-		if($_POST['bid']=="xx.xx") {
+		if(!$_POST['bid']) {
+			$errorMessage = "Bid amount is not valid.";
+			$smarty->assign('errorMessage', $errorMessage);
+			$body = $smarty->fetch('auction4cause/detail.html');		
+		} else if($_POST['bid']=="xx.xx") {
 			$errorMessage = "Bid amount is not valid.";
 			$smarty->assign('errorMessage', $errorMessage);
 			$body = $smarty->fetch('auction4cause/detail.html');

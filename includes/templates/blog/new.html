@@ -13,7 +13,7 @@
 				<div id="contentBody5" class="contentBody">
 					<form action="" method="post" name="frmNew">
 						{$errorMessage}
-						{if $categorySelBox and $rSettings.setting_id == 5} 
+						{if $categorySelBox and $rSettings.setting_value == 'multi'} 
 						<div class="tr">
 							<div class="th">
 							Category: 
@@ -24,7 +24,7 @@
 							  </select>
 							</div>
 						</div>
-						{elseif $categorySelBox and $rSettings.setting_id == 4} 
+						{elseif $categorySelBox and $rSettings.setting_value == 'single'} 
 						<div class="tr">
 							<div class="th">
 							Category: 
