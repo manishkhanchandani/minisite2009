@@ -56,10 +56,12 @@
                         {$records.product_start_date}
                         </b></td>
                     </tr>
+					{if $charity}
                     <tr>
                       <td align="right"><strong>Charity:</strong></td>
-                      <td nowrap><select name="charity_id"><option value="1">Tasty</option><option value="2">Nontasty</option></select>&nbsp;</td>
-                    </tr>
+                      <td nowrap><select name="charity_id">{$charitySelBox}</select>&nbsp;</td>
+                    </tr>					
+					{/if}
                     <tr align="center"> 
 					    
 						<td width="62%" align="right" bgcolor="gold" class="bodytext"><b>Your Bid</b>						</td>
@@ -68,7 +70,10 @@
 						 <b>${$smarty.post.bid}</b>
 							<input type="hidden" name="product_id" value="{$records.product_id}"> 
 							<input type="hidden" name="bid" value="{$smarty.post.bid}"> 	
-							<input type="hidden" name="MM_Insert" value="bid">						</td>
+							<input type="hidden" name="MM_Insert" value="bid">
+							{if $charity == ""}
+							<input type="hidden" name="charity_id" value="0" />							
+							{/if}						</td>
                     </tr>	
                     <tr align="center"> 
 					    

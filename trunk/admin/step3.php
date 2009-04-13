@@ -15,6 +15,7 @@ $ids = array();
 if($totalRows_rsView) {
 	do {
 		$ids[] = $row_rsView['setting_id'];
+		$settingVals[$row_rsView['setting_id']] = $row_rsView['setting_value'];
 	} while ($row_rsView = mysql_fetch_assoc($rsView));
 }
 if($_POST['MM_Insert']==1) {
@@ -32,9 +33,9 @@ if($_POST['MM_Insert']==1) {
 	}
 	$result = array_diff($array2, $array1);
 	if($result) {
-		$sql = "insert into prebuilt_3_settings (`id`, `setting_id`) VALUES ";
-		foreach($result as $value) {
-			$sql .= "('".$_GET['id']."', '".$value."'), ";
+		$sql = "insert into prebuilt_3_settings (`id`, `setting_id`, `setting_value`) VALUES ";
+		foreach($result as $key=>$value) {
+			$sql .= "('".$_GET['id']."', '".$key."', '".$_POST['settings'][$key]."'), ";
 			array_push($ids, $value);
 		}
 		$sql = substr($sql, 0, -2);
@@ -125,12 +126,22 @@ body,td,th,textarea,select,input,button {
     <li><h3><?php echo ucwords($row_rsConcepts['concept']); ?></h3>
 	    <ul>
 			<?php if($settings[$row_rsConcepts['concept_id']]) { ?>
-				<?php foreach($settings[$row_rsConcepts['concept_id']] as $k=>$v) { ?>					
+				<?php foreach($settings[$row_rsConcepts['concept_id']] as $k=>$v) { 
+				?>					
 					<?php 
 						switch($v['inputtype']) {
 							case 'radio':
 							?>
-								<li><input type="radio" name="settings[0]" value="<?php echo $k; ?>" <?php if(in_array($k,$ids)) echo ' checked'; ?> /> <?php echo $v['setting_label']; ?> </li>
+								<li><?php echo $v['setting_label']; ?>
+									<ul>
+										<?php $row = explode("||", $v['setting_vals']);
+										foreach($row as $cols) {
+											$col = explode("|", $cols);
+										?>
+										<li><input type="radio" name="settings[<?php echo $k; ?>]" value="<?php echo $col[0]; ?>" <?php if($settingVals[$k]==$col[0]) echo ' checked'; ?> /> <?php echo $col[1]; ?> </li>
+										<?php } ?>
+									</ul>
+								</li>
 							<?php
 								break;
 							case 'checkbox':

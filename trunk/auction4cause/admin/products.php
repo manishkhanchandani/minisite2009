@@ -98,14 +98,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	$productId = mysql_insert_id();
-	$insertSQL = sprintf("INSERT INTO auction_item_settings (id, concept_id, product_id, get4price, maxbidprice, bidfee, maxnumofbids) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+	$insertSQL = sprintf("INSERT INTO auction_item_settings (id, concept_id, product_id, get4price, maxbidprice, bidfee, maxnumofbids, charityamtperc) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['id'], "int"),
                        GetSQLValueString($_POST['concept_id'], "int"),
                        GetSQLValueString($productId, "int"),
                        GetSQLValueString($_POST['get4price'], "double"),
                        GetSQLValueString($_POST['maxbidprice'], "double"),
                        GetSQLValueString($_POST['bidfee'], "double"),
-                       GetSQLValueString($_POST['maxnumofbids'], "int"));
+                       GetSQLValueString($_POST['maxnumofbids'], "int"),
+                       GetSQLValueString($_POST['charityamtperc'], "double"));
 
   mysql_select_db($database_conn, $conn);
   $Result1 = mysql_query($insertSQL, $conn) or die(mysql_error());
@@ -123,7 +124,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	if($files) {
 		foreach($files as $file){
 			if ($file->upload['error']) {
-				throw new Exception($file->getMessage());
+				continue;
 			}
 			$file->setName("uniq");
 			
@@ -309,6 +310,27 @@ editor1.create("");
             <tr>
               <td align="right" valign="top"><strong>Maximum Number of Bids: </strong></td>
               <td valign="top"><input name="maxnumofbids" type="text" id="maxnumofbids" /></td>
+              <td valign="top">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="right" valign="top"><strong>Charity Amount: </strong></td>
+              <td valign="top"><input name="charityamtperc" type="text" id="charityamtperc" /></td>
+              <td valign="top">in percentage </td>
+            </tr>
+            <tr>
+              <td align="right" valign="top"><strong>Is It Bonus Auction:</strong> </td>
+              <td valign="top"><input name="bonus" type="radio" value="1" />
+              Yes
+                <input name="bonus" type="radio" value="0" checked="checked" /> 
+                No</td>
+              <td valign="top">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="right" valign="top"><strong>Is It Free Auction:</strong> </td>
+              <td valign="top"><input name="freebid" type="radio" value="1" />
+                Yes
+                <input name="freebid" type="radio" value="0" checked="checked" />
+                No</td>
               <td valign="top">&nbsp;</td>
             </tr>
           </table>

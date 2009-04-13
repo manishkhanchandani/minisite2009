@@ -38,6 +38,14 @@ Regards,
 				$eml = str_replace("}", "", $eml);
 				$this->fromemail = $eml;
 				break;
+			case 'referafriend':
+				$sub = "Check out site {SITENAME}";
+				$template = "Dear {TONAME},
+Check out the site \"{SITENAME}\" at \"{SITEURL}\" 
+
+Regards,
+{MYNAME}
+";
 		}
 		
 		$body = preg_replace($patterns, $replacements, $template);

@@ -8,6 +8,10 @@ try {
 			$classVar = "mod_$var";
 			$class = new $classVar($dbFrameWork, $Common);
 			$conceptId = $value['concept_id'];
+			if($value['selfhomepage']==1){
+				header("Location: index.php?ID=".$ID."&p=".$value['concept']."/index");
+				exit;
+			}
 			$box[$value['concept_id']] = $class->viewHomePage($ID, $result, $result['settings'][$value['concept_id']]);
 		}
 	}	
