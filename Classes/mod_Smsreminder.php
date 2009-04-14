@@ -27,13 +27,17 @@ class mod_Smsreminder {
 		if($msg) throw new Exception($msg);
 	}
 	
-	public function cronSMS($data) {
+	public function cronSMS() {
 		global $common;
 		$currentTime = time();
 		$sql = "select id, tophone, message, smstype, senddate, recurringtype, recurringfixedtypedates from smsreminders WHERE status = 1 AND senddate != '' AND senddate IS NOT NULL AND senddate < ".$currentTime;
 		$record = $this->Common->selectRecord($sql);
 		if($record) {
 			foreach($record as $rec) {
+				if(!$datas[$rec['id']]) {
+					$datas[$rec['id']] = $this->Common->getConceptSettings('smsreminder', $rec['id']);
+				}
+				$data = $datas[$rec['id']];
 				// get phone number and text message
 				$PhoneNumber = $rec['tophone'];
 				$text = substr(strip_tags($rec['message']),0,160);
