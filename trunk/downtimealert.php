@@ -18,6 +18,10 @@ try {
 		case 'detail':
 			$detail = $mod_Downtimealert->getOneElement($_GET['downtime_id'], $_SESSION['user_id']);
 			$smarty->assign('detail', $detail);
+			if($detail) {
+				$report = $mod_Downtimealert->getDowntimeResult($_GET['downtime_id'], $_GET['from'], $_GET['to']);
+				$smarty->assign('report', $report);
+			}
 			$body = $smarty->fetch('downtimealert/detail.html');
 			break;
 		case 'edit':

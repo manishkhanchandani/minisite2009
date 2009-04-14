@@ -8,11 +8,15 @@ class Twilio {
 		file_put_contents(DOCPATH.'/tmp/'.$refCode.'.xml', $xml);
 		return true;
 	}
-	public function initiate_call($phone, $xml) {
+	public function initiate_call($phone, $xml, $data) {
 		$ApiVersion = "2008-08-01";
-		$AccountSid = "AC94b06e556ff5dc4047cf5599522ff470";
-		$AuthToken = "4a11eb43a9ab1c1eeaa7d2db067daf73";
-		$CallerID = '919-386-1678';
+		//$AccountSid = "AC94b06e556ff5dc4047cf5599522ff470";
+		//$AuthToken = "4a11eb43a9ab1c1eeaa7d2db067daf73";
+		//$CallerID = '919-386-1678';
+		$AccountSid = $data['keyword'][ID]['twilio_account_sid'];
+		$AuthToken = $data['keyword'][ID]['twilio_auth_token'];
+		$CallerID = $data['keyword'][ID]['twilio_caller_id'];
+	
 		$client = new TwilioRestClient($AccountSid, $AuthToken);
 		$response = $client->request("/$ApiVersion/Accounts/$AccountSid/Calls", "POST", array(
 			"Caller" => $CallerID, 

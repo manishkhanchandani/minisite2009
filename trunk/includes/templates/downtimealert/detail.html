@@ -1,3 +1,26 @@
+<link rel="stylesheet" href="{$HTTPPATH}/js/datetimepicker/ui.datepicker.css" type="text/css" media="screen" title="core css file" charset="utf-8" />
+<script src="{$HTTPPATH}/js/datetimepicker/ui.datepicker.js" type="text/javascript" charset="utf-8"></script>
+{literal}
+<style type="text/css">
+	.tableData {
+	
+	}
+	.rowData {
+		padding-top:5px;
+		padding-bottom:15px;
+	}
+	.colDataH {
+	float: left;
+	width: 30%;
+	font-weight: bold;
+	}
+	.colDataT {
+		float: left;
+		width: 65%;
+	}
+</style>
+
+{/literal}
 <div id="bodyContent">
 	<div id="contentLeftCol">
 		<div id="content5" class="contentBox">
@@ -6,13 +29,39 @@
 				{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
 				<form method="get" name="frmSearch">
 					From Date: 
-					  <input name="fdate" type="text" id="fdate" />
+					  <input name="from" type="text" id="from" value="{$smarty.get.from}" />
 				To Date: 
-				<input name="tdate" type="text" id="tdate" />
+				<input name="to" type="text" id="to" value="{$smarty.get.to}" />
+				<input type="hidden" name="ID" value="{$ID}" />
+				<input type="hidden" name="p" value="downtimealert" />
+				<input type="hidden" name="action" value="detail" />
+				<input type="hidden" name="downtime_id" value="{$smarty.get.downtime_id}" />
 				<input type="submit" name="Submit" value="Go" />
 				</form>
-				<iframe frameborder="0" height="170" width="500" scrolling="no" name="chartFrm" src="http://chart.apis.google.com/chart?cht=p3&chd=t:60,40&chs=400x150&chl=Down%20[65%]|Up%20[45%]"></iframe>
-				<div><br /><br /><br /><br /></div>
+				<h3>Report For <a href="{$detail.url}" target="_blank">{$detail.url}</a></h3>
+				{if $report.found}
+					<iframe scrolling="no" src="Classes/pie.php?up={$report.details.up}&down={$report.details.down}" frameborder="0" height="310" width="310" allowtransparency="yes"></iframe>
+					<div class="tableData">
+					{foreach from=$report.data.check item=data key=key}
+						<div class="rowData">
+							<div class="colDataH">{$key}</div>
+							<div class="colDataT">{if $data == 1}Up{else}Down{/if}</div>
+						</div>
+					{/foreach}
+					</div>
+				{else}
+					<div class="error">No Report Found.</div>
+				{/if}
+{literal}
+<script language="javascript">
+	jQuery(function($){
+		$("#from").datepicker();
+		$("#to").datepicker();
+	});	
+</script>
+{/literal}
+				<div class="lowerborder"></div>
+				
 				<div class="clear"></div>
 			</div>
 		</div>

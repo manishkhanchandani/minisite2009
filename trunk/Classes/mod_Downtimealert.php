@@ -33,6 +33,32 @@ class mod_Downtimealert {
 		$edit = $rs->FetchRow();
 		return $edit;
 	}
+	public function getDowntimeResult($id, $from='', $to='') {
+		$sql = "select * from downtime_results where downtime_id = '".$id."' and id = '".ID."'";
+		if($from && $to) {
+			$sql .= " AND check_date BETWEEN '".$from." 00:00:00' AND '".$to." 23:59:59'";
+		} else if($from) {
+			$sql .= " AND check_date BETWEEN '".$from." 00:00:00' AND '".date('Y-m-d H:i:s')."'";
+		} else if($to) {
+			$sql .= " AND check_date BETWEEN '1970-01-01 00:00:00' AND '".$to." 23:59:59'";
+		}
+		$sql .= " ORDER BY check_date DESC";
+		$res = $this->Common->selectCacheRecord($sql);
+		$ret['details']['up'] = 0;
+		$ret['details']['down'] = 0;
+		if($res) {
+			$ret['found'] = 1;
+			foreach($res as $det) {
+				if($det['finalstatus']==1) {
+					$ret['details']['up'] += 1;
+				} else {
+					$ret['details']['down'] += 1;
+				}
+				$ret['data']['check'][$det['check_date']] = $det['finalstatus'];
+			}
+		} 
+		return $ret;
+	}
 	public function getAll($user_id) {
 		$sql = "select * from downtime where user_id = '".$user_id."' and id = '".ID."' order by url";
 		$return = $this->Common->selectCacheRecord($sql);
@@ -43,6 +69,10 @@ class mod_Downtimealert {
 		$rs = $this->dbFrameWork->Execute($sql);
 		$Twilio = new Twilio;
 		while($arr = $rs->FetchRow()) {
+			if(!$datas[$arr['id']]) {
+				$datas[$arr['id']] = $this->Common->getConceptSettings('downtimealert', $arr['id']);
+			}
+			$data = $datas[$arr['id']];
 			$url = $arr['url'];
 			$text = $arr['texttocheck'];
 			$checkRequest = $this->checkRequest($url);
@@ -59,7 +89,7 @@ class mod_Downtimealert {
 				if($arr['usphone']) {
 					if($this->validateUSPhone($arr['usphone'])) {
 						$xml = "http://10000projects.info/call.php?msg=".urlencode($msg);
-						$Twilio->initiate_call($arr['usphone'], $xml);
+						$Twilio->initiate_call($arr['usphone'], $xml, $data);
 					}
 				}
 				if($arr['email']) {

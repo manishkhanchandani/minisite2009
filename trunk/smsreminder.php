@@ -17,7 +17,7 @@ try {
 	switch($_GET['action']) {
 		case 'cron':
 			try {	
-				$res = $SMS->cronSMS($result);
+				$res = $SMS->cronSMS();
 				$message = 'SMS sent successfully.';
 				$PAGEHEADING= "Cron Confirmation";
 				$smarty->assign('PAGEHEADING',$PAGEHEADING);
@@ -136,7 +136,7 @@ try {
 	}
 	
 	// send cron for now on each individual page, later on put it in cron jobs.
-	$SMS->cronSMS($result);
+	$SMS->cronSMS();
 } catch(Exception $e) {
 	$errorMessage = $e->getMessage();
 	$smarty->assign('errorMessage', $errorMessage);
