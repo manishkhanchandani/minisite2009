@@ -106,10 +106,10 @@ class mod_Downtimealert {
 					$patterns[1] = "{REASON}";
 					$replacements[1] = $reason;	
 					$to = $arr['email'];
-					echo $message = $Emailtemplate->template($to, 'downtimealert', $patterns, $replacements);
+					$message = $Emailtemplate->template($to, 'downtimealert', $patterns, $replacements);
 				}
 				if($arr['smsphone']) {
-				
+					$this->sendSMS($arr['smsphone'], $reason, $data);
 				}				
 			}
 			$record['check_date'] = date('Y-m-d H:i:s');
@@ -165,11 +165,22 @@ class mod_Downtimealert {
 			return 0;
 		}
 	}
-	public function sendSMS() {
-	
-	}
-	public function sendPhone($phone) {
-		
+	public function sendSMS($PhoneNumber, $text, $data) {
+		$url = "http://www.globalsms-mms.com/sendsmsv2.asp"; 
+		$user = $data['keyword'][ID]['smsusername'];//"nkhanchandani";
+		$password = $data['keyword'][ID]['smspassword']; //"password";
+		$sender = "mumbaionlin";
+		$sendercdma = "919860609000";
+		$post_fields = 'user='.$user.'&password='.$password.'&sender='.urlencode($sender).'&sendercdma='.urlencode($sendercdma).'&PhoneNumber='.urlencode($PhoneNumber).'&text='.urlencode($text); 
+
+		$ch = curl_init(); // Initialize a CURL session.
+		curl_setopt($ch, CURLOPT_URL, $url); // Pass URL as parameter.
+		curl_setopt($ch, CURLOPT_POST, 1); // use this option to Post a form
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); // Pass form Fields.
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Return Page contents.
+		$result = curl_exec($ch); // grab URL and pass it to the variable.
+		curl_close($ch); // close curl resource, and free up system resources.
+		return $result; // Print page contents.
 	}
 }
 ?>
