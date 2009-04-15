@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{$HTTPPATH}/js/datetimepicker/ui.datepicker.css" type="text/css" media="screen" title="core css file" charset="utf-8" />
 <script src="{$HTTPPATH}/js/datetimepicker/ui.datepicker.js" type="text/javascript" charset="utf-8"></script>
+
 {literal}
 <style type="text/css">
 	.tableData {
@@ -40,15 +41,19 @@
 				</form>
 				<h3>Report For <a href="{$detail.url}" target="_blank">{$detail.url}</a></h3>
 				{if $report.found}
-					<iframe scrolling="no" src="Classes/pie.php?up={$report.details.up}&down={$report.details.down}" frameborder="0" height="310" width="310" allowtransparency="yes"></iframe>
+					
 					<div class="tableData">
+					<div><strong>Total Up Count:</strong> {$report.details.up}</div>
+					<div><strong>Total Down Count:</strong> {$report.details.down}</div>
+					<hr />
 					{foreach from=$report.data.check item=data key=key}
 						<div class="rowData">
 							<div class="colDataH">{$key}</div>
 							<div class="colDataT">{if $data == 1}Up{else}Down{/if}</div>
 						</div>
 					{/foreach}
-					</div>
+					</div><!--
+					<iframe scrolling="no" src="Classes/pie.php?up={$report.details.up}&down={$report.details.down}" frameborder="0" height="310" width="310" allowtransparency="yes"></iframe> -->
 				{else}
 					<div class="error">No Report Found.</div>
 				{/if}

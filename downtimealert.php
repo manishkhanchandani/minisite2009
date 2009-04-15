@@ -22,6 +22,8 @@ try {
 				$report = $mod_Downtimealert->getDowntimeResult($_GET['downtime_id'], $_GET['from'], $_GET['to']);
 				$smarty->assign('report', $report);
 			}
+			$PAGEHEADING = "Detail Reports";
+			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			$body = $smarty->fetch('downtimealert/detail.html');
 			break;
 		case 'edit':
@@ -35,6 +37,8 @@ try {
 				}
 				$edit = $mod_Downtimealert->getOneElement($_GET['downtime_id'], $_SESSION['user_id']);
 				$smarty->assign('edit', $edit);
+				$PAGEHEADING = "Edit My Alert";
+				$smarty->assign('PAGEHEADING', $PAGEHEADING);
 				$body = $smarty->fetch('downtimealert/edit.html');
 			} catch (exception $e) { 
 				$errorMessage = $e->getMessage();
@@ -51,6 +55,8 @@ try {
 					$success = 1;
 					$smarty->assign('success', $success); 
 				}
+				$PAGEHEADING = "Create New Alert";
+				$smarty->assign('PAGEHEADING', $PAGEHEADING);
 				$body = $smarty->fetch('downtimealert/new.html');
 			} catch (exception $e) { 
 				$errorMessage = $e->getMessage();
@@ -60,6 +66,13 @@ try {
 			break;
 		case 'view':
 		default:
+			if($_GET['did']) {
+				$sql = "DELETE downtime.*, downtime_results.* FROM downtime LEFT JOIN downtime_results ON downtime.downtime_id = downtime_results.downtime_id WHERE downtime.downtime_id = '".$_GET['did']."'";
+				$dbFrameWork->Execute($sql);
+				if($dbFrameWork->ErrorMsg()) {
+					throw new Exception($dbFrameWork->ErrorMsg());
+				}
+			}
 			$sql = "select * from downtime where user_id = '".$_SESSION['user_id']."' and id = '".$ID."' order by url";
 			$sqlCnt = "select count(*) as cnt from downtime where user_id = '".$_SESSION['user_id']."' and id = '".$ID."'";
 			$max = 25;
@@ -79,6 +92,8 @@ try {
 				$pagination = $PaginateIt->GetPageLinks_Old();
 				$smarty->assign('pagination', $pagination);
 			}
+			$PAGEHEADING = "My Alerts";
+			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			
 			$body = $smarty->fetch('downtimealert/view.html');
 			break;
