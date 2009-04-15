@@ -90,11 +90,13 @@ define('KEYWORD', $SITE[0]['keyword']);
 define('SITEURL', $SITE[0]['siteurl']); 
 define('SITEEMAIL', $SITE[0]['siteemail']);
 define('ADMINEMAIL', $SITE[0]['siteemail']); 
+define('ADMINNAME', 'Administrator'); 
 $smarty->assign('CACHETIME', CACHETIME);
 $smarty->assign('SITENAME', SITENAME);
 $smarty->assign('SITEURL', SITEURL);
 $smarty->assign('SITEEMAIL', SITEEMAIL);
 $smarty->assign('ADMINEMAIL', ADMINEMAIL);
+$smarty->assign('ADMINNAME', ADMINNAME);
 $smarty->assign('SITE', $SITE);
 
 $MENU = $Common->generateMenu($ID);

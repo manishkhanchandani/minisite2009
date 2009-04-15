@@ -46,6 +46,17 @@ Check out the site \"{SITENAME}\" at \"{SITEURL}\"
 Regards,
 {MYNAME}
 ";
+				break;
+			
+			case 'downtimealert':
+				$sub = "Your site {SITENAME} is down.";
+				$template = "Dear User,
+Your site {SITENAME} is down. Site is down due to \"{REASON}\"
+
+Regards,
+Administrator
+";
+				break;
 		}
 		
 		$body = preg_replace($patterns, $replacements, $template);

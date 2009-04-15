@@ -81,6 +81,13 @@ class mod_Downtimealert {
 			} else {
 				$checkText = 1;
 			}
+			if($checkRequest!=1 && $checkText!=1) {
+				$reason = "We cannot ping the site \"".$url."\". Text \"".$text."\" not found on the site. ";
+			} else if($checkRequest!=1) {
+				$reason = "We cannot ping the site \"".$url."\". ";
+			} else if($checkText!=1) {
+				$reason = "Text \"".$text."\" not found on the site. ";
+			}
 			if($checkRequest==1 && $checkText==1) {
 				$record['finalstatus'] = 1;	
 			} else {
@@ -93,7 +100,13 @@ class mod_Downtimealert {
 					}
 				}
 				if($arr['email']) {
-				
+					$Emailtemplate = new Emailtemplate;
+					$patterns[0] = "{SITENAME}";
+					$replacements[0] = $url;		
+					$patterns[1] = "{REASON}";
+					$replacements[1] = $reason;	
+					$to = $arr['email'];
+					echo $message = $Emailtemplate->template($to, 'downtimealert', $patterns, $replacements);
 				}
 				if($arr['smsphone']) {
 				

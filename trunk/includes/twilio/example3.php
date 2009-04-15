@@ -1,7 +1,8 @@
 <?php
 	/* Include the PHP TwilioRest library */
 	require "twiliorest.php";
-	
+	$msg = "You are neeraj khanchandani, your sons name is yash, your wife name is juhi, your country is america, you are good boy.";
+	$url = "http://10000projects.info/call.php?msg=".urlencode($msg);
 	/* Twilio REST API version */
 	$ApiVersion = "2008-08-01";
 	
@@ -30,8 +31,8 @@
 	 ****************************************************************************************/
 	$response = $client->request("/$ApiVersion/Accounts/$AccountSid/Calls", "POST", array(
 		"Caller" => $CallerID, 	// Outgoing Caller ID you have previously validated with Twilio
-		"Called" => "919-386-1678",		// The phone number you wish to dial
-		"Url" => "http://10000projects.info/call.php?msg=Mummy+Mummy+i+want+a+game+and+my+name+is+manish+khanchandani." 		// the URL of the web application on your server that will handle the call when it connects
+		"Called" => "425-202-7868",		// The phone number you wish to dial
+		"Url" =>  $url		// the URL of the web application on your server that will handle the call when it connects
 	));
 	
 	// check response for success or error

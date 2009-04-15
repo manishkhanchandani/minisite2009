@@ -44,7 +44,7 @@
 								
 							</div>
 							<div class="td">
-							  <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=edit&downtime_id={$record.downtime_id}">Edit This Alert</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=detail&downtime_id={$record.downtime_id}">Downtime Report</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=delete&downtime_id={$record.downtime_id}">Delete This Alert</a>
+							  <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=edit&downtime_id={$record.downtime_id}">Edit This Alert</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=detail&downtime_id={$record.downtime_id}">Downtime Report</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=downtimealert&action=view&did={$record.downtime_id}" onclick="return confirmDelete('Do you really want to delete this alert. You will not be able to undo this action. do you want to continue');">Delete This Alert</a>
 							</div>
 						</div>
 					{/foreach}
