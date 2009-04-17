@@ -1,7 +1,7 @@
 <?php
 class mod_Users {
 	
-	private $cacheSecs = -300;
+	private $cacheSecs = CACHETIME;
 	private static $instance;
 	
 	public function __construct($dbFrameWork, $Common) {

@@ -10,6 +10,7 @@ header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
 header("Cache-Control: no-cache, must-revalidate" );
 header("Pragma: no-cache" ); 
 
+define('CACHETIME', 60); // seconds
 // set cookie
 if($_GET['rn']) {
 	setcookie('rn', $_GET['rn'], time()+(60*60*24*365), "/");
@@ -39,7 +40,6 @@ if($_SERVER['HTTP_HOST']=="localhost") {
 }
 define('HTTPPATH', "http://".$_SERVER['HTTP_HOST'].FOLDER);
 define('DOCPATH', $_SERVER['DOCUMENT_ROOT'].FOLDER);
-define('CACHETIME', 1500); // seconds
 $smarty->assign('HTTPPATH', HTTPPATH);
 $smarty->assign('FOLDER', FOLDER);
 $smarty->assign('DOCPATH', DOCPATH);
