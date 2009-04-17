@@ -75,7 +75,11 @@ try {
 			} catch (exception $e) { 
 				$errorMessage = $e->getMessage();
 				$smarty->assign('errorMessage', $errorMessage);
-				$body = $smarty->fetch('photoalbum/managealbum.html');
+				if(!$_SESSION['user_id']) {
+					$body = $smarty->fetch('errorMessage.html');
+				} else {
+					$body = $smarty->fetch('photoalbum/managealbum.html');
+				}
 			} 
 			break;
 		case 'new':						
@@ -84,7 +88,24 @@ try {
 			}
 			$PAGEHEADING = "Add New Photos";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
+			$albums = $mod_Photoalbum->getAlbumSelbox($hosttype, $_SESSION['user_id']);
+			$smarty->assign('albums', $albums);
 			
+			if($_POST['MM_Insert']==1 && $_SESSION['checksum']==$_POST['checksum']) {
+				$user_id  = $_SESSION['user_id'];			
+				require_once('HTTP/Upload.php');
+				$upload = new HTTP_Upload("en");
+				$files = $upload->getFiles();
+				if($files) {
+					$return = $mod_Photoalbum->uploadImage($files, $_POST, $user_id);
+					$success = $return['success'];
+				}	
+				if($success==1) {				
+					$smarty->assign('success', $success);
+				}
+			}
+					
+			$_SESSION['checksum'] = md5(time());	
 			
 			$body = $smarty->fetch('photoalbum/new.html');
 			break;

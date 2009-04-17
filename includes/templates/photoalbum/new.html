@@ -1,9 +1,59 @@
 {include file="contentStart.html"}
-	<div id="content5" class="contentBox">
-		<div id="contentHead5" class="contentHead">New Album</div>
-		<div id="contentBody5" class="contentBody">
 
-		content
+<script src="{$HTTPPATH}/js/multiupload/jquery.form.js" type="text/javascript" language="javascript"></script>
+<script src="{$HTTPPATH}/js/multiupload/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
+<script src="{$HTTPPATH}/js/multiupload/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+<script src="{$HTTPPATH}/js/multiupload/jquery.blockUI.js" type="text/javascript" language="javascript"></script>
+
+	<div id="content5" class="contentBox">
+		<div id="contentHead5" class="contentHead">Add New Photos</div>
+		<div id="contentBody5" class="contentBody">
+{if $albums}
+<form action="" method="post" enctype="multipart/form-data" name="frmNew">
+	{if $errorMessage}
+		<div class="error">{$errorMessage}</div>
+	{/if}
+	<div class="tr">
+		<div class="th">
+		Album:
+		</div>
+		<div class="td">
+		  <select name="album_id">
+		  	{$albums}
+		  </select>
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		Image:
+		</div>
+		<div class="td">
+		  <input type="file" name="userfile[]" class="multi" accept="gif|jpg|png" />
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		
+		</div>
+		<div class="td">
+		  Upload files with extensions jpg, gif, png, jpeg.
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		
+		</div>
+		<div class="td">
+		  <input type="submit" name="submit" value="Upload File">
+		</div>
+	</div>
+	<input type="hidden" name="MM_Insert" value="1">
+	<input type="hidden" name="id" value="{$ID}">
+	<input name="checksum" type="hidden" id="checksum" value="{$smarty.session.checksum}">
+</form>
+{else}
+<div class="error">You dont have any album created. <a href="{$HTTPPATH}/index.php?p=photoalbum&action=managealbum&ID={$ID}">Click here</a> to add album.</div>
+{/if}
 		</div>
 	</div>
 {include file="contentLeftEnd.html"}
