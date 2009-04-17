@@ -1,6 +1,6 @@
 <?php
 class mod_Emailreminder {	
-	private $cacheSecs = -300;
+	private $cacheSecs = CACHETIME;
 	private static $instance;
 	
 	public function __construct($dbFrameWork, $Common) {

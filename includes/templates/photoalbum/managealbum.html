@@ -1,0 +1,117 @@
+{include file="contentStart.html"}
+	<div id="content5" class="contentBox">
+		<div id="contentHead5" class="contentHead">New Album</div>
+		<div id="contentBody5" class="contentBody">
+		{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+<form name="addalbum" action="" method="post">	
+	<div class="tr">
+		<div class="th">
+			Album Name: 
+		</div>
+		<div class="td">
+		  <input name="album" type="text" id="album" size="12" value="" />
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		
+		</div>
+		<div class="td">
+		  <input name="public" type="checkbox" id="public" value="1" checked="checked" /> Public
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		
+		</div>
+		<div class="td">
+			<input type="submit" name="Submit" value="Add New album">
+			<input name="created" type="hidden" id="created" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}" />
+			<input name="MM_Insert" type="hidden" id="MM_Insert" value="1" />
+			<input name="id" type="hidden" id="id" value="{$ID}" />
+		</div>
+	</div>
+</form>
+		</div>
+	</div>
+	<div class="clear"></div>
+	
+	<div id="content6" class="contentBox">
+		<div id="contentHead6" class="contentHead">Edit Album</div>
+		<div id="contentBody6" class="contentBody">
+		{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+<form name="editalbum" action="" method="post">	
+	<div class="tr">
+		<div class="th">
+			Album Name: 
+		</div>
+		<div class="td">
+		  <input name="album" type="text" id="album" size="12" value="{$edit.album}" />
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		
+		</div>
+		<div class="td">
+		  <input name="public" type="checkbox" id="public" value="1"{if $edit.public == 1} checked="checked"{/if} /> Public
+		</div>
+	</div>
+	<div class="tr">
+		<div class="th">
+		
+		</div>
+		<div class="td">
+			<input type="submit" name="Submit" value="Update album">
+			<input name="MM_Update" type="hidden" id="MM_Update" value="1" />
+			<input name="id" type="hidden" id="id" value="{$ID}" />
+			<input name="album_id" type="hidden" id="album_id" value="{$edit.album_id}" />
+		</div>
+	</div>
+</form>
+		</div>
+	</div>
+	<div class="clear"></div>
+	
+	
+	<div id="content7" class="contentBox">
+		<div id="contentHead7" class="contentHead">View My Albums</div>
+		<div id="contentBody7" class="contentBody">
+			{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+			{if $view}
+				{foreach from=$view item=record}
+					<div class="tr">
+						<div class="th">
+							Album
+						</div>
+						<div class="td">
+						  {$record.album}
+						</div>
+					</div>						
+					<div class="tr">
+						<div class="th">
+							Public:
+						</div>
+						<div class="td">
+						  {if $record.public == 1}Yes{else}No{/if}
+						</div>
+					</div>						
+					<div class="tr bottomline">
+						<div class="th">
+							
+						</div>
+						<div class="td">
+						  <a href="{$HTTPPATH}/index.php?ID={$ID}&p=photoalbum&action=managealbum&edit_id={$record.album_id}">Edit This Album</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=photoalbum&action=managealbum&delete_id={$record.album_id}" onclick="return confirmDelete('Do you really want to delete this album. This will also delete all your images in this album.');">Delete This Album</a>
+						</div>
+					</div>
+				{/foreach}
+				<div class="pagination">{$pagination}</div>
+			{else}
+				<div class="error">No Album Found.</div>
+			{/if}
+		</div>
+	</div>
+	<div class="clear"></div>
+{include file="contentLeftEnd.html"}
+	{include file="photoalbum/contentRightCol.html"}
+{include file="contentEnd.html"}

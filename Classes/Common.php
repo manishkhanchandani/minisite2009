@@ -1,7 +1,7 @@
 <?php
 class Common {
 
-	public $cacheSecs = -300;
+	public $cacheSecs = CACHETIME;
 	private static $instance;
 	
 	function __construct($dbFrameWork) {

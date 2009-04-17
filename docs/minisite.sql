@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2009 at 04:06 AM
+-- Generation Time: Apr 17, 2009 at 12:11 AM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -28,39 +28,16 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE IF NOT EXISTS `albums` (
   `album_id` int(11) NOT NULL AUTO_INCREMENT,
   `id` int(11) DEFAULT NULL,
-  `group_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `album` varchar(200) DEFAULT NULL,
   `album_created` datetime DEFAULT NULL,
-  `file_type` enum('Image','File','Music','Video') DEFAULT NULL,
+  `file_type` enum('Image','Music','Video') DEFAULT NULL,
+  `public` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`album_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `albums`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ask_expert`
---
-
-CREATE TABLE IF NOT EXISTS `ask_expert` (
-  `ask_id` int(11) NOT NULL AUTO_INCREMENT,
-  `id` int(11) DEFAULT NULL,
-  `group_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `title` varchar(200) DEFAULT NULL,
-  `message` text,
-  `pid` int(11) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  PRIMARY KEY (`ask_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ask_expert`
 --
 
 
@@ -308,6 +285,30 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `message` text,
+  `pid` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `comments`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `datas`
 --
 
@@ -374,12 +375,15 @@ CREATE TABLE IF NOT EXISTS `downtime` (
   `texttocheck` varchar(50) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`downtime_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `downtime`
 --
 
+INSERT INTO `downtime` (`downtime_id`, `id`, `user_id`, `url`, `usphone`, `email`, `smsphone`, `checkfrequency`, `datetocheck`, `lastcheckdate`, `status`, `texttocheck`, `created`) VALUES
+(3, 1, 1, 'http://mkgalaxy.com', '', 'naveenkhanchandani@gmail.com', '919323532886', '5', 1239775544, 1239775244, 1, 'kumar', '2009-04-14 23:29:01'),
+(4, 1, 1, 'http:xkdkd.com', '(919) 386 1678', 'naveenkhanchanani@gmail.com', '919323532886', '5', 1239775589, 1239775289, 1, 'dddd', '2009-04-14 23:39:32');
 
 -- --------------------------------------------------------
 
@@ -396,12 +400,20 @@ CREATE TABLE IF NOT EXISTS `downtime_results` (
   `textcheckstatus` int(1) NOT NULL DEFAULT '1',
   `finalstatus` int(1) NOT NULL,
   PRIMARY KEY (`result_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `downtime_results`
 --
 
+INSERT INTO `downtime_results` (`result_id`, `downtime_id`, `id`, `check_date`, `pingstatus`, `textcheckstatus`, `finalstatus`) VALUES
+(13, 4, 1, '2009-04-15 11:30:47', 0, 0, 0),
+(12, 3, 1, '2009-04-15 11:30:44', 1, 0, 0),
+(11, 4, 1, '2009-04-15 11:23:46', 0, 0, 0),
+(10, 4, 1, '2009-04-15 11:20:36', 0, 0, 0),
+(8, 3, 1, '2009-04-14 23:38:26', 1, 0, 0),
+(9, 3, 1, '2009-04-15 11:20:33', 1, 0, 0),
+(14, 4, 1, '2009-04-15 11:31:29', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -736,7 +748,14 @@ INSERT INTO `prebuilt_2_concepts` (`id`, `concept_id`, `homepage`, `displayname`
 (1, 5, 0, '', '', 0, 'india, china', 0),
 (1, 10, 0, '', '', 0, '', 0),
 (1, 7, 0, '', '', 0, '', 0),
-(1, 15, 0, '', '', 0, '', 0);
+(1, 15, 0, '', '', 0, '', 0),
+(1, 8, 0, '', '', 0, '', 0),
+(1, 9, 0, '', '', 0, '', 0),
+(1, 11, 0, '', '', 0, '', 0),
+(1, 16, 0, '', '', 0, '', 0),
+(1, 13, 0, '', '', 0, '', 0),
+(1, 14, 0, '', '', 0, '', 0),
+(1, 21, 0, '', '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -776,7 +795,7 @@ CREATE TABLE IF NOT EXISTS `prebuilt_concepts` (
   `active` int(1) NOT NULL DEFAULT '1',
   `cpriority` int(11) NOT NULL DEFAULT '999',
   PRIMARY KEY (`concept_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `prebuilt_concepts`
@@ -789,13 +808,36 @@ INSERT INTO `prebuilt_concepts` (`concept_id`, `concept`, `active`, `cpriority`)
 (8, 'emailreminder', 1, 5),
 (9, 'filehost', 1, 6),
 (10, 'youtube', 1, 9),
-(11, 'gtalk', 0, 10),
-(13, 'allchat', 0, 11),
-(14, 'cricketscore', 0, 12),
+(11, 'gtalk', 1, 10),
+(13, 'allchat', 1, 11),
+(14, 'cricketscore', 1, 12),
 (15, 'sendsms', 1, 999),
 (16, 'downtimealert', 1, 8),
-(17, 'imagehost', 1, 7),
-(18, 'auction4cause', 0, 1);
+(17, 'imagehost', 0, 7),
+(18, 'auction4cause', 0, 1),
+(19, 'musicalbum', 0, 999),
+(20, 'videoalbum', 0, 999),
+(21, 'photoalbum', 1, 999),
+(22, 'askexpert', 0, 999),
+(23, 'faq', 0, 999),
+(24, 'deathreminder', 0, 999),
+(25, 'events', 0, 999),
+(26, 'messages', 0, 999),
+(27, 'poll', 0, 999),
+(28, 'users', 0, 999),
+(29, 'cart', 0, 999),
+(30, 'emailsmsreminder', 0, 999),
+(31, 'phonereminder', 0, 999),
+(32, 'auction', 0, 999),
+(33, 'classified', 0, 999),
+(34, 'directory', 0, 999),
+(35, 'realestate', 0, 999),
+(36, 'automobile', 0, 999),
+(37, 'dating', 0, 999),
+(38, 'matrimonial', 0, 999),
+(39, 'modelling', 0, 999),
+(40, 'hotel', 0, 999),
+(41, 'restaurant', 0, 999);
 
 -- --------------------------------------------------------
 
@@ -1071,14 +1113,15 @@ CREATE TABLE IF NOT EXISTS `smsreminders` (
   `status` int(2) DEFAULT NULL,
   `lastsenddate` datetime DEFAULT NULL,
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `smsreminders`
 --
 
 INSERT INTO `smsreminders` (`rid`, `id`, `user_id`, `title`, `message`, `tophone`, `senddate`, `smstype`, `smsdatetime`, `recurringtype`, `recurringfixedtypedates`, `created`, `modified`, `status`, `lastsenddate`) VALUES
-(1, 1, 1, 'dd', 'dd', '919323532886', 1239561000, 'Fixed', '2009-04-13 00:00:00', '', NULL, '2009-04-13 10:10:46', NULL, 1, NULL);
+(1, 1, 1, 'dd', 'dd', '919323532886', 1239561000, 'Fixed', '2009-04-13 00:00:00', '', NULL, '2009-04-13 10:10:46', NULL, 1, NULL),
+(2, 1, 1, 'd', 'dd', '919323532886', 1239564600, 'Fixed', '2009-04-13 01:00:00', '', NULL, '2009-04-14 10:47:38', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
