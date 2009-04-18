@@ -178,5 +178,51 @@ class mod_Photoalbum {
 		$return['success'] = $success;
 		return $return;
 	}
+	
+	public function getPhotos($hosttype, $max, $page, $public=1, $user_id='', $album_id='') {
+		$sql = "select a.file_id, a.filepath, a.filename from files as a LEFT JOIN albums as b ON a.album_id = b.album_id where a.id = '".ID."' and a.hosttype = '".$hosttype."'";
+		if($user_id) {
+			$sql .= " and a.user_id = '".$user_id."'";
+		}
+		if($album_id) {
+			$sql .= " and a.album_id = '".$album_id."'";
+		}
+		if($public>=0) {
+			$sql .= " and b.public = '".$public."'";
+		}
+		$sql .= " order by created DESC";
+		
+		$sqlCnt = "select count(a.file_id) as cnt from files as a LEFT JOIN albums as b ON a.album_id = b.album_id where a.id = '".ID."' and a.hosttype = '".$hosttype."'";
+		if($user_id) {
+			$sqlCnt .= " and a.user_id = '".$user_id."'";
+		}
+		if($album_id) {
+			$sqlCnt .= " and a.album_id = '".$album_id."'";
+		}
+		if($public>=0) {
+			$sqlCnt .= " and b.public = '".$public."'";
+		}
+		
+		$pageNum = $page-1;
+		$start = $pageNum * $max;
+			
+		$rec = $this->Common->selectCacheLimitRecordFull($sql, $sqlCnt, $max, $start);
+		if($rec['record']) {
+			foreach($rec['record'] as $k=>$arr) {
+				$return['photos'][($k+1)]['small'] = HTTPPATH."/photoalbum/uploadDir/".$arr['filepath']."/small/".$arr['filename'];
+				$return['photos'][($k+1)]['normal'] = HTTPPATH."/photoalbum/uploadDir/".$arr['filepath']."/normal/".$arr['filename'];
+				$return['photos'][($k+1)]['file_id'] = $arr['file_id'];
+			}
+		}
+		if($rec['totalRows']>$max) {
+			// pagination
+			$PaginateIt = new PaginateIt();
+			$PaginateIt->SetItemCount($rec['totalRows']);
+			$PaginateIt->SetItemsPerPage($max);
+			$pagination = $PaginateIt->GetPageLinks_Old();
+			$return['pagination'] = $pagination;
+		}
+		return $return;
+	}
 }
 ?>
