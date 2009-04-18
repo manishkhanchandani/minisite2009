@@ -109,16 +109,6 @@ try {
 			
 			$body = $smarty->fetch('photoalbum/new.html');
 			break;
-		case 'edit':						
-			if(!$_SESSION['user_id']) {
-				throw new Exception('Please <a href="'.HTTPPATH.'/index.php?p=users&action=login&ID='.$ID.'&accesscheck='.urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']).'">login</a> first to continue. ');	
-			}
-			$PAGEHEADING = "Edit Photo";
-			$smarty->assign('PAGEHEADING', $PAGEHEADING);
-			
-			
-			$body = $smarty->fetch('photoalbum/edit.html');
-			break;
 		case 'delete':						
 			if(!$_SESSION['user_id']) {
 				throw new Exception('Please <a href="'.HTTPPATH.'/index.php?p=users&action=login&ID='.$ID.'&accesscheck='.urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']).'">login</a> first to continue. ');	
@@ -129,19 +119,14 @@ try {
 			
 			$body = $smarty->fetch('photoalbum/delete.html');
 			break;
-		case 'detail':
-			$PAGEHEADING = "Details";
-			$smarty->assign('PAGEHEADING', $PAGEHEADING);
-			
-			
-			$body = $smarty->fetch('photoalbum/detail.html');
-			break;
 		case 'view':
 		default:
 			$PAGEHEADING = "Photo Gallery";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			
-			
+			// get album list
+			$albums = $mod_Photoalbum->getAlbumSelbox($hosttype, $_SESSION['user_id']);
+			$smarty->assign('albums', $albums);
 			
 			$body = $smarty->fetch('photoalbum/view.html');
 			break;
