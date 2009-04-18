@@ -124,16 +124,27 @@ try {
 			$PAGEHEADING = "Photo Gallery";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			
+			$max = 8;
+			$page = $_GET['page'];
+			if(!$page) $page = 1;
+			$pageNum = $page-1;
+			$start = $pageNum * $max;
+			
 			if($_GET['uid']) { // if viewing any users albums
 				// get album list
-				$albums = $mod_Photoalbum->getAlbumPublicSelbox($hosttype, $_GET['uid']);
+				$albums = $mod_Photoalbum->getAlbumPublicSelbox($hosttype, $_GET['uid'], $_GET['album_id']);
 				$smarty->assign('albums', $albums);
+				$return = $mod_Photoalbum->getPhotos($hosttype, $max, $page, 1, $_GET['uid'], $_GET['album_id']);
+				$smarty->assign('return', $return);			
 			} else if($_GET['viewmygallery'] == 1 && $_SESSION['user_id']) {
 				// get album list
-				$albums = $mod_Photoalbum->getAlbumSelbox($hosttype, $_SESSION['user_id']);
-				$smarty->assign('albums', $albums);				
+				$albums = $mod_Photoalbum->getAlbumSelbox($hosttype, $_SESSION['user_id'], $_GET['album_id']);
+				$smarty->assign('albums', $albums);	
+				$return = $mod_Photoalbum->getPhotos($hosttype, $max, $page, '-1', $_SESSION['user_id'], $_GET['album_id']);
+				$smarty->assign('return', $return);			
 			} else {
-			
+				$return = $mod_Photoalbum->getPhotos($hosttype, $max, $page, '1');
+				$smarty->assign('return', $return);				
 			}
 			
 			$body = $smarty->fetch('photoalbum/view.html');

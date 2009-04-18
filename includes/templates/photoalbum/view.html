@@ -19,6 +19,18 @@
 </form>
 {/if}
 
+{if $return.photos}
+	<div style="width:450px;">
+	{foreach from=$return.photos key=key item=photo}
+		<div style="float:left; width:110px; padding-bottom:5px; padding-top: 5px;"><a href="{$photo.normal}" target="_blank"><img border="0" src="{$photo.small}" /></a></div>
+		{if $key%4 == 0}
+			<div class="clear"></div>
+		{/if}
+	{/foreach}
+	<div class="clear"></div>
+	<div class="pagination">{$return.pagination}</div>
+	</div>
+{/if}
 
 
 		</div>
