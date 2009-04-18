@@ -1,16 +1,26 @@
 {include file="contentStart.html"}
 	<div id="content5" class="contentBox">
-		<div id="contentHead5" class="contentHead">New Album</div>
+		<div id="contentHead5" class="contentHead">View Photos</div>
 		<div id="contentBody5" class="contentBody">
+{if $albums}
 <form name="frmAlbum" method="get" action="">
 	<div>
 	<select name="album_id">
-		<option value="">Select Album</option>
+		<option value="0">Select Album</option>
 		{$albums}
 	</select>
+	<input type="hidden" name="ID" value="{$ID}" />
+	<input type="hidden" name="p" value="photoalbum" />
+	<input type="hidden" name="action" value="view" />
+	<input type="hidden" name="uid" value="{$smarty.get.uid}" />
+	<input type="hidden" name="viewmygallery" value="{$smarty.get.viewmygallery}" />
 	<input type="submit" value="Go" name="submit" />
 	</div>
 </form>
+{/if}
+
+
+
 		</div>
 	</div>
 {include file="contentLeftEnd.html"}

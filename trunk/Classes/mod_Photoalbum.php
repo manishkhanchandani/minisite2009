@@ -41,11 +41,55 @@ class mod_Photoalbum {
 	}
 	
 	public function deleteAlbum($did, $user_id, $hosttype) {
+		$sql = "update files set album_id = 0 where id = '".ID."' and album_id = '".$did."' and user_id = '".$user_id."' and file_type = '".$hosttype."'";
+		$this->dbFrameWork->Execute($sql);
+		if($this->dbFrameWork->ErrorMsg()) {
+			throw new Exception($this->dbFrameWork->ErrorMsg());
+		}
 		$sql = "delete from albums where id = '".ID."' and album_id = '".$did."' and user_id = '".$user_id."' and file_type = '".$hosttype."'";
 		$this->dbFrameWork->Execute($sql);
 		if($this->dbFrameWork->ErrorMsg()) {
 			throw new Exception($this->dbFrameWork->ErrorMsg());
 		}
+	}
+	
+	public function deletePhotos($did, $user_id, $hosttype) {
+		$sql = "select * from files where id = '".ID."' and file_id = '".$did."' and user_id = '".$user_id."' and file_type = '".$hosttype."'";
+		$rs = $this->dbFrameWork->Execute($sql);
+		if($this->dbFrameWork->ErrorMsg()) {
+			throw new Exception($this->dbFrameWork->ErrorMsg());
+		}
+		$arr = $rs->FetchRow();
+		if(file_exists(DOCPATH."/photoalbum/uploadDir/".$arr['filepath']."/normal/".$arr['filename'])) {
+			unlink(DOCPATH."/photoalbum/uploadDir/".$arr['filepath']."/normal/".$arr['filename']);
+		}
+		if(file_exists(DOCPATH."/photoalbum/uploadDir/".$arr['filepath']."/medium/".$arr['filename'])) {
+			unlink(DOCPATH."/photoalbum/uploadDir/".$arr['filepath']."/medium/".$arr['filename']);
+		}
+		if(file_exists(DOCPATH."/photoalbum/uploadDir/".$arr['filepath']."/small/".$arr['filename'])) {
+			unlink(DOCPATH."/photoalbum/uploadDir/".$arr['filepath']."/small/".$arr['filename']);
+		}
+		$sql = "delete from files where id = '".ID."' and file_id = '".$did."' and user_id = '".$user_id."' and file_type = '".$hosttype."'";
+		$this->dbFrameWork->Execute($sql);
+		if($this->dbFrameWork->ErrorMsg()) {
+			throw new Exception($this->dbFrameWork->ErrorMsg());
+		}
+	}
+	
+	public function getAlbumPublicSelbox($type, $user_id, $sel='') {		
+		$sql = "select * from albums where user_id = '".$user_id."' and id = '".ID."' and file_type = '".$type."' and public = 1 order by album";
+		$records = $this->Common->selectRecord($sql);
+		if($records) {
+			foreach($records as $record) {
+				$selbox .= "<option value='".$record['album_id']."'";
+				if($record['album_id']==$sel) {
+					$selbox .= " selected";
+				}
+				$selbox .= ">".$record['album']."</option>
+				";
+			}
+		}
+		return $selbox;
 	}
 	
 	public function getAlbumSelbox($type, $user_id, $sel='') {		

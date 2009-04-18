@@ -124,9 +124,17 @@ try {
 			$PAGEHEADING = "Photo Gallery";
 			$smarty->assign('PAGEHEADING', $PAGEHEADING);
 			
-			// get album list
-			$albums = $mod_Photoalbum->getAlbumSelbox($hosttype, $_SESSION['user_id']);
-			$smarty->assign('albums', $albums);
+			if($_GET['uid']) { // if viewing any users albums
+				// get album list
+				$albums = $mod_Photoalbum->getAlbumPublicSelbox($hosttype, $_GET['uid']);
+				$smarty->assign('albums', $albums);
+			} else if($_GET['viewmygallery'] == 1 && $_SESSION['user_id']) {
+				// get album list
+				$albums = $mod_Photoalbum->getAlbumSelbox($hosttype, $_SESSION['user_id']);
+				$smarty->assign('albums', $albums);				
+			} else {
+			
+			}
 			
 			$body = $smarty->fetch('photoalbum/view.html');
 			break;

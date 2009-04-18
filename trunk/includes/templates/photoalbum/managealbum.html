@@ -169,7 +169,7 @@ function YY_checkform() { //v4.66
 							
 						</div>
 						<div class="td">
-						  <a href="{$HTTPPATH}/index.php?ID={$ID}&p=photoalbum&action=managealbum&album_id={$record.album_id}&page={$smarty.get.page}">Edit This Album</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=photoalbum&action=managealbum&did={$record.album_id}&page={$smarty.get.page}" onclick="return confirmDelete('Do you really want to delete this album. This will also delete all your images in this album.');">Delete This Album</a>
+						  <a href="{$HTTPPATH}/index.php?ID={$ID}&p=photoalbum&action=managealbum&album_id={$record.album_id}&page={$smarty.get.page}">Edit This Album</a> | <a href="{$HTTPPATH}/index.php?ID={$ID}&p=photoalbum&action=managealbum&did={$record.album_id}&page={$smarty.get.page}" onclick="return confirmDelete('Do you really want to delete this album. This will move your photos in this album to miscellaneous album category.');">Delete This Album</a>
 						</div>
 					</div>
 				{/foreach}
