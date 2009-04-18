@@ -2,8 +2,15 @@
 	<div id="content5" class="contentBox">
 		<div id="contentHead5" class="contentHead">New Album</div>
 		<div id="contentBody5" class="contentBody">
-
-		content
+<form name="frmAlbum" method="get" action="">
+	<div>
+	<select name="album_id">
+		<option value="">Select Album</option>
+		{$albums}
+	</select>
+	<input type="submit" value="Go" name="submit" />
+	</div>
+</form>
 		</div>
 	</div>
 {include file="contentLeftEnd.html"}
