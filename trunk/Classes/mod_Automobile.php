@@ -1,5 +1,5 @@
 <?php
-class mod_Matrimonial {
+class mod_Automobile {
 	
 	private $cacheSecs = CACHETIME;
 	private static $instance;

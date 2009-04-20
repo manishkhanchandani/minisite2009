@@ -1,5 +1,5 @@
 <?php
-class mod_Matrimonial {
+class mod_Musicalbum {
 	
 	private $cacheSecs = CACHETIME;
 	private static $instance;

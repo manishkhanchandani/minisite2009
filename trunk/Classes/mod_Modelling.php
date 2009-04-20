@@ -1,5 +1,5 @@
 <?php
-class mod_Matrimonial {
+class mod_Modelling {
 	
 	private $cacheSecs = CACHETIME;
 	private static $instance;

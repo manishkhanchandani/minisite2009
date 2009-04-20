@@ -334,6 +334,21 @@ class Common {
 		return $menuString;	
 	}
 	
+	public function generateMenuCustomize($ID) {	
+		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' ORDER BY b.concept, a.priority";
+		$MENU = $this->selectCacheRecord($sql);
+		$menuString = "";
+		if($MENU){
+			$menuString .= "<ul>";
+			foreach($MENU as $concept) {
+				if($concept['displayname']) $disp = $concept['displayname']; else $disp = $concept['concept'];
+				$menuString .= "<li><a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$disp."</a></li>";
+			}
+			$menuString .= "</ul>";
+		}
+		return $menuString;	
+	}
+	
 	public function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")  {
 		$theValue = (!get_magic_quotes_gpc()) ? addslashes($theValue) : $theValue;
 		
@@ -478,6 +493,56 @@ class Common {
 			@imagegif($image_p, $dest);
 		}
 		@imagedestroy($image_p);
+	}
+	public function getMenu($concept) {
+		ob_start();
+		include(DOCPATH."/includes/menu/".$concept.".php");
+		$string = ob_get_clean();
+		return $string;
+	}
+	public function validate($post, $validate) {
+		if($validate) {
+			foreach($validate as $valid) {
+				if($valid['type']=="isreq") {
+					if(!trim($post[$valid['field']])) {
+						throw new Exception($valid['error']);
+					}
+				}
+			}
+		}
+		return true;
+	}
+	public function getCountrySelBoxName($sel='') {
+		$sql = "select * from geo_countries order by name";
+		$rs = $this->dbFrameWork->CacheExecute($this->cacheSecs, $sql);
+		if($this->dbFrameWork->ErrorMsg()) {
+			throw new Exception($this->dbFrameWork->ErrorMsg());
+		}
+		while ($arr = $rs->FetchRow()) { 
+			$selbox .= "<option value='".$arr['name']."'";
+			if($sel==$arr['name']) {
+				$selbox .= " selected";
+			}
+			$selbox .= ">".$arr['name']."</option>
+			";
+		}
+		return $selbox;
+	}
+	public function getCountrySelBoxID($sel='') {
+		$sql = "select * from geo_countries order by name";
+		$rs = $this->dbFrameWork->CacheExecute($this->cacheSecs, $sql);
+		if($this->dbFrameWork->ErrorMsg()) {
+			throw new Exception($this->dbFrameWork->ErrorMsg());
+		}
+		while ($arr = $rs->FetchRow()) { 
+			$selbox .= "<option value='".$arr['con_id']."'";
+			if($sel==$arr['con_id']) {
+				$selbox .= " selected";
+			}
+			$selbox .= ">".$arr['name']."</option>
+			";
+		}
+		return $selbox;
 	}
 }
 ?>
