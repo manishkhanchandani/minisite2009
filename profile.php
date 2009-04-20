@@ -1,27 +1,20 @@
 <?php
 try {
-	$mod = new mod_Messages($dbFrameWork, $Common);	
-	$result = $Common->getConceptSettings('messages', $ID);
+	$mod = new mod_Profile($dbFrameWork, $Common);	
+	$result = $Common->getConceptSettings('profile', $ID);
 	if(!$result['concepts']) {	
-		$errorMessage = "messages Concept does not exist for this id. ";
+		$errorMessage = "profile Concept does not exist for this id. ";
 		throw new Exception($errorMessage);
 	} 
-	$smarty->assign('result', $result);				
-	$smarty->assign('action', $_GET['action']);	
-	
+	$smarty->assign('result', $result);	
 	$conceptId = $result['conceptId'];
 	$conceptValue = $result['conceptValue'];
 	$smarty->assign('conceptId', $conceptId);
 	
-	$SIDEBAR = $Common->getMenu('messages');
+	$SIDEBAR = $Common->getMenu('profile');
 	$smarty->assign('SIDEBAR', $SIDEBAR);
-		
 	
-	switch($_GET['action']) {
-	
-	}
-	
-	$body = $smarty->fetch('messages/sample.html');
+	$body = $smarty->fetch('profile/sample.html');
 } catch (exception $e) { 
 	$errorMessage = $e->getMessage();
 	$smarty->assign('errorMessage', $errorMessage);
