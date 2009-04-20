@@ -103,6 +103,10 @@ $MENU = $Common->generateMenu($ID);
 define('MENU', $MENU);
 $smarty->assign('MENU', $MENU);
 
+$MENU2 = $Common->generateMenuCustomize($ID);
+define('MENU2', $MENU2);
+$smarty->assign('MENU', $MENU2);
+
 if($_GET['p']) $p = $_GET['p'].".php";
 if(!$p) {
 	$p = "home.php";
