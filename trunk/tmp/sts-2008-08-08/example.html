@@ -1,0 +1,98 @@
+<html> 
+<head> 
+ <title>Example</title>
+ <script type="text/javascript" language="javascript">
+   <!-- <![CDATA[
+			
+                        function createRequestObject(){
+			var request_;
+			var browser = navigator.appName;
+			if(browser == "Microsoft Internet Explorer"){
+			 request_ = new ActiveXObject("Microsoft.XMLHTTP");
+			}else{
+			 request_ = new XMLHttpRequest();
+			}
+			return request_;
+			}
+			
+			var http = new Array();
+				
+			function getInfo(text_sts){
+			
+			var curDateTime = new Date();
+			http[curDateTime] = createRequestObject();
+			
+			http[curDateTime].open('get', 'r_ajax.php?txt='+text_sts);
+			
+			http[curDateTime].onreadystatechange = function(){
+				if (http[curDateTime].readyState == 4) 
+		    	{
+		        	if (http[curDateTime].status == 200 || http[curDateTime].status == 304) 
+		        	{
+		           	 	var response = http[curDateTime].responseText;
+		 				document.getElementById('view_radio').innerHTML = response;
+		        	}
+		    	}
+			}
+			
+			http[curDateTime].send(null);
+			}
+
+    function addText(elname) { 
+      if (document.selection) { // for IE 
+         var str = document.selection.createRange().text; 
+         document.forms['inputform'].elements[elname].focus(); 
+         var sel = document.selection.createRange(); 
+         sel.text = str;
+         if (str == '') {alert('Select a text...'); return false;}
+         alert('Please wait...'); 
+         getInfo(str); 
+         return; 
+      } else if ((typeof document.forms['inputform'].elements[elname].selectionStart) != 'undefined') { // for Mozilla 
+         var txtarea = document.forms['inputform'].elements[elname]; 
+         var selLength = txtarea.textLength; 
+         var selStart = txtarea.selectionStart; 
+         var selEnd = txtarea.selectionEnd; 
+         var oldScrollTop = txtarea.scrollTop; 
+         
+         var s1 = (txtarea.value).substring(0,selStart); 
+         var s2 = (txtarea.value).substring(selStart, selEnd) 
+         var s3 = (txtarea.value).substring(selEnd, selLength); 
+         txtarea.value = s1 + s2 + s3; 
+         txtarea.selectionStart = s1.length; 
+         txtarea.selectionEnd = s1.length + s2.length; 
+         txtarea.scrollTop = oldScrollTop; 
+         txtarea.focus();
+         if (s2 == '') {alert('Select a text...'); return false;}
+         alert('Please wait...');   
+         getInfo(s2);  
+         return; 
+      } else { 
+         alert('Error');
+      } 
+   }
+
+   function allread (elname) {
+       var txtarea = document.forms['inputform'].elements[elname];
+       if (txtarea.value == '') {alert('Enter the text...'); document.forms['inputform'].elements[elname].focus();} else {alert('Please wait...'); getInfo(txtarea.value);}
+   }
+			
+  // ]]> -->
+ </script>   
+
+   
+</head> 
+<body>
+
+<form name="inputform" action="#"> 
+
+   <textarea class='textbox' name='news_body' rows='8' style='width: 320px;'>This is my text</textarea> 
+   <br />  
+   <input type='button' value='Read selected' class='button' style='font-weight: bold;' onClick="addText('news_body');" /> <input type='button' value='Read everything' class='button' style='font-weight: bold;' onClick="allread('news_body');" />  
+
+</form>
+
+<div id="view_radio" style="width: 320px; height: 100px; display: block;"></div> 
+
+</body> 
+</html>
