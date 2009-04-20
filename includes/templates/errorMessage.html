@@ -1,4 +1,15 @@
-<div id="bodyContent">
+<!--<div id="bodyContent">
 	{$errorMessage}
 	<div style="clear:both;"></div>
-</div>
+</div> -->
+{include file="contentStart.html"}
+	<div class="post">
+		<h1 class="title"><a href="#">Error!!</a></h1>
+		<p class="byline"><small>Correct the error</small></p>
+		<div class="entry">
+			<div class="error">{$errorMessage}</div>
+		</div>
+	</div>
+{include file="contentLeftEnd.html"}
+	{include file="contentRightCol.html"}
+{include file="contentEnd.html"}

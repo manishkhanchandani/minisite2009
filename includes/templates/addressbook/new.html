@@ -1,0 +1,192 @@
+{literal}
+<script type="text/JavaScript">
+<!--
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function YY_checkform() { //v4.66
+//copyright (c)1998,2002 Yaromat.com
+  var args = YY_checkform.arguments; var myDot=true; var myV=''; var myErr='';var addErr=false;var myReq;
+  for (var i=1; i<args.length;i=i+4){
+    if (args[i+1].charAt(0)=='#'){myReq=true; args[i+1]=args[i+1].substring(1);}else{myReq=false}
+    var myObj = MM_findObj(args[i].replace(/\[\d+\]/ig,""));
+    myV=myObj.value;
+    if (myObj.type=='text'||myObj.type=='password'||myObj.type=='hidden'){
+      if (myReq&&myObj.value.length==0){addErr=true}
+      if ((myV.length>0)&&(args[i+2]==1)){ //fromto
+        var myMa=args[i+1].split('_');if(isNaN(myV)||myV<myMa[0]/1||myV > myMa[1]/1){addErr=true}
+      } else if ((myV.length>0)&&(args[i+2]==2)){
+          var rx=new RegExp("^[\\w\.=-]+@[\\w\\.-]+\\.[a-z]{2,4}$");if(!rx.test(myV))addErr=true;
+      } else if ((myV.length>0)&&(args[i+2]==3)){ // date
+        var myMa=args[i+1].split("#"); var myAt=myV.match(myMa[0]);
+        if(myAt){
+          var myD=(myAt[myMa[1]])?myAt[myMa[1]]:1; var myM=myAt[myMa[2]]-1; var myY=myAt[myMa[3]];
+          var myDate=new Date(myY,myM,myD);
+          if(myDate.getFullYear()!=myY||myDate.getDate()!=myD||myDate.getMonth()!=myM){addErr=true};
+        }else{addErr=true}
+      } else if ((myV.length>0)&&(args[i+2]==4)){ // time
+        var myMa=args[i+1].split("#"); var myAt=myV.match(myMa[0]);if(!myAt){addErr=true}
+      } else if (myV.length>0&&args[i+2]==5){ // check this 2
+            var myObj1 = MM_findObj(args[i+1].replace(/\[\d+\]/ig,""));
+            if(myObj1.length)myObj1=myObj1[args[i+1].replace(/(.*\[)|(\].*)/ig,"")];
+            if(!myObj1.checked){addErr=true}
+      } else if (myV.length>0&&args[i+2]==6){ // the same
+            var myObj1 = MM_findObj(args[i+1]);
+            if(myV!=myObj1.value){addErr=true}
+      }
+    } else
+    if (!myObj.type&&myObj.length>0&&myObj[0].type=='radio'){
+          var myTest = args[i].match(/(.*)\[(\d+)\].*/i);
+          var myObj1=(myObj.length>1)?myObj[myTest[2]]:myObj;
+      if (args[i+2]==1&&myObj1&&myObj1.checked&&MM_findObj(args[i+1]).value.length/1==0){addErr=true}
+      if (args[i+2]==2){
+        var myDot=false;
+        for(var j=0;j<myObj.length;j++){myDot=myDot||myObj[j].checked}
+        if(!myDot){myErr+='* ' +args[i+3]+'\n'}
+      }
+    } else if (myObj.type=='checkbox'){
+      if(args[i+2]==1&&myObj.checked==false){addErr=true}
+      if(args[i+2]==2&&myObj.checked&&MM_findObj(args[i+1]).value.length/1==0){addErr=true}
+    } else if (myObj.type=='select-one'||myObj.type=='select-multiple'){
+      if(args[i+2]==1&&myObj.selectedIndex/1==0){addErr=true}
+    }else if (myObj.type=='textarea'){
+      if(myV.length<args[i+1]){addErr=true}
+    }
+    if (addErr){myErr+='* '+args[i+3]+'\n'; addErr=false}
+  }
+  if (myErr!=''){alert('The required information is incomplete or contains errors:\t\t\t\t\t\n\n'+myErr)}
+  document.MM_returnValue = (myErr=='');
+}
+//-->
+</script>
+{/literal}
+{include file="contentStart.html"}
+<div class="post">
+		<h1 class="title"><a href="#">Add New Address</a></h1>
+		<p class="byline"><small>You can add address of your friends, relatives or any person in contact with you.</small></p>
+		<div class="entry">
+			{if $success == 1}
+				<div class="error">New address successfully added in database.</div>
+			{else}
+				<form action="" method="post" name="frmAddressBook" onsubmit="YY_checkform('frmAddressBook','name','#q','0','Field \'name\' is not valid.');return document.MM_returnValue">
+					{if $errorMessage}<div class="error">{$errorMessage}</div>{/if}
+					<div class="tr">
+						<div class="th">
+							Name: 
+						</div>
+						<div class="td">
+						  <input type="text" name="name" id="name" size="25" value="{$smarty.post.name}" maxlength="255">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Address Line 1: 
+						</div>
+						<div class="td">
+						  <input type="text" name="address1" id="address1" size="35" value="{$smarty.post.address1}" maxlength="255">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Address Line 2: 
+						</div>
+						<div class="td">
+						  <input type="text" name="address2" id="address2" size="35" value="{$smarty.post.address2}" maxlength="255">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							City:
+						</div>
+						<div class="td">
+						  <input type="text" name="city" id="city" size="15" value="{$smarty.post.city}" maxlength="25">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Province:
+						</div>
+						<div class="td">
+						  <input type="text" name="province" id="province" size="25" value="{$smarty.post.province}" maxlength="25">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Country:
+						</div>
+						<div class="td">
+						  <select name="country">
+						  	<option value="">Select Country</option>
+							{$country}
+						  </select>
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Zipcode:
+						</div>
+						<div class="td">
+						  <input type="text" name="zipcode" id="zipcode" size="15" value="{$smarty.post.zipcode}" maxlength="25">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Category:
+						</div>
+						<div class="td">
+						  <select name="category_id">
+						  	<option value="0">Select Category</option>
+							{$category_ids}
+						  </select>
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Emails:
+						</div>
+						<div class="td">
+						  <input type="text" name="email" id="email" size="35" value="{$smarty.post.email}">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Phone:
+						</div>
+						<div class="td">
+						  <input type="text" name="phone" id="phone" size="35" value="{$smarty.post.phone}">
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							Comments:
+						</div>
+						<div class="td">
+						  <textarea name="comments" id="comments" rows="5" cols="35">{$smarty.post.comments}</textarea>
+						</div>
+					</div>
+					<div class="tr">
+						<div class="th">
+							
+						</div>
+						<div class="td">
+							<input type="submit" name="submit" value="Add New Address" />
+							<input type="hidden" name="MM_Insert" id="MM_Insert" value="1" />
+							<input type="hidden" name="book_type" id="book_type" value="address" />
+							<input type="hidden" name="id" id="id" value="{$ID}" />
+							<input type="hidden" name="concept_id" id="concept_id" value="{$conceptId}" />
+							<input type="hidden" name="user_id" value="{$smarty.session.user_id}">
+							<input type="hidden" name="created" value="{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}">
+						</div>
+					</div>
+			  </form>
+			{/if}
+		</div>
+</div>
+{include file="contentLeftEnd.html"}
+	{include file="contentRightCol.html"}
+{include file="contentEnd.html"}
