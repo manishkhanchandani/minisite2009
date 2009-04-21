@@ -316,20 +316,35 @@ class Common {
 		}
 		return $result;	
 	}
-	public function generateMenu($ID) {	
+	public function generateMenu($ID, $type=2) {	
 		$sql = "select * from prebuilt_2_concepts as a INNER JOIN prebuilt_concepts as b ON a.concept_id = b.concept_id WHERE a.id = '".$ID."' ORDER BY a.priority";
 		$MENU = $this->selectCacheRecord($sql);
-		$menuString = "<a href=\"".HTTPPATH."/index.php?ID=".$ID."\">Home</a> ";
-		if($MENU){
-			foreach($MENU as $concept) {
-				if($concept['displayname']) $disp = $concept['displayname']; else $disp = $concept['concept'];
-				$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$disp."</a> ";
-			}
-		}
-		if($_SESSION['user_id']) {
-			$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=change\">Change Password</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=logout\">Logout</a>";
-		} else {
-			$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=login\">Login</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=register\">Register</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=forgot\">Forgot Password</a>";
+		switch($type) {
+			case '1':
+				$menuString = "<a href=\"".HTTPPATH."/index.php?ID=".$ID."\">Home</a> ";
+				if($MENU){
+					foreach($MENU as $concept) {
+						if($concept['displayname']) $disp = $concept['displayname']; else $disp = $concept['concept'];
+						$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$disp."</a> ";
+					}
+				}
+				if($_SESSION['user_id']) {
+					$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=change\">Change Password</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=logout\">Logout</a>";
+				} else {
+					$menuString .= "| <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=login\">Login</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=register\">Register</a> | <a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=users&action=forgot\">Forgot Password</a>";
+				}
+				break;
+			case '2':
+				$menuString = "";
+				if($MENU){
+					$menuString .= "<ul>";
+					foreach($MENU as $concept) {
+						if($concept['displayname']) $disp = $concept['displayname']; else $disp = $concept['concept'];
+						$menuString .= "<li><a href=\"".HTTPPATH."/index.php?ID=".$ID."&p=".$concept['concept']."\">".$disp."</a></li>";
+					}
+					$menuString .= "</ul>";
+				}
+				break;
 		}
 		return $menuString;	
 	}
