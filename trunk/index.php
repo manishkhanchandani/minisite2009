@@ -99,13 +99,9 @@ $smarty->assign('ADMINEMAIL', ADMINEMAIL);
 $smarty->assign('ADMINNAME', ADMINNAME);
 $smarty->assign('SITE', $SITE);
 
-$MENU = $Common->generateMenu($ID);
+$MENU = $Common->generateMenu($ID, 2);
 define('MENU', $MENU);
 $smarty->assign('MENU', $MENU);
-
-$MENU2 = $Common->generateMenuCustomize($ID);
-define('MENU2', $MENU2);
-$smarty->assign('MENU', $MENU2);
 
 if($_GET['p']) $p = $_GET['p'].".php";
 if(!$p) {
